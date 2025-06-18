@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 225 260"
+  fill="currentColor" stroke="currentColor"
+  width="500px" height="500px" class="icon-mode-sensitive">
+  <rect
+    x="97.593" y="167.548" width="29.198" height="63.137"
+    style="stroke-miterlimit: 6.64; stroke-dashoffset: 4px; stroke-linejoin: round; stroke-width: 0px; fill-rule: nonzero; paint-order: fill;"
+    rx="5.187" ry="5.187" />
+  <rect
+    x="57.206" y="189.368" width="29.198" height="41.498"
+    style="stroke-miterlimit: 6.64; stroke-dashoffset: 4px; stroke-linejoin: round; stroke-width: 0px; fill-rule: nonzero; paint-order: fill;"
+    rx="5.187" ry="5.187" />
+  <rect
+    x="138.276" y="141.645" width="29.198" height="89.073"
+    style="stroke-miterlimit: 6.64; stroke-dashoffset: 4px; stroke-linejoin: round; stroke-width: 0px; fill-rule: nonzero; paint-order: fill;"
+    rx="5.187" ry="5.187" />
+  <path
+    style="stroke-linejoin: round; stroke-linecap: round; stroke-width: 2px;"
+    d="M 53.756 97.301 L 110.831 122.102 L 170.285 97.132 L 170.964 122.951 C 170.964 122.951 169.605 132.464 154.317 130.935 C 139.029 129.406 133.424 136.541 133.424 136.541 C 133.424 136.541 129.846 143.491 112.02 147.412 C 109.046 148.066 58.988 130.091 55.86 127.543 C 52.078 124.463 53.845 97.39 53.756 97.301 Z" />
+  <ellipse
+    style="stroke-opacity: 0;" cx="188.375" cy="118.95" rx="9.767"
+    ry="9.767" />
+  <path
+    style="stroke-linejoin: round; stroke-linecap: round; stroke-width: 2px;"
+    d="M 21.311 72.18 L 111.341 31.922 L 201.71 71.501 L 112.7 113.797 L 21.311 72.18 Z" />
+  <rect x="185.573" y="72.69" width="5.436" height="37.711"
+    style=" stroke-miterlimit: 1; stroke-width: 0px;" />
+
+  <style>
+    .icon-mode-sensitive {
+    color: white;
+    }
+
+    @media (prefers-color-scheme: light) {
+    .icon-mode-sensitive * {
+    color: #09090b;
+    }
+    }
+  </style>
+</svg>

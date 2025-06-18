@@ -1,0 +1,12 @@
+---
+import { LoginForm } from "@/core/components/login-form";
+import Layout from "@/core/layout/Layout.astro";
+---
+
+<Layout title="Login">
+  <main
+    class="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10"
+  >
+    <LoginForm client:load />
+  </main>
+</Layout>
