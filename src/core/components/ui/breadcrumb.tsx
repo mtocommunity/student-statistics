@@ -41,8 +41,6 @@ function BreadcrumbLink({
   const Comp = asChild ? Slot : "a";
 
   return (
-    // eslint-disable-next-line
-    // @ts-expect-error
     <Comp
       data-slot="breadcrumb-link"
       className={cn("hover:text-foreground transition-colors", className)}

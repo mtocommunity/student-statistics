@@ -261,8 +261,6 @@ export function ChartAreaInteractive() {
               content={
                 <ChartTooltipContent
                 indicator="dot"
-                // eslint-disable-next-line
-                // @ts-expect-error
                 labelFormatter={(value) => {
                   return new Date(value).toLocaleDateString("en-US", {
                     month: "short",

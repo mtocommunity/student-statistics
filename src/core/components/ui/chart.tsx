@@ -108,30 +108,16 @@ ${colorConfig
 const ChartTooltip = RechartsPrimitive.Tooltip;
 
 function ChartTooltipContent<TValue extends ValueType, TName extends NameType>({
-  // eslint-disable-next-line
-  // @ts-expect-error
   active,
-  // eslint-disable-next-line
-  // @ts-expect-error
   payload,
   className,
   indicator = "dot",
   hideLabel = false,
   hideIndicator = false,
-  // eslint-disable-next-line
-  // @ts-expect-error
   label,
-  // eslint-disable-next-line
-  // @ts-expect-error
   labelFormatter,
-  // eslint-disable-next-line
-  // @ts-expect-error
   labelClassName,
-  // eslint-disable-next-line
-  // @ts-expect-error
   formatter,
-  // eslint-disable-next-line
-  // @ts-expect-error
   color,
   nameKey,
   labelKey,
@@ -197,8 +183,6 @@ function ChartTooltipContent<TValue extends ValueType, TName extends NameType>({
       {!nestLabel ? tooltipLabel : null}
       <div className="grid gap-1.5">
         {
-          // eslint-disable-next-line
-          // @ts-expect-error
           payload.map((item, index) => {
             const key = `${nameKey || item.name || item.dataKey || "value"}`;
             const itemConfig = getPayloadConfigFromPayload(config, item, key);

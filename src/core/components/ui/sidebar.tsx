@@ -135,8 +135,6 @@ function SidebarProvider({
             {
               "--sidebar-width": SIDEBAR_WIDTH,
               "--sidebar-width-icon": SIDEBAR_WIDTH_ICON,
-              // eslint-disable-next-line
-              // @ts-expect-error
               ...style,
             } as React.CSSProperties
           }
@@ -403,8 +401,6 @@ function SidebarGroupLabel({
   const Comp = asChild ? Slot : "div";
 
   return (
-    // eslint-disable-next-line
-    // @ts-expect-error
     <Comp
       data-slot="sidebar-group-label"
       data-sidebar="group-label"
@@ -426,8 +422,6 @@ function SidebarGroupAction({
   const Comp = asChild ? Slot : "button";
 
   return (
-    // eslint-disable-next-line
-    // @ts-expect-error
     <Comp
       data-slot="sidebar-group-action"
       data-sidebar="group-action"
@@ -518,8 +512,6 @@ function SidebarMenuButton({
   const { isMobile, state } = useSidebar();
 
   const button = (
-    // eslint-disable-next-line
-    // @ts-expect-error
     <Comp
       data-slot="sidebar-menu-button"
       data-sidebar="menu-button"
@@ -565,8 +557,6 @@ function SidebarMenuAction({
   const Comp = asChild ? Slot : "button";
 
   return (
-    // eslint-disable-next-line
-    // @ts-expect-error
     <Comp
       data-slot="sidebar-menu-action"
       data-sidebar="menu-action"
@@ -690,8 +680,6 @@ function SidebarMenuSubButton({
   const Comp = asChild ? Slot : "a";
 
   return (
-    // eslint-disable-next-line
-    // @ts-expect-error
     <Comp
       data-slot="sidebar-menu-sub-button"
       data-sidebar="menu-sub-button"

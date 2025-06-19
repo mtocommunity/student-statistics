@@ -122,8 +122,6 @@ function DragHandle({ id }: { id: number }) {
   });
 
   return (
-    // eslint-disable-next-line
-    // @ts-expect-error
     <Button
       {...attributes}
       {...listeners}

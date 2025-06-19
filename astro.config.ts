@@ -1,17 +1,22 @@
 import node from "@astrojs/node";
-import preact from "@astrojs/preact";
+import react from "@astrojs/react";
 import svgr from "@svgr/rollup";
 import tailwindcss from "@tailwindcss/vite";
 import pwa from "@vite-pwa/astro";
 import compress from "astro-compress";
 import { defineConfig, fontProviders } from "astro/config";
+import babelPluginReactCompiler from "babel-plugin-react-compiler";
 import { isDev, site } from "./src/config";
 
 export default defineConfig({
   site,
 
   integrations: [
-    preact(),
+    react({
+      babel: {
+        plugins: [babelPluginReactCompiler],
+      },
+    }),
     pwa({
       mode: isDev ? "development" : "production",
       base: "/",

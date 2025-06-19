@@ -48,8 +48,6 @@ function Button({
   const Comp = asChild ? Slot : "button";
 
   return (
-    // eslint-disable-next-line
-    // @ts-expect-error
     <Comp
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
