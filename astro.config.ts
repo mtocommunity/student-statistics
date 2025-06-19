@@ -1,22 +1,17 @@
 import node from "@astrojs/node";
-import react from "@astrojs/react";
+import preact from "@astrojs/preact";
 import svgr from "@svgr/rollup";
 import tailwindcss from "@tailwindcss/vite";
 import pwa from "@vite-pwa/astro";
 import compress from "astro-compress";
 import { defineConfig, fontProviders } from "astro/config";
-import babelPluginReactCompiler from "babel-plugin-react-compiler";
 import { isDev, site } from "./src/config";
 
 export default defineConfig({
   site,
 
   integrations: [
-    react({
-      babel: {
-        plugins: [babelPluginReactCompiler],
-      },
-    }),
+    preact(),
     pwa({
       mode: isDev ? "development" : "production",
       base: "/",
@@ -97,7 +92,7 @@ export default defineConfig({
           ignoreCustomComments: [],
         },
       },
-      Exclude: ["favicon.svg"],
+      Exclude: "favicon.svg",
     }),
   ],
 

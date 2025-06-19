@@ -12,7 +12,7 @@ interface Props {
 
 const { title } = Astro.props;
 const finalTitle = title
-  ? `${title} - Student Statistics`
+  ? `${title} | Student Statistics`
   : "Student Statistics";
 ---
 
@@ -48,6 +48,7 @@ const finalTitle = title
     {/* Scripts */}
     <Sonner />
     <script src="@/pwa.ts"></script>
+    <script src="@/zod.ts"></script>
 
     <ClientRouter />
   </head>

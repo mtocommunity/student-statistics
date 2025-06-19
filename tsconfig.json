@@ -28,9 +28,9 @@
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false,
 
-    // React
+    // Preact
     "jsx": "react-jsx",
-    "jsxImportSource": "react",
+    "jsxImportSource": "preact",
 
     // Alias
     "baseUrl": ".",
@@ -42,7 +42,13 @@
       "@assets/*": ["./src/assets/*"],
 
       // Styles
-      "@styles": ["./src/core/styles/global.css"]
+      "@styles": ["./src/core/styles/global.css"],
+
+      // Preact adaptation
+      "react": ["./node_modules/preact/compat/"],
+      "react/jsx-runtime": ["./node_modules/preact/jsx-runtime"],
+      "react-dom": ["./node_modules/preact/compat/"],
+      "react-dom/*": ["./node_modules/preact/compat/*"]
     }
   }
 }

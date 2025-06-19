@@ -1,0 +1,31 @@
+---
+import {
+  buttonVariants,
+  type ButtonVariants,
+} from "@/core/components/atoms/styles/button-style";
+import { cn } from "@/lib/tailwind";
+import type { HTMLAttributes } from "astro/types";
+
+// Context
+type Props = HTMLAttributes<"a"> & ButtonVariants;
+
+const {
+  variant = "link",
+  colorSchema,
+  class: className,
+  "class:list": classList,
+  ...props
+} = Astro.props;
+---
+
+<a
+  class={cn(
+    buttonVariants({ variant, colorSchema }),
+    "inline",
+    className,
+    classList,
+  )}
+  {...props}
+>
+  <slot />
+</a>

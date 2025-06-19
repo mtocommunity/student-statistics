@@ -18,5 +18,5 @@ export default {
       },
     },
   ],
-  tailwindFunctions: ["tw", "cn", "clsx", "twMerge"],
+  tailwindFunctions: ["tw", "tv", "cn", "clsx", "twMerge", "cva"],
 };

@@ -1,7 +1,4 @@
-import { defineMiddleware, sequence } from "astro:middleware";
+import { onProtectedRouteRequest } from "@/auth/middleware/private-route-middleware";
+import { sequence } from "astro:middleware";
 
-const onProtectedRoute = defineMiddleware(async (context, next) => {
-  return next();
-});
-
-export const onAuthMiddleware = sequence(onProtectedRoute);
+export const onAuthMiddleware = sequence(onProtectedRouteRequest);
