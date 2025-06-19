@@ -11,7 +11,7 @@ export default defineConfig({
   site,
 
   integrations: [
-    preact(),
+    preact({ compat: true }),
     pwa({
       mode: isDev ? "development" : "production",
       base: "/",
@@ -116,6 +116,12 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss(), svgr()],
+    ssr: {
+      noExternal: ["sonner", "react-hook-form"],
+    },
+    server: {
+      allowedHosts: ["dev.martindotpy.dev"],
+    },
   },
 
   adapter: node({
