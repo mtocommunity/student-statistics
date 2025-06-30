@@ -1,3 +1,4 @@
+import { authFormStyles } from "@/auth/components/organisms/styles/auth-form-styles";
 import { Login } from "@/auth/schema/login-schema";
 import { Button } from "@/core/components/atoms/button";
 import { cn } from "@/lib/tailwind";
@@ -5,15 +6,13 @@ import { ReactComponent as EyeOff } from "@assets/svg/lu-eye-off.svg";
 import { ReactComponent as Eye } from "@assets/svg/lu-eye.svg";
 import { ReactComponent as User } from "@assets/svg/lu-user.svg";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { navigate } from "astro/virtual-modules/transitions-router.js";
 import { actions } from "astro:actions";
 import { useRef, useState } from "preact/hooks";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-const labelClassname = "flex flex-col gap-1";
-const inputClassname = "py-2 peer w-full text-sm";
-const svgInputClassname =
-  "absolute top-1/2 right-0 size-9 py-2 px-2 -translate-y-1/2 peer-[[aria-invalid=true]]:text-red-400";
+const { inputClassname, labelClassname, svgInputClassname } = authFormStyles;
 
 export function LoginForm() {
   // Password
@@ -37,11 +36,16 @@ export function LoginForm() {
 
     const { error } = await actions.auth.login(login);
 
-    if (error)
-      toast.error(error.message, {
-        description:
+    if (error) {
+      if (error.code === "INTERNAL_SERVER_ERROR")
+        toast.error(
+          "Ocurrió un error en el servidor. Por favor, intenta nuevamente más tarde.",
+        );
+      else
+        toast.error(
           "Por favor, verifica tus credenciales e intenta nuevamente.",
-      });
+        );
+    } else navigate("/");
 
     buttonRef.current?.removeAttribute("data-loading");
   };
@@ -82,13 +86,7 @@ export function LoginForm() {
       </label>
 
       <label htmlFor="password" className={labelClassname}>
-        <span className="flex items-center justify-between">
-          Contraseña
-          <a className="text-xs" href="/forgot-password">
-            ¿Olvidaste tu contraseña?
-          </a>
-        </span>
-
+        Contraseña
         <Controller
           control={control}
           name="password"
@@ -131,6 +129,10 @@ export function LoginForm() {
       <Button ref={buttonRef} className="mt-2">
         Ingresar
       </Button>
+
+      <a className="block text-right text-xs" href="/forgot-password">
+        ¿Olvidaste tu contraseña?
+      </a>
     </form>
   );
 }

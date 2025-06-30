@@ -1,15 +1,23 @@
 ---
+import { LoginForm } from "@/auth/components/organisms/login-form";
 import Link from "@/core/components/atoms/Link.astro";
-import { LoginForm } from "@/core/components/organisms/login-form";
 import Layout from "@/core/layout/Layout.astro";
 import Favicon from "@assets/svg/favicon.svg";
+
+// Redirect to home if already logged in
+const token = Astro.cookies.get("token");
+
+if (token) return Astro.redirect("/", 307);
 ---
 
 <Layout title="Login">
   <main
     class="bg-background mx-auto flex min-h-svh max-w-sm flex-col items-center justify-center gap-6 p-5"
   >
-    <div class="flex w-full flex-col items-center gap-2">
+    <div
+      class="flex w-full flex-col items-center gap-2"
+      transition:name="app-info"
+    >
       <Favicon class="size-24" />
 
       <h1 class="text-2xl font-bold">Student Statistics</h1>
@@ -20,6 +28,7 @@ import Favicon from "@assets/svg/favicon.svg";
         <Link href="/register" class="text-white underline"> Registrate </Link>
       </p>
     </div>
+
     <LoginForm client:load />
   </main>
 </Layout>
