@@ -14,7 +14,7 @@ RUN bun --bun install --ci --production
 COPY . .
 
 RUN bun --bun astro telemetry disable
-RUN bun run build
+RUN bun --bun run build
 RUN bun --bun scripts/find-dependencies.js
 
 
