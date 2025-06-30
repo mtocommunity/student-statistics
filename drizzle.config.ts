@@ -4,7 +4,7 @@ const { DATABASE_URL: databaseUrl } = process.env;
 
 export default defineConfig({
   out: "./drizzle",
-  schema: "./src/core/schema.ts",
+  schema: "./src/**/*-schema.ts",
   dialect: "sqlite",
   dbCredentials: {
     url: databaseUrl!,
