@@ -127,7 +127,7 @@ export function LoginForm() {
         />
       </label>
 
-      <Button ref={buttonRef} className="mt-2">
+      <Button ref={buttonRef} className="mt-2" style={{viewTransitionName: "auth-button"}}>
         Ingresar
       </Button>
 

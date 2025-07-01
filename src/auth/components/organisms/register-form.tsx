@@ -237,7 +237,11 @@ export function RegisterForm() {
         />
       </label>
 
-      <Button ref={buttonRef} className="mt-2">
+      <Button
+        ref={buttonRef}
+        className="mt-2"
+        style={{ viewTransitionName: "auth-button" }}
+      >
         Registrarme
       </Button>
     </form>
