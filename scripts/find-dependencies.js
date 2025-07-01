@@ -104,6 +104,13 @@ getAllExternalDependencies(targetDir).then(async (deps) => {
     }
   });
 
+  // Removes the "bun:" dependency prefix if it exists
+  Object.keys(packageJson.dependencies).forEach((key) => {
+    if (key.startsWith("bun:")) {
+      delete packageJson.dependencies[key];
+    }
+  });
+
   // Write the package.json file
   const packageJsonPath = join(__dirname, "..", "./dist/package.json");
   await writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
