@@ -20,6 +20,9 @@ RUN bun --bun scripts/find-dependencies.js
 
 FROM base AS runtime
 
+COPY drizzle drizzle
+COPY scripts/migrate.ts scripts/migrate.ts
+
 COPY --from=builder /app/dist /app/dist
 
 RUN mv dist/package.json package.json
