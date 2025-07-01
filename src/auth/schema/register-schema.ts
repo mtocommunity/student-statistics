@@ -23,5 +23,11 @@ export const Register = z
   .refine((data) => data.password === data.confirmPassword, {
     message: "Las contraseñas no coinciden",
     path: ["confirmPassword"],
-  });
+  })
+  .transform((data) => ({
+    ...data,
+    code: data.code.toUpperCase(),
+    name: data.name.trim(),
+    lastname: data.lastname.trim(),
+  }));
 export type Register = z.infer<typeof Register>;
