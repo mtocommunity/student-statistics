@@ -108,14 +108,14 @@ export function LoginForm() {
                     svgInputClassname,
                     "z-10 peer-[[type=password]]:hidden hover:cursor-pointer",
                   )}
-                  onClick={() => setPassword(!showPassword)}
+                  onClick={() => setPassword((prev) => !prev)}
                 />
                 <EyeOff
                   class={cn(
                     svgInputClassname,
                     "z-10 peer-[[type=text]]:hidden hover:cursor-pointer",
                   )}
-                  onClick={() => setPassword(!showPassword)}
+                  onClick={() => setPassword((prev) => !prev)}
                 />
               </div>
 
