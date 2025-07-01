@@ -17,7 +17,6 @@ const invalidCredentialsError: ZodIssue = {
 };
 
 // Action
-
 export const loginAction = defineAction({
   input: Login,
   async handler({ code, password }, { clientAddress, cookies }) {
@@ -56,6 +55,7 @@ export const loginAction = defineAction({
         "Invalid password:",
         { code },
       );
+
       throw new ActionInputError([invalidCredentialsError]);
     }
 
@@ -64,7 +64,7 @@ export const loginAction = defineAction({
       code: user.code,
       name: user.name,
       lastname: user.lastname,
-    } satisfies UserPublic)
+    } as UserPublic)
       .setProtectedHeader({ alg: "dir", enc: "A256GCM" })
       .setIssuedAt()
       .setExpirationTime("1y")

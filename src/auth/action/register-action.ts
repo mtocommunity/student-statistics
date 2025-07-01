@@ -15,12 +15,17 @@ const codeAlreadyExistsError: ZodIssue = {
   message: "El código ya está en uso.",
   path: ["code"],
 };
+const passwordMismatchError: ZodIssue = {
+  code: "custom",
+  message: "Las contraseñas no coinciden.",
+  path: ["confirmPassword"],
+};
 
 // Action
 export const registerAction = defineAction({
   input: Register,
   async handler(
-    { code, name, lastname, password },
+    { code, name, lastname, password, confirmPassword },
     { clientAddress, cookies },
   ) {
     logger.info(
@@ -30,7 +35,9 @@ export const registerAction = defineAction({
     );
 
     // Save to the database
-    // TODO: Validate password and confirm password on server side
+    if (password !== confirmPassword)
+      throw new ActionInputError([passwordMismatchError]);
+
     try {
       const insertedUser = (
         await db
@@ -50,13 +57,13 @@ export const registerAction = defineAction({
         insertedUser,
       );
 
-      // TODO: Try to reuse login action code to avoid duplication
       // Login the user
+      // TODO: Try to reuse login action code to avoid duplication
       const token = await new EncryptJWT({
         code: insertedUser.code,
         name: insertedUser.name,
         lastname: insertedUser.lastname,
-      } satisfies UserPublic)
+      } as UserPublic)
         .setProtectedHeader({ alg: "dir", enc: "A256GCM" })
         .setIssuedAt()
         .setExpirationTime("1y")
