@@ -98,6 +98,7 @@ export function LoginForm() {
                   type={showPassword ? "text" : "password"}
                   className={inputClassname}
                   placeholder="••••••••"
+                  autoComplete="current-password"
                   {...field}
                   {...(error && { "aria-invalid": true })}
                 />
