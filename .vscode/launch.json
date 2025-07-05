@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "Student Statistics (Server) 🐞",
-      "command": "bun --bun run dev --host",
+      "command": "bun run dev --host",
       "request": "launch",
       "type": "node-terminal",
       "internalConsoleOptions": "neverOpen",

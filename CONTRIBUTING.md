@@ -23,10 +23,8 @@ revisión.
 
 ## 🚀 Ejecutar el Proyecto
 
-Este proyecto está construido en JavaScript/TypeScript y puede ejecutarse con
-[Bun](https://bun.sh) (recomendado) o [Node.js](https://nodejs.org). Asegúrate
-de tener instalado uno de estos runtimes y su gestor de dependencias (`bun` o
-`npm`).
+Este proyecto utiliza JavaScript/TypeScript con [Bun](https://bun.sh) como
+runtime y gestor de paquetes. Es requisito instalarlo antes de comenzar.
 
 > [!TIP]
 >
@@ -39,13 +37,8 @@ En modo desarrollo, podrás iniciar un servidor con recarga automática de
 cambios:
 
 ```bash
-# Con Bun
 bun install     # Instala dependencias (sólo la primera vez)
 bun run dev     # Inicia en modo desarrollo
-
-# Con npm
-npm install   # Instala dependencias (sólo la primera vez)
-npm run dev     # Inicia en modo desarrollo
 ```
 
 > [!NOTE]
@@ -54,8 +47,7 @@ npm run dev     # Inicia en modo desarrollo
 > migraciones:
 >
 > ```bash
-> bun run db:push   # Con bun
-> npm run db:push   # Con npm
+> bun run db:push
 > ```
 
 ### 🏭 Modo Producción
@@ -63,11 +55,7 @@ npm run dev     # Inicia en modo desarrollo
 Para compilar y ejecutar en un entorno de producción optimizado:
 
 ```bash
-# Con bun
 bun run build && bun run start
-
-# Con npm
-npm run build && npm run start
 ```
 
 Este comando:
@@ -85,7 +73,7 @@ ligera:
 docker build -t nombre-del-proyecto:latest .
 
 # Ejecutar el contenedor
-docker run -d -p 3000:3000 nombre-del-proyecto:latest
+docker run -d -p 4321:4321 nombre-del-proyecto:latest
 ```
 
 ---
