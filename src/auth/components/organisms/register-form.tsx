@@ -1,5 +1,8 @@
 import { authFormStyles } from "@/auth/components/organisms/styles/auth-form-styles";
-import { Register } from "@/auth/schema/register-schema";
+import {
+  registerSchema,
+  type RegisterData,
+} from "@/auth/schema/register-schema";
 import { Button } from "@/core/components/atoms/button";
 import { cn } from "@/lib/tailwind";
 import { ReactComponent as EyeOff } from "@assets/svg/lu-eye-off.svg";
@@ -27,7 +30,7 @@ export function RegisterForm() {
   // Form
   const { control, handleSubmit, setError } = useForm({
     mode: "onSubmit",
-    resolver: zodResolver(Register),
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       code: "",
       name: "",
@@ -37,7 +40,7 @@ export function RegisterForm() {
     },
   });
 
-  const onSubmit = async (register: Register) => {
+  const onSubmit = async (register: RegisterData) => {
     buttonRef.current?.setAttribute("data-loading", "");
 
     const { error } = await actions.auth.register(register);

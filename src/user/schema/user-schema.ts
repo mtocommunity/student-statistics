@@ -3,7 +3,7 @@ import { createSelectSchema } from "drizzle-zod";
 import type { z } from "zod/v4";
 
 // Tables
-export const UserTable = sqliteTable("user", {
+export const userTable = sqliteTable("user", {
   code: text({ length: 6 }).primaryKey(),
   name: text({ length: 40 }).notNull(),
   lastname: text({ length: 40 }).notNull(),
@@ -11,11 +11,11 @@ export const UserTable = sqliteTable("user", {
 });
 
 // Schemas
-export const SelectUser = createSelectSchema(UserTable);
+export const selectUserSchema = createSelectSchema(userTable);
 
-export const UserPublic = SelectUser.pick({
+export const userPublicSchema = selectUserSchema.pick({
   code: true,
   name: true,
   lastname: true,
 });
-export type UserPublic = z.infer<typeof UserPublic>;
+export type UserPublic = z.infer<typeof userPublicSchema>;

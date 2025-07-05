@@ -1,4 +1,4 @@
-import { CourseTable } from "@/course/schema/course-schema";
+import { courseTable } from "@/course/schema/course-schema";
 import {
   foreignKey,
   int,
@@ -8,14 +8,14 @@ import {
 } from "drizzle-orm/sqlite-core";
 
 // Tables
-export const StudentTable = sqliteTable("student", {
+export const studentTable = sqliteTable("student", {
   id: int().primaryKey({ autoIncrement: true }),
   firstName: text({ length: 50 }).notNull(),
   lastName: text({ length: 50 }).notNull(),
   code: text({ length: 9 }).notNull(),
 });
 
-export const StudentCourseTable = sqliteTable(
+export const studentCourseTable = sqliteTable(
   "student_course",
   {
     studentId: int().notNull(),
@@ -25,7 +25,7 @@ export const StudentCourseTable = sqliteTable(
     primaryKey({ columns: [t.studentId, t.courseId] }),
     foreignKey({
       columns: [t.studentId, t.courseId],
-      foreignColumns: [StudentTable.id, CourseTable.id],
+      foreignColumns: [studentTable.id, courseTable.id],
     }).onDelete("cascade"),
   ],
 );

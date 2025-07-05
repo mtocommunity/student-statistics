@@ -1,7 +1,7 @@
 import { z } from "astro/zod";
 
 // Schemas
-export const Register = z
+export const registerSchema = z
   .object({
     code: z.string().regex(/^[C][0-9]{5}$/, {
       message: "El código debe comenzar con 'C' seguido de 5 dígitos",
@@ -30,4 +30,4 @@ export const Register = z
     name: data.name.trim(),
     lastname: data.lastname.trim(),
   }));
-export type Register = z.infer<typeof Register>;
+export type RegisterData = z.infer<typeof registerSchema>;

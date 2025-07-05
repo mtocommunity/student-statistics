@@ -1,8 +1,8 @@
-import { Login } from "@/auth/schema/login-schema";
+import { loginSchema } from "@/auth/schema/login-schema";
 import { jwtSecretEncoded } from "@/config";
 import { db } from "@/core/repository";
 import logger from "@/logger";
-import { UserPublic, UserTable } from "@/user/schema/user-schema";
+import { userTable, type UserPublic } from "@/user/schema/user-schema";
 import type { ZodIssue } from "astro/zod";
 import { ActionInputError, defineAction } from "astro:actions";
 import { eq } from "drizzle-orm";
@@ -18,7 +18,7 @@ const invalidCredentialsError: ZodIssue = {
 
 // Action
 export const loginAction = defineAction({
-  input: Login,
+  input: loginSchema,
   async handler({ code, password }, { clientAddress, cookies }) {
     logger.info(
       picocolors.blueBright(`<${clientAddress}>`),
@@ -28,7 +28,7 @@ export const loginAction = defineAction({
 
     // Verify if the user exists
     const user = (
-      await db.select().from(UserTable).where(eq(UserTable.code, code)).limit(1)
+      await db.select().from(userTable).where(eq(userTable.code, code)).limit(1)
     )[0];
     logger.info(user);
 

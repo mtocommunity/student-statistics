@@ -1,5 +1,5 @@
 import { authFormStyles } from "@/auth/components/organisms/styles/auth-form-styles";
-import { Login } from "@/auth/schema/login-schema";
+import { loginSchema, type LoginData } from "@/auth/schema/login-schema";
 import { Button } from "@/core/components/atoms/button";
 import { cn } from "@/lib/tailwind";
 import { ReactComponent as EyeOff } from "@assets/svg/lu-eye-off.svg";
@@ -24,14 +24,14 @@ export function LoginForm() {
   // Form
   const { control, handleSubmit } = useForm({
     mode: "onSubmit",
-    resolver: zodResolver(Login),
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       code: "",
       password: "",
     },
   });
 
-  const onSubmit = async (login: Login) => {
+  const onSubmit = async (login: LoginData) => {
     buttonRef.current?.setAttribute("data-loading", "");
 
     const { error } = await actions.auth.login(login);
@@ -127,7 +127,11 @@ export function LoginForm() {
         />
       </label>
 
-      <Button ref={buttonRef} className="mt-2" style={{viewTransitionName: "auth-button"}}>
+      <Button
+        ref={buttonRef}
+        className="mt-2"
+        style={{ viewTransitionName: "auth-button" }}
+      >
         Ingresar
       </Button>
 

@@ -1,5 +1,5 @@
-import { QuestionTable } from "@/exam/schema/question-schema";
-import { UserTable } from "@/user/schema/user-schema";
+import { questionTable } from "@/exam/schema/question-schema";
+import { userTable } from "@/user/schema/user-schema";
 import {
   foreignKey,
   int,
@@ -9,7 +9,7 @@ import {
 } from "drizzle-orm/sqlite-core";
 
 // Tables
-export const AnswerTable = sqliteTable(
+export const answerTable = sqliteTable(
   "answer",
   {
     studentCode: text({ length: 6 }).notNull(),
@@ -20,7 +20,7 @@ export const AnswerTable = sqliteTable(
     primaryKey({ columns: [table.studentCode, table.questionId] }),
     foreignKey({
       columns: [table.studentCode, table.questionId],
-      foreignColumns: [UserTable.code, QuestionTable.id],
+      foreignColumns: [userTable.code, questionTable.id],
     }).onDelete("cascade"),
   ],
 );

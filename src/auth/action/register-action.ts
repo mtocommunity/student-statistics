@@ -1,8 +1,8 @@
-import { Register } from "@/auth/schema/register-schema";
+import { registerSchema } from "@/auth/schema/register-schema";
 import { jwtSecretEncoded } from "@/config";
 import { db } from "@/core/repository";
 import logger from "@/logger";
-import { UserPublic, UserTable } from "@/user/schema/user-schema";
+import { userTable, type UserPublic } from "@/user/schema/user-schema";
 import type { ZodIssue } from "astro/zod";
 import { ActionError, ActionInputError, defineAction } from "astro:actions";
 import { SQLiteError } from "bun:sqlite";
@@ -23,7 +23,7 @@ const passwordMismatchError: ZodIssue = {
 
 // Action
 export const registerAction = defineAction({
-  input: Register,
+  input: registerSchema,
   async handler(
     { code, name, lastname, password, confirmPassword },
     { clientAddress, cookies },
@@ -41,7 +41,7 @@ export const registerAction = defineAction({
     try {
       const insertedUser = (
         await db
-          .insert(UserTable)
+          .insert(userTable)
           .values({
             code,
             name,
@@ -54,11 +54,14 @@ export const registerAction = defineAction({
       logger.info(
         picocolors.greenBright(`<${clientAddress}>`),
         "User registered successfully:",
-        insertedUser,
+        {
+          code: insertedUser.code,
+          name: insertedUser.name,
+          lastname: insertedUser.lastname,
+        },
       );
 
       // Login the user
-      // TODO: Try to reuse login action code to avoid duplication
       const token = await new EncryptJWT({
         code: insertedUser.code,
         name: insertedUser.name,
