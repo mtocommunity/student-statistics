@@ -14,7 +14,7 @@ const sidebarNavItemsClassname = tw`relative flex h-20 w-full flex-col items-cen
 
 <aside
   class:list={[
-    "bg-primary-950 no-scrollbar sticky top-0 z-30 flex max-h-screen w-16 flex-col overflow-y-auto text-white select-none [grid-area:aside]",
+    "bg-primary-950 no-scrollbar sticky top-0 z-30 flex max-h-screen w-16 flex-col overflow-y-auto text-white",
     "z-50 lg:w-22",
   ]}
   transition:persist
@@ -53,8 +53,8 @@ const sidebarNavItemsClassname = tw`relative flex h-20 w-full flex-col items-cen
   <nav
     id="menu"
     class:list={[
-      "no-scrollbar hidden flex-1 flex-col overflow-y-auto",
-      "lg:flex",
+      "no-scrollbar hidden w-16 flex-1 flex-col overflow-y-auto transition-[width]",
+      "lg:flex lg:w-22",
     ]}
   >
     <button
@@ -113,7 +113,8 @@ const sidebarNavItemsClassname = tw`relative flex h-20 w-full flex-col items-cen
         data-astro-prefetch="false"
       >
         <LogOut class="size-6" />
-        Salir
+
+        <span id="logout-text" class="hidden">Salir</span>
       </Link>
     </footer>
   </nav>
@@ -204,6 +205,10 @@ const sidebarNavItemsClassname = tw`relative flex h-20 w-full flex-col items-cen
 
         & a {
           @apply flex-row justify-start gap-4 px-5 text-base;
+        }
+
+        & #logout-text {
+          @apply inline-block;
         }
       }
 

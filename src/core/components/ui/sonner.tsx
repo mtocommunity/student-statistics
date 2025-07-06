@@ -8,7 +8,6 @@ const Toaster = ({ ...props }: ToasterProps) => {
       style={
         {
           fontFamily: "var(--font-inter)",
-          fontSize: "var(--text-sm)",
         } as React.CSSProperties
       }
       toastOptions={{
