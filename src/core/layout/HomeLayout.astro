@@ -1,0 +1,39 @@
+---
+import Header from "@/core/components/organisms/Header.astro";
+import Sidebar from "@/core/components/organisms/Sidebar.astro";
+import Layout from "@/core/layout/Layout.astro";
+---
+
+<Layout>
+  <Header />
+  <Sidebar />
+  <main>
+    <slot />
+  </main>
+</Layout>
+
+<style is:global>
+  @import "@styles";
+
+  body {
+    @apply grid min-h-svh overflow-y-scroll;
+
+    grid-template-areas:
+      "sidebar header"
+      "sidebar main";
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  body > header {
+    grid-area: header;
+  }
+
+  body > aside {
+    grid-area: sidebar;
+  }
+
+  body > main {
+    grid-area: main;
+  }
+</style>
