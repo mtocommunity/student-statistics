@@ -25,9 +25,17 @@ const props = Astro.props;
 
     grid-template-areas:
       "sidebar header"
-      "sidebar main";
+      "main main";
     grid-template-columns: auto 1fr;
     grid-template-rows: auto 1fr;
+  }
+
+  @media (width >= 64rem) {
+    body {
+      grid-template-areas:
+        "sidebar header"
+        "sidebar main";
+    }
   }
 
   body > header {
