@@ -1,0 +1,33 @@
+---
+import Link from "@/core/components/atoms/Link.astro";
+import HomeLayout from "@/core/layout/HomeLayout.astro";
+import Layout from "@/core/layout/Layout.astro";
+import { tw } from "@/lib/tailwind";
+
+// Context
+const hasAuth = !!Astro.cookies.get("token");
+const ContextLayout = hasAuth ? HomeLayout : Layout;
+
+const linkText = hasAuth ? "Volver al inicio" : "Volver al login";
+const linkHref = hasAuth ? "/" : "/login";
+
+// Styles
+const sectionClassname = hasAuth ? tw`min-h-full` : tw`min-h-svh`;
+---
+
+<ContextLayout title="¡Ups!">
+  <section
+    class:list={[
+      "mx-auto flex min-h-full max-w-82 flex-col items-center justify-center gap-4 px-5 py-8",
+      sectionClassname,
+    ]}
+  >
+    <h1 class="text-5xl font-bold">¡Ups!</h1>
+    <p class="text-primary-500 text-pretty">
+      La página que buscas no existe o ha sido movida. Por favor, verifica la
+      URL e intenta nuevamente.
+    </p>
+
+    <Link class="w-full" variant="solid" href={linkHref}>{linkText}</Link>
+  </section>
+</ContextLayout>
