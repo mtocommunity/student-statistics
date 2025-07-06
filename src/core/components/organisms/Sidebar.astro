@@ -81,7 +81,7 @@ const sidebarNavItemsClassname = tw`relative flex h-20 w-full flex-col items-cen
                   {
                     [cn(
                       "text-primary-950 bg-primary-50",
-                      "before:bg-secondary-400 before:absolute before:left-0 before:h-full before:w-1 before:rounded-r before:content-['']",
+                      "before:bg-secondary-400 before:absolute before:left-0 before:h-full before:w-1 before:rounded-r before:content-['']"
                     )]:
                       href === "/"
                         ? currentPathname === href
@@ -107,12 +107,12 @@ const sidebarNavItemsClassname = tw`relative flex h-20 w-full flex-col items-cen
         colorSchema="secondary"
         class:list={[
           sidebarNavItemsClassname,
-          "flex items-center gap-2 rounded-none p-2",
+          "flex items-center gap-2 rounded-none py-2",
         ]}
         title="Cerrar sesión"
         data-astro-prefetch="false"
       >
-        <LogOut class="size-6" />
+        <LogOut class="aspect-square size-6" />
 
         <span id="logout-text" class="hidden">Salir</span>
       </Link>
