@@ -3,9 +3,12 @@ import { z } from "astro/zod";
 // Schemas
 export const registerSchema = z
   .object({
-    code: z.string().regex(/^[C][0-9]{5}$/, {
-      message: "El código debe comenzar con 'C' seguido de 5 dígitos",
-    }),
+    code: z
+      .string()
+      .transform((value) => value.trim().toUpperCase())
+      .refine((value) => /^[C][0-9]{5}$/.test(value), {
+        message: "El código debe comenzar con 'C' seguido de 5 dígitos",
+      }),
     name: z.string().min(2, {
       message: "El nombre debe tener al menos 2 caracteres",
     }),
@@ -26,7 +29,6 @@ export const registerSchema = z
   })
   .transform((data) => ({
     ...data,
-    code: data.code.toUpperCase(),
     name: data.name.trim(),
     lastname: data.lastname.trim(),
   }));
