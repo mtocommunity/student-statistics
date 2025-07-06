@@ -30,7 +30,6 @@ export const loginAction = defineAction({
     const user = (
       await db.select().from(userTable).where(eq(userTable.code, code)).limit(1)
     )[0];
-    logger.info(user);
 
     if (!user) {
       logger.warn(

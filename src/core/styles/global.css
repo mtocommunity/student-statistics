@@ -46,7 +46,7 @@
     @apply bg-primary-950 text-primary-100 selection:bg-primary-700 !antialiased select-none;
 
     & * {
-      @apply scroll-smooth;
+      @apply scroll-smooth text-sm;
     }
   }
 

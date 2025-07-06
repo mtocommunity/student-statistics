@@ -29,6 +29,7 @@ export default tseslint.config(
     files: ["**/*.astro"],
     rules: {
       "no-undef": "off",
+      "react-hooks/rules-of-hooks": "off",
     },
   },
   {
@@ -49,12 +50,12 @@ export default tseslint.config(
     },
   },
   {
+    files: ["**/*.{ts,tsx}"],
     settings: {
       react: {
         version: "detect",
       },
     },
-    files: ["**/*.{ts,tsx}"],
     plugins: {
       "react-hooks": eslintPluginReactHooks,
       "react-refresh": eslintPluginReactRefresh,

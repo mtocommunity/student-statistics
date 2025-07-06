@@ -1,0 +1,220 @@
+---
+import Link from "@/core/components/atoms/Link.astro";
+import { sidebarLinks } from "@/core/components/organisms/data/sidebar-data";
+import { cn, tw } from "@/lib/tailwind";
+import MoveLeft from "@assets/svg/lu-move-left.svg";
+import LogOut from "@assets/svg/lu-log-out.svg";
+
+// Context
+const currentPathname = Astro.url.pathname;
+
+// Style
+const sidebarNavItemsClassname = tw`relative flex h-20 w-full flex-col items-center justify-center gap-2 p-2 text-center text-xs`;
+---
+
+<aside
+  class:list={[
+    "bg-primary-950 no-scrollbar sticky top-0 z-30 flex max-h-screen w-16 flex-col overflow-y-auto text-white select-none [grid-area:aside]",
+    "z-50 lg:w-22",
+  ]}
+  transition:persist
+  id="home-aside"
+>
+  <input type="checkbox" id="menu-toggle" hidden />
+  <button
+    id="menu-button"
+    class:list={[
+      "flex h-15 cursor-pointer items-center justify-center",
+      "lg:h-18",
+    ]}
+    tabindex="0"
+    title="Menú"
+    aria-label="Menú"
+    aria-expanded="false"
+    aria-controls="menu"
+  >
+    <div class="relative h-10">
+      <div
+        class="bg-primary-50 absolute top-[32%] left-1/2 h-[2px] w-5 -translate-1/2 rounded"
+      >
+      </div>
+      <div
+        class="bg-primary-50 absolute top-1/2 left-1/2 h-[2px] w-5 -translate-1/2 rounded"
+      >
+      </div>
+      <div
+        class="bg-primary-50 absolute top-[68%] left-1/2 h-[2px] w-5 -translate-1/2 rounded"
+      >
+      </div>
+    </div>
+  </button>
+
+  <div class="overlay hidden"></div>
+  <nav
+    id="menu"
+    class:list={[
+      "no-scrollbar hidden flex-1 flex-col overflow-y-auto",
+      "lg:flex",
+    ]}
+  >
+    <button
+      id="menu-close-button"
+      class:list={["hidden w-full cursor-pointer px-5 py-3.5", "lg:py-5"]}
+      title="Cerrar menú"
+      tabindex="-1"
+    >
+      <MoveLeft class="size-8 text-white" />
+    </button>
+
+    <ul>
+      {
+        sidebarLinks.map((link) => {
+          const { href, label, svg: SVG } = link;
+
+          return (
+            <li>
+              <a
+                href={href}
+                class:list={[
+                  sidebarNavItemsClassname,
+                  // Current path link styles
+                  {
+                    [cn(
+                      "text-primary-950 bg-primary-50",
+                      "before:bg-secondary-400 before:absolute before:left-0 before:h-full before:w-1 before:rounded-r before:content-['']",
+                    )]:
+                      href === "/"
+                        ? currentPathname === href
+                        : currentPathname.startsWith(href),
+                  },
+                ]}
+                title={label}
+              >
+                <SVG class="size-6" />
+
+                {label}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+
+    <footer class="mt-auto">
+      <Link
+        href="/logout"
+        variant="ghost"
+        colorSchema="secondary"
+        class:list={[
+          sidebarNavItemsClassname,
+          "flex items-center gap-2 rounded-none p-2",
+        ]}
+        title="Cerrar sesión"
+        data-astro-prefetch="false"
+      >
+        <LogOut class="size-6" />
+        Salir
+      </Link>
+    </footer>
+  </nav>
+
+  <script>
+    import { controlBodyScrollLock } from "@/lib/body-scroll";
+    import { $ } from "@/lib/dom-selector";
+
+    // Elements
+    const $overlay = $<HTMLDivElement>("#home-aside .overlay")!;
+    const $homeAside = $<HTMLDivElement>("#home-aside")!;
+    const $menuToggle = $<HTMLInputElement>("#menu-toggle")!;
+    const $menuButton = $<HTMLLabelElement>("#menu-button")!;
+    const $menuCloseButton = $<HTMLButtonElement>("#menu-close-button")!;
+
+    // Scroll
+    const { lockScroll, unlockScroll } = controlBodyScrollLock();
+
+    // Toggle the navigation menu
+    function toggleMenu(bool: boolean) {
+      $menuToggle.checked = bool;
+      $menuButton.setAttribute("aria-expanded", bool.toString());
+
+      $menuButton.tabIndex = bool ? -1 : 0;
+      $menuCloseButton.tabIndex = bool ? 0 : -1;
+
+      if (bool) {
+        $menuCloseButton.focus();
+
+        lockScroll();
+
+        $homeAside.classList.remove("overflow-y-auto");
+      } else {
+        $menuButton.focus();
+
+        unlockScroll();
+
+        $homeAside.classList.add("overflow-y-auto");
+      }
+    }
+
+    function toggleMenuWithHash(bool: boolean) {
+      toggleMenu(bool);
+
+      // Dispatch custom event for menu open
+      const event = new CustomEvent(bool ? "menu-open" : "menu-close", {
+        bubbles: true,
+        composed: true,
+      });
+      document.dispatchEvent(event);
+    }
+
+    $menuToggle.addEventListener("change", (e) => {
+      const isChecked = (e.target as HTMLInputElement).checked;
+
+      toggleMenuWithHash(isChecked);
+    });
+
+    $menuButton.addEventListener("click", () => toggleMenuWithHash(true));
+    $menuButton.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter") return;
+
+      e.preventDefault();
+      toggleMenuWithHash(true);
+    });
+
+    $menuCloseButton.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") return;
+
+      e.preventDefault();
+      toggleMenuWithHash(false);
+    });
+    $menuCloseButton.addEventListener("click", () => toggleMenuWithHash(false));
+
+    $overlay.addEventListener("click", () => toggleMenuWithHash(false));
+  </script>
+
+  <style>
+    @reference "@styles";
+
+    #menu-toggle:checked {
+      & ~ #menu {
+        @apply bg-primary-950 absolute top-0 left-0 z-20 flex h-screen w-72;
+
+        & #menu-close-button {
+          @apply block;
+        }
+
+        & a {
+          @apply flex-row justify-start gap-4 px-5 text-base;
+        }
+      }
+
+      & ~ .overlay {
+        @apply fixed inset-0 z-10 block;
+        background-color: color-mix(
+          in srgb,
+          var(--color-primary-950) 30%,
+          transparent 100%
+        );
+      }
+    }
+  </style>
+</aside>

@@ -1,5 +1,101 @@
 ---
+import Header from "@/core/components/organisms/Header.astro";
+import Sidebar from "@/core/components/organisms/Sidebar.astro";
 import Layout from "@/core/layout/Layout.astro";
 ---
 
-<Layout />
+<Layout>
+  <Header />
+  <Sidebar />
+  <main>
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut autem quo
+    facilis delectus hic doloremque, quidem vero adipisci repellendus ab unde
+    placeat quaerat a? Fuga repudiandae quasi asperiores commodi ipsa? Quod
+    excepturi, consequuntur quasi voluptas consequatur qui minima natus aliquam
+    nemo esse. Voluptatum rem labore voluptatibus ipsum dolores eos cumque esse
+    molestias inventore. Consequatur nulla adipisci magnam animi quae labore!
+    Nostrum, iusto. Est officiis adipisci veniam, unde placeat illo optio eos
+    itaque ullam labore nobis dignissimos harum distinctio mollitia hic, quas
+    officia! Eius, fuga. Quis omnis vitae in id voluptatum. Voluptatum,
+    laudantium, delectus magni consectetur et impedit nulla quae iure saepe sed
+    necessitatibus, nemo officiis nobis autem. Mollitia, repudiandae. Nulla ipsa
+    doloremque aliquid architecto natus odit facere aliquam quos dolorum! Nihil
+    officia itaque quod eaque eveniet architecto deserunt possimus nemo
+    aspernatur quam inventore ullam dolorum fugit atque, iusto tenetur officiis
+    vitae quidem. Quibusdam architecto dolorem doloremque autem quis repudiandae
+    a! Commodi ducimus debitis quibusdam vel nulla. Commodi debitis qui modi
+    sequi sint exercitationem quos quasi, ab, id magni numquam quis reiciendis
+    laboriosam. Voluptatum, laudantium quisquam exercitationem suscipit vel
+    maiores perferendis! Architecto consequuntur impedit numquam repudiandae, et
+    beatae possimus culpa praesentium autem quibusdam dolore ab aliquid
+    perspiciatis voluptatum sapiente reiciendis consequatur eveniet laborum
+    dolorum natus fugit. Hic nesciunt soluta atque in. Esse ipsum, eveniet totam
+    fugit ab sapiente beatae praesentium veniam deserunt dolorum nam hic placeat
+    quos mollitia reprehenderit sit, voluptas iste facilis commodi! Mollitia,
+    delectus aliquid suscipit magni ipsa perspiciatis! Eius provident
+    dignissimos pariatur ex eligendi, repellendus repudiandae. Ipsum dolorum
+    incidunt vero ipsam reiciendis veritatis, dicta ea, accusantium vitae eum
+    architecto minus. Ex itaque nesciunt ducimus eveniet illum minima qui!
+    Libero officia iure recusandae doloremque. Hic facere et ducimus architecto
+    esse corporis autem? Nemo ipsam quidem voluptas porro, accusantium a commodi
+    quibusdam facilis fugit. Vitae fugiat reiciendis explicabo id modi. Animi
+    magni neque iusto consequatur labore cupiditate asperiores velit sint
+    explicabo suscipit aliquid hic temporibus dolor pariatur voluptatem quas
+    doloribus ipsam voluptates, totam praesentium culpa voluptatibus distinctio
+    tenetur. Soluta, enim. Veniam nostrum perferendis, vel eveniet magni
+    consectetur explicabo voluptatibus nemo pariatur id fugiat facere impedit
+    maiores, aliquid eaque ipsum facilis soluta odit dolore excepturi quidem nam
+    eum. Sequi, iusto suscipit? Minima beatae ipsum illo reprehenderit assumenda
+    voluptas quo suscipit sapiente, cum veritatis fugiat obcaecati facere nihil
+    facilis repellendus quisquam quos laudantium ratione totam accusantium
+    tempora rem molestiae dolor. Ab, eligendi. Sint, quisquam cupiditate ipsam
+    fugit minima ratione eum provident? Eaque totam pariatur illo eum sequi
+    error maxime quia hic dolorem dolorum omnis ex eligendi repellendus,
+    inventore eveniet quis voluptas esse. Cumque voluptatibus laborum id dolore
+    fuga, nam nulla, et ipsa debitis omnis labore excepturi provident illum
+    voluptas dolorem aperiam unde neque fugiat voluptatum quis. Placeat, vero
+    libero. Excepturi, doloribus sequi! Odit, consequatur nobis! Aperiam atque
+    veniam, repellat suscipit culpa ad nobis delectus porro, rerum cumque fugit
+    et at accusamus tempore pariatur accusantium assumenda voluptas libero
+    possimus earum officiis aut! Voluptatum. Deleniti, quos assumenda? Placeat
+    ad reiciendis maiores amet expedita voluptates accusamus, quae non laborum
+    impedit, nihil deleniti, consectetur cumque incidunt? Maiores quod quis
+    mollitia, possimus asperiores odio saepe repellat at! Ducimus totam laborum
+    molestiae ab neque magni odit, voluptates cumque recusandae aliquid
+    explicabo quis assumenda veritatis minus. Quibusdam quidem laborum adipisci
+    quod explicabo error fugit aperiam eum, debitis necessitatibus? Quae.
+    Voluptate alias neque dignissimos quod, eaque non quas illo amet itaque
+    tempora quia reiciendis quae quisquam vitae debitis aut architecto
+    voluptatem provident illum placeat pariatur fuga impedit recusandae!
+    Dolorum, minima. Neque nobis repellendus cupiditate perspiciatis
+    exercitationem obcaecati tenetur cum molestias libero dolorem fugiat,
+    tempore quidem excepturi error porro nulla officiis! Facilis doloremque
+    voluptatum amet voluptatibus commodi libero unde quam! Dignissimos!
+  </main>
+</Layout>
+
+<style is:global>
+  @import "@styles";
+
+  body {
+    @apply grid min-h-svh;
+
+    grid-template-areas:
+      "sidebar header"
+      "sidebar main";
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  body > header {
+    grid-area: header;
+  }
+
+  body > aside {
+    grid-area: sidebar;
+  }
+
+  body > main {
+    grid-area: main;
+  }
+</style>
