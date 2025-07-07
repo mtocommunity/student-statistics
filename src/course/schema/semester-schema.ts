@@ -8,4 +8,7 @@ export const semesterTable = sqliteTable("semester", {
   userCode: text({ length: 6 })
     .notNull()
     .references(() => userTable.code),
+  lastUpdateAt: int({ mode: "timestamp" })
+    .notNull()
+    .$default(() => new Date()),
 });

@@ -8,4 +8,7 @@ export const courseTable = sqliteTable("course", {
   semesterId: int()
     .notNull()
     .references(() => semesterTable.id, { onDelete: "cascade" }),
+  lastUpdateAt: int({ mode: "timestamp" })
+    .notNull()
+    .$default(() => new Date()),
 });
