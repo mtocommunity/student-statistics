@@ -72,7 +72,10 @@ if (index === -1) index = -3;
     <div>
       <div
         role="none"
-        class="bg-secondary-400 absolute top-[calc(var(--spacing)_*_18_+_var(--position-index)*var(--spacing)_*_20)] left-0 z-60 h-20 w-1 rounded-r transition-[top]"
+        class:list={[
+          "bg-secondary-400 absolute top-[calc(var(--spacing)_*_15_+_var(--position-index)*var(--spacing)_*_20)] left-0 z-60 h-20 w-1 rounded-r transition-[top]",
+          "lg:top-[calc(var(--spacing)_*_18_+_var(--position-index)*var(--spacing)_*_20)]",
+        ]}
         style=`--position-index: ${index}`
         id="sidebar-highlight"
       >
