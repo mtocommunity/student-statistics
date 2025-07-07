@@ -30,7 +30,7 @@ export const onProtectedRouteRequest = defineMiddleware(
       cookies.get("token")?.value ||
       request.headers.get("Authorization")?.replace("Bearer ", "");
 
-    if (!token) return context.redirect("/login", 307);
+    if (!token) return context.redirect("/login", 302);
 
     // Verify token
     try {
@@ -45,7 +45,7 @@ export const onProtectedRouteRequest = defineMiddleware(
           error,
         );
 
-        return context.redirect("/login", 307);
+        return context.redirect("/login", 302);
       }
 
       locals.user = data;
@@ -61,7 +61,7 @@ export const onProtectedRouteRequest = defineMiddleware(
       // Removes token
       cookies.delete("token", { path: "/" });
 
-      return context.redirect("/login", 307);
+      return context.redirect("/login", 302);
     }
   },
 );
