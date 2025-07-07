@@ -207,7 +207,7 @@ if (index === -1) index = -3;
       let isFound = false;
 
       $links.forEach(($link, i) => {
-        const href = $link.href;
+        const href = $link.getAttribute("href");
 
         if (!href) return;
 
