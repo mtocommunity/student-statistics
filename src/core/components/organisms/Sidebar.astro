@@ -1,15 +1,15 @@
 ---
 import Link from "@/core/components/atoms/Link.astro";
 import { sidebarLinks } from "@/core/components/organisms/data/sidebar-data";
-import { cn, tw } from "@/lib/tailwind";
 import MoveLeft from "@assets/svg/lu-move-left.svg";
 import LogOut from "@assets/svg/lu-log-out.svg";
+import { sidebarNavItemsClassname } from "@/core/components/organisms/styles/sidebar-styles";
 
 // Context
 const currentPathname = Astro.url.pathname;
+let index = sidebarLinks.findIndex((link) => link.href === currentPathname);
 
-// Style
-const sidebarNavItemsClassname = tw`relative flex h-20 w-full flex-col items-center justify-center gap-2 p-2 text-center text-xs`;
+if (index === -1) index = -3;
 ---
 
 <aside
@@ -66,39 +66,46 @@ const sidebarNavItemsClassname = tw`relative flex h-20 w-full flex-col items-cen
       <MoveLeft class="size-8 text-white" />
     </button>
 
-    <ul>
-      {
-        sidebarLinks.map((link) => {
-          const { href, label, svg: SVG } = link;
+    <div>
+      <div
+        role="none"
+        class="bg-secondary-400 absolute top-[calc(var(--spacing)_*_18_+_var(--position-index)*var(--spacing)_*_20)] left-0 z-60 h-20 w-1 rounded-r transition-[top]"
+        style=`--position-index: ${index }`
+        id="sidebar-highlight"
+      >
+      </div>
 
-          return (
-            <li>
-              <a
-                href={href}
-                class:list={[
-                  sidebarNavItemsClassname,
-                  // Current path link styles
-                  {
-                    [cn(
-                      "text-primary-950 bg-primary-50",
-                      "before:bg-secondary-400 before:absolute before:left-0 before:h-full before:w-1 before:rounded-r before:content-['']"
-                    )]:
+      <ul>
+        {
+          sidebarLinks.map((link) => {
+            const { href, label, svg: SVG } = link;
+
+            return (
+              <li>
+                <a
+                  href={href}
+                  class={sidebarNavItemsClassname}
+                  title={label}
+                  data-current={
+                    (
                       href === "/"
                         ? currentPathname === href
-                        : currentPathname.startsWith(href),
-                  },
-                ]}
-                title={label}
-              >
-                <SVG class="size-6" />
+                        : currentPathname.startsWith(href)
+                    )
+                      ? ""
+                      : undefined
+                  }
+                >
+                  <SVG class="size-6" />
 
-                {label}
-              </a>
-            </li>
-          );
-        })
-      }
-    </ul>
+                  {label}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
 
     <footer class="mt-auto">
       <Link
@@ -121,7 +128,7 @@ const sidebarNavItemsClassname = tw`relative flex h-20 w-full flex-col items-cen
 
   <script>
     import { controlBodyScrollLock } from "@/lib/body-scroll";
-    import { $ } from "@/lib/dom-selector";
+    import { $, $$ } from "@/lib/dom-selector";
 
     // Elements
     const $overlay = $<HTMLDivElement>("#home-aside .overlay")!;
@@ -154,10 +161,6 @@ const sidebarNavItemsClassname = tw`relative flex h-20 w-full flex-col items-cen
 
         $homeAside.classList.add("overflow-y-auto");
       }
-    }
-
-    function toggleMenuWithHash(bool: boolean) {
-      toggleMenu(bool);
 
       // Dispatch custom event for menu open
       const event = new CustomEvent(bool ? "menu-open" : "menu-close", {
@@ -170,26 +173,63 @@ const sidebarNavItemsClassname = tw`relative flex h-20 w-full flex-col items-cen
     $menuToggle.addEventListener("change", (e) => {
       const isChecked = (e.target as HTMLInputElement).checked;
 
-      toggleMenuWithHash(isChecked);
+      toggleMenu(isChecked);
     });
 
-    $menuButton.addEventListener("click", () => toggleMenuWithHash(true));
+    $menuButton.addEventListener("click", () => toggleMenu(true));
     $menuButton.addEventListener("keydown", (e) => {
       if (e.key !== "Enter") return;
 
       e.preventDefault();
-      toggleMenuWithHash(true);
+      toggleMenu(true);
     });
 
     $menuCloseButton.addEventListener("keydown", (e) => {
       if (e.key === "Enter") return;
 
       e.preventDefault();
-      toggleMenuWithHash(false);
+      toggleMenu(false);
     });
-    $menuCloseButton.addEventListener("click", () => toggleMenuWithHash(false));
+    $menuCloseButton.addEventListener("click", () => toggleMenu(false));
 
-    $overlay.addEventListener("click", () => toggleMenuWithHash(false));
+    $overlay.addEventListener("click", () => toggleMenu(false));
+
+    // Links
+    const linksSelector = "nav > div > ul a";
+    const $sidebarHighlight = $<HTMLDivElement>("#sidebar-highlight")!;
+    const $links = $$<HTMLAnchorElement>(linksSelector, $homeAside);
+
+    $links.forEach(($link) =>
+      $link.addEventListener("click", () => toggleMenu(false)),
+    );
+
+    document.addEventListener("astro:after-swap", () => {
+      const currentPathname = window.location.pathname;
+
+      let isFound = false;
+
+      $links.forEach(($link, i) => {
+        const href = $link.getAttribute("href");
+
+        if (!href) return;
+
+        const isCurrent =
+          href === "/"
+            ? currentPathname === href
+            : currentPathname.startsWith(href);
+
+        if (isCurrent) {
+          $link.setAttribute("data-current", "");
+
+          $sidebarHighlight.style.setProperty("--position-index", i.toString());
+
+          isFound = true;
+        } else $link.removeAttribute("data-current");
+      });
+
+      if (!isFound)
+        $sidebarHighlight.style.setProperty("--position-index", "-3");
+    });
   </script>
 
   <style>
@@ -197,7 +237,7 @@ const sidebarNavItemsClassname = tw`relative flex h-20 w-full flex-col items-cen
 
     #menu-toggle:checked {
       & ~ #menu {
-        @apply bg-primary-950 absolute top-0 left-0 z-20 flex h-screen w-72;
+        @apply bg-primary-950 absolute top-0 left-0 z-20 flex min-h-svh w-72;
 
         & #menu-close-button {
           @apply block;
@@ -205,6 +245,10 @@ const sidebarNavItemsClassname = tw`relative flex h-20 w-full flex-col items-cen
 
         & a {
           @apply flex-row justify-start gap-4 px-5 text-base;
+
+          & span {
+            @apply text-base;
+          }
         }
 
         & #logout-text {
