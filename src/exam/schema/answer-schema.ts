@@ -15,7 +15,7 @@ export const answerTable = sqliteTable(
   {
     studentCode: text({ length: 6 }).notNull(),
     questionId: int().notNull(),
-    score: real().notNull(),
+    score: real(),
   },
   (table) => [
     primaryKey({ columns: [table.studentCode, table.questionId] }),
