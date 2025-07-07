@@ -1,5 +1,5 @@
 import { loginSchema } from "@/auth/schema/login-schema";
-import { jwtSecretEncoded } from "@/config";
+import { isDev, jwtSecretEncoded } from "@/config";
 import { db } from "@/core/repository";
 import logger from "@/logger";
 import { userTable, type UserPublic } from "@/user/schema/user-schema";
@@ -72,7 +72,7 @@ export const loginAction = defineAction({
     // Add jwt to the cookies
     cookies.set("token", token, {
       httpOnly: true,
-      secure: true,
+      secure: !isDev,
       sameSite: "strict",
       path: "/",
       maxAge: 60 * 60 * 24 * 365, // 1 year
