@@ -4,6 +4,7 @@ import {
   foreignKey,
   int,
   primaryKey,
+  real,
   sqliteTable,
   text,
 } from "drizzle-orm/sqlite-core";
@@ -14,7 +15,7 @@ export const answerTable = sqliteTable(
   {
     studentCode: text({ length: 6 }).notNull(),
     questionId: int().notNull(),
-    score: int().notNull(),
+    score: real().notNull(),
   },
   (table) => [
     primaryKey({ columns: [table.studentCode, table.questionId] }),
