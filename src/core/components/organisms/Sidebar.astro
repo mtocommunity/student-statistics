@@ -4,10 +4,13 @@ import { sidebarLinks } from "@/core/components/organisms/data/sidebar-data";
 import MoveLeft from "@assets/svg/lu-move-left.svg";
 import LogOut from "@assets/svg/lu-log-out.svg";
 import { sidebarNavItemsClassname } from "@/core/components/organisms/styles/sidebar-styles";
+import { sidebarLinkMatch } from "@/core/components/organisms/auxiliar/sidebar-aux";
 
 // Context
 const currentPathname = Astro.url.pathname;
-let index = sidebarLinks.findIndex((link) => link.href === currentPathname);
+let index = sidebarLinks.findIndex((link) =>
+  sidebarLinkMatch(link.href, currentPathname),
+);
 
 if (index === -1) index = -3;
 ---
@@ -70,7 +73,7 @@ if (index === -1) index = -3;
       <div
         role="none"
         class="bg-secondary-400 absolute top-[calc(var(--spacing)_*_18_+_var(--position-index)*var(--spacing)_*_20)] left-0 z-60 h-20 w-1 rounded-r transition-[top]"
-        style=`--position-index: ${index }`
+        style=`--position-index: ${index}`
         id="sidebar-highlight"
       >
       </div>
@@ -87,13 +90,7 @@ if (index === -1) index = -3;
                   class={sidebarNavItemsClassname}
                   title={label}
                   data-current={
-                    (
-                      href === "/"
-                        ? currentPathname === href
-                        : currentPathname.startsWith(href)
-                    )
-                      ? ""
-                      : undefined
+                    sidebarLinkMatch(href, currentPathname) ? "" : undefined
                   }
                 >
                   <SVG class="size-6" />
@@ -127,6 +124,7 @@ if (index === -1) index = -3;
   </nav>
 
   <script>
+    import { sidebarLinkMatch } from "@/core/components/organisms/auxiliar/sidebar-aux";
     import { controlBodyScrollLock } from "@/lib/body-scroll";
     import { $, $$ } from "@/lib/dom-selector";
 
@@ -209,14 +207,11 @@ if (index === -1) index = -3;
       let isFound = false;
 
       $links.forEach(($link, i) => {
-        const href = $link.getAttribute("href");
+        const href = $link.href;
 
         if (!href) return;
 
-        const isCurrent =
-          href === "/"
-            ? currentPathname === href
-            : currentPathname.startsWith(href);
+        const isCurrent = sidebarLinkMatch(href, currentPathname);
 
         if (isCurrent) {
           $link.setAttribute("data-current", "");
