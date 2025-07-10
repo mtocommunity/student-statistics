@@ -1,3 +1,3 @@
 import { tw } from "@/lib/tailwind";
 
-export const sectionClasses = tw`max-w-section-w mx-auto px-5`;
+export const sectionClasses = tw`mx-auto max-w-7xl px-5`;

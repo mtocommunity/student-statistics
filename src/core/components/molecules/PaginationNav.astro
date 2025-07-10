@@ -27,7 +27,7 @@ nextPageUrl.searchParams.set("page", nextPage.toString());
 
 // - Pages to display
 const isOverflowAtStart = page > 3 && totalPages > 5;
-const isOverflowAtEnd = page < totalPages - 1 && totalPages > 5;
+const isOverflowAtEnd = page < totalPages - 2 && totalPages > 5;
 const pages = [];
 
 if (isOverflowAtStart && isOverflowAtEnd) {
