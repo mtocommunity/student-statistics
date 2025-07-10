@@ -1,9 +1,11 @@
 ---
 import HomeLayout from "@/core/layout/HomeLayout.astro";
 import { StudentsPassed } from "@/exam/components/molecule/students-passed";
+import { ChartPieLabel } from "@/exam/components/molecule/awa";
 ---
 
 <HomeLayout>
+  <ChartPieLabel client:load />
   <StudentsPassed type="pie" exam={1} client:load />
   <StudentsPassed type="bar" exam={1} client:load />
 </HomeLayout>

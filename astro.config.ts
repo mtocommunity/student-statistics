@@ -117,7 +117,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss(), svgr()],
     ssr: {
-      noExternal: ["sonner", "react-hook-form"],
+      noExternal: ["sonner", "react-hook-form", "recharts"],
     },
     server: {
       allowedHosts: ["dev.martindotpy.dev"],
