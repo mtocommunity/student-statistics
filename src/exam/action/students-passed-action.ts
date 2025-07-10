@@ -2,7 +2,7 @@ import { db } from "@/core/repository";
 import { answerTable } from "@/exam/schema/answer-schema";
 import { examTable } from "@/exam/schema/exam-schema";
 import { questionTable } from "@/exam/schema/question-schema";
-import { statisticsSchema } from "@/exam/schema/statistics-Schema";
+import { statisticsSchema } from "@/exam/schema/statistics-schema";
 import logger from "@/logger";
 import type { ZodIssue } from "astro/zod";
 import { ActionInputError, defineAction } from "astro:actions";
