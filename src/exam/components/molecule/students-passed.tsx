@@ -1,5 +1,11 @@
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/core/components/ui/chart";
 import { actions } from "astro:actions";
 import { useEffect, useState } from "react";
+import { Bar, BarChart, Pie, PieChart, XAxis } from "recharts";
 
 export function StudentsPassed({
   type,
@@ -30,8 +36,70 @@ export function StudentsPassed({
 
   switch (type) {
     case "pie":
-      return <div>a</div>;
+      return (
+        <div>
+          <ChartContainer
+            config={{}}
+            className="[&_.recharts-pie-label-text]:fill-foreground mx-auto aspect-square max-h-[250px] pb-0"
+          >
+            <PieChart>
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Pie
+                data={[
+                  {
+                    text: "Aprobados",
+                    amount: studentsPassed.studentsPassed,
+                    fill: "#2ec4b6",
+                  },
+                  {
+                    text: "Desaprobados",
+                    amount:
+                      studentsPassed.totalStudents -
+                      studentsPassed.studentsPassed,
+                    fill: "#e71d36",
+                  },
+                ]}
+                dataKey="amount"
+                label
+                nameKey="text"
+              />
+            </PieChart>
+          </ChartContainer>
+        </div>
+      );
     case "bar":
-      return <div>StudentsPassedBar</div>;
+      return (
+        <div>
+          <ChartContainer
+            config={{
+              amount: {
+                label: "Cantidad",
+              },
+            }}
+            className="[&_.recharts-pie-label-text]:fill-foreground mx-auto aspect-square max-h-[250px] pb-0"
+          >
+            <BarChart
+              data={[
+                {
+                  text: "Aprobados",
+                  amount: studentsPassed.studentsPassed,
+                  fill: "#2ec4b6",
+                },
+                {
+                  text: "Desaprobados",
+                  amount:
+                    studentsPassed.totalStudents -
+                    studentsPassed.studentsPassed,
+                  fill: "#e71d36",
+                },
+              ]}
+            >
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <XAxis dataKey="text" />
+              <Bar dataKey="amount" />
+            </BarChart>
+          </ChartContainer>
+        </div>
+      );
   }
 }
