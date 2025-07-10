@@ -9,6 +9,7 @@ interface Props {
 }
 
 const { page, totalPages } = Astro.props;
+const { pathname: baseUrl } = Astro.url;
 ---
 
 <Section class="flex flex-1 flex-col">
@@ -16,5 +17,5 @@ const { page, totalPages } = Astro.props;
 
   <div class="flex-1"></div>
 
-  <PaginationNav {page} {totalPages} baseUrl="/semesters" />
+  <PaginationNav {page} {totalPages} {baseUrl} />
 </Section>

@@ -43,7 +43,7 @@ if (isOverflowAtStart && isOverflowAtEnd) {
 
 <nav>
   <ul class="flex items-center justify-center">
-    <li transition:name="pagination-previous">
+    <li style={{ viewTransitionName: "pagination-previous" }}>
       <a
         {...hasPreviousPage
           ? { href: previousPageUrl.toString() }
@@ -57,7 +57,7 @@ if (isOverflowAtStart && isOverflowAtEnd) {
     {
       isOverflowAtStart && (
         <>
-          <li transition:name="pagination-first">
+          <li style={{ viewTransitionName: "pagination-first" }}>
             <a href={`${baseUrl}?page=1`}>1</a>
           </li>
           <li>
@@ -77,11 +77,12 @@ if (isOverflowAtStart && isOverflowAtEnd) {
         url.searchParams.set("page", pageNumber.toString());
 
         // Transition name
-        let transitionName: string | undefined;
+        let viewTransitionName: string | undefined;
 
-        if (pageNumber === 1) transitionName = "pagination-first";
-        else if (pageNumber === totalPages) transitionName = "pagination-last";
-        else transitionName = `pagination-${pageNumber}`;
+        if (pageNumber === 1) viewTransitionName = "pagination-first";
+        else if (pageNumber === totalPages)
+          viewTransitionName = "pagination-last";
+        else viewTransitionName = `pagination-${pageNumber}`;
 
         return (
           <li
@@ -90,7 +91,7 @@ if (isOverflowAtStart && isOverflowAtEnd) {
                 "bg-primary-800 rounded-full": isActive,
               },
             ]}
-            transition:name={transitionName}
+            style={{ viewTransitionName }}
           >
             <a href={url.toString()}>{pageNumber}</a>
           </li>
@@ -104,14 +105,14 @@ if (isOverflowAtStart && isOverflowAtEnd) {
           <li>
             <span class="pagination-overflow">...</span>
           </li>
-          <li transition:name="pagination-last">
+          <li style={{ viewTransitionName: "pagination-last" }}>
             <a href={`${baseUrl}?page=${totalPages}`}>{totalPages}</a>
           </li>
         </>
       )
     }
 
-    <li transition:name="pagination-next">
+    <li style={{ viewTransitionName: "pagination-next" }}>
       <a
         {...hasNextPage
           ? { href: nextPageUrl.toString() }
