@@ -43,14 +43,20 @@ export const scorePerQuestionAction = defineAction({
 
     data.forEach((row) => {
       const actualScore = questionsScore.get(row.question.id) ?? [];
-      actualScore.push(row.answer?.score ?? 0);
+      if (`${row.answer?.score}` === "NULL") actualScore.push(0);
+      else actualScore.push(row.answer?.score ?? 0);
+      questionsScore.set(row.question.id, actualScore);
     });
 
     return {
-      questions: questionsScore.entries().map(([questionId, scores]) => ({
-        questionId,
-        scores,
-      })),
+      questions: questionsScore
+        .entries()
+        .map(([questionId, scores], i) => ({
+          questionId,
+          scores,
+          nOrder: i + 1,
+        }))
+        .toArray(),
     };
   },
 });

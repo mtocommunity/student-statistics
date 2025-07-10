@@ -7,30 +7,30 @@ import { actions } from "astro:actions";
 import { useEffect, useState } from "react";
 import { Bar, BarChart, Pie, PieChart, XAxis, YAxis } from "recharts";
 
-export function StudentsPassed({
+export function QuestionsScores({
   type,
   exam,
 }: {
   type: "pie" | "bar";
   exam: number;
 }) {
-  const [studentsPassed, setStudentsPassed] = useState<{
-    studentsPassed: number;
-    totalStudents: number;
-  } | null>(null);
+  const [questions, setQuestions] = useState<
+    { questionId: number; scores: number[]; nOrder: number }[] | null
+  >(null);
 
   useEffect(() => {
     (async () => {
-      const res = await actions.exam.studentsPassed({
+      const res = await actions.exam.scorePerQuestion({
         examId: exam,
       });
-      if (res.data) {
-        setStudentsPassed(res.data);
+      console.log(res.data?.questions);
+      if (res.data?.questions) {
+        setQuestions(res.data.questions);
       }
     })();
   }, []);
 
-  if (studentsPassed === null) {
+  if (questions === null) {
     return <div>Loading...</div>;
   }
 
@@ -41,7 +41,7 @@ export function StudentsPassed({
           <ChartContainer
             config={{
               amount: {
-                label: "Estudiantes",
+                label: "Puntuación media",
               },
             }}
             className="[&_.recharts-pie-label-text]:fill-foreground mx-auto aspect-square max-h-[250px] pb-0"
@@ -49,20 +49,13 @@ export function StudentsPassed({
             <PieChart>
               <ChartTooltip content={<ChartTooltipContent />} />
               <Pie
-                data={[
-                  {
-                    text: "Aprobados",
-                    amount: studentsPassed.studentsPassed,
-                    fill: "#2ec4b6",
-                  },
-                  {
-                    text: "Desaprobados",
-                    amount:
-                      studentsPassed.totalStudents -
-                      studentsPassed.studentsPassed,
-                    fill: "#e71d36",
-                  },
-                ]}
+                data={questions.map((q) => ({
+                  text: `Pregunta ${q.nOrder} `,
+                  amount:
+                    q.scores.reduce((acc, score) => acc + score) /
+                      q.scores.length || 0,
+                  fill: `hsl(${Math.floor(Math.random() * 360)}, 70%, 50%)`,
+                }))}
                 dataKey="amount"
                 label
                 nameKey="text"
@@ -77,30 +70,23 @@ export function StudentsPassed({
           <ChartContainer
             config={{
               amount: {
-                label: "Cantidad",
+                label: "Puntuación media",
               },
             }}
             className="[&_.recharts-pie-label-text]:fill-foreground mx-auto aspect-square max-h-[250px] pb-0"
           >
             <BarChart
-              data={[
-                {
-                  text: "Aprobados",
-                  amount: studentsPassed.studentsPassed,
-                  fill: "#2ec4b6",
-                },
-                {
-                  text: "Desaprobados",
-                  amount:
-                    studentsPassed.totalStudents -
-                    studentsPassed.studentsPassed,
-                  fill: "#e71d36",
-                },
-              ]}
+              data={questions.map((q) => ({
+                text: `Pregunta ${q.nOrder} `,
+                amount:
+                  q.scores.reduce((acc, score) => acc + score) /
+                    q.scores.length || 0,
+                fill: `hsl(${Math.floor(Math.random() * 360)}, 70%, 50%)`,
+              }))}
             >
               <ChartTooltip content={<ChartTooltipContent />} />
               <XAxis dataKey="text" />
-              <YAxis allowDecimals={false} />
+              <YAxis />
               <Bar dataKey="amount" />
             </BarChart>
           </ChartContainer>

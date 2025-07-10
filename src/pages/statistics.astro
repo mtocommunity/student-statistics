@@ -1,9 +1,12 @@
 ---
 import HomeLayout from "@/core/layout/HomeLayout.astro";
 import { StudentsPassed } from "@/exam/components/molecule/students-passed";
+import { QuestionsScores } from "@/exam/components/molecule/questions-scores";
 ---
 
 <HomeLayout>
   <StudentsPassed type="pie" exam={1} client:load />
   <StudentsPassed type="bar" exam={1} client:load />
+  <QuestionsScores type="pie" exam={1} client:load />
+  <QuestionsScores type="bar" exam={1} client:load />
 </HomeLayout>
