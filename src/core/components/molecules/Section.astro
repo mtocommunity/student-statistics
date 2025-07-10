@@ -1,0 +1,14 @@
+---
+import { sectionClasses } from "@/core/components/molecules/styles/section-styles";
+import { cn } from "@/lib/tailwind";
+import type { HTMLAttributes } from "astro/types";
+
+// Context
+type Props = HTMLAttributes<"section">;
+
+const { class: className, "class:list": classList, ...props } = Astro.props;
+---
+
+<section class={cn(sectionClasses, className, classList)} {...props}>
+  <slot />
+</section>

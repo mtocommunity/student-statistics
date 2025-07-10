@@ -1,4 +1,4 @@
-import { semesterTable } from "@/course/schema/semester-schema";
+import { semesterTable } from "@/semester/schema/semester-schema";
 import { int, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 // Tables

@@ -1,0 +1,32 @@
+---
+import HomeLayout from "@/core/layout/HomeLayout.astro";
+import SemesterMainContent from "@/semester/components/contents/SemesterMainContent.astro";
+import BookmarkCheck from "@assets/svg/lu-bookmark-check.svg";
+
+// Context
+const { searchParams } = Astro.url;
+const pageRaw = searchParams.get("page");
+const totalPages = 250;
+let page = pageRaw ? parseInt(pageRaw, 10) : 1;
+page = isNaN(page) ? 1 : page;
+
+// Verify if page is a valid number
+if (page > totalPages) {
+  page = 1;
+  searchParams.set("page", page.toString());
+
+  return Astro.redirect(Astro.url.toString(), 302);
+}
+---
+
+<HomeLayout title="Ciclos">
+  <header class="flex items-center gap-2">
+    <BookmarkCheck class="size-7" />
+
+    <h1 class="inline text-2xl font-bold">Ciclos</h1>
+  </header>
+
+  <div role="none" class="bg-primary-400 my-4 h-px"></div>
+
+  <SemesterMainContent {page} {totalPages} />
+</HomeLayout>
