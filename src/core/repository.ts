@@ -7,4 +7,5 @@ const sqlite = new Database(databaseUrl);
 
 export const db = drizzle({
   client: sqlite,
+  casing: "snake_case",
 });
