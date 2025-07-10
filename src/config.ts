@@ -6,7 +6,13 @@ export const {
   JWT_SECRET: jwtSecret,
 } = import.meta.env;
 
-export const privateRoutes: RegExp[] = [/^\/$/];
+export const privateRoutes: RegExp[] = [
+  /^\/$/,
+  /^\/semesters/,
+  /^\/courses/,
+  /^\/exams/,
+  /^\/students/,
+];
 
 // JWT
 export const jwtSecretEncoded = new TextEncoder().encode(jwtSecret);
