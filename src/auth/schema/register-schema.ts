@@ -1,4 +1,4 @@
-import { z } from "astro/zod";
+import { z } from "astro/zod"
 
 // Schemas
 export const registerSchema = z
@@ -31,5 +31,5 @@ export const registerSchema = z
     ...data,
     name: data.name.trim(),
     lastname: data.lastname.trim(),
-  }));
-export type RegisterData = z.infer<typeof registerSchema>;
+  }))
+export type RegisterData = z.infer<typeof registerSchema>

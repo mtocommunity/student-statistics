@@ -2,36 +2,36 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/core/components/ui/chart";
-import { actions } from "astro:actions";
-import { useEffect, useState } from "react";
-import { Bar, BarChart, Pie, PieChart, XAxis, YAxis } from "recharts";
+} from "@/core/components/ui/chart"
+import { actions } from "astro:actions"
+import { useEffect, useState } from "react"
+import { Bar, BarChart, Pie, PieChart, XAxis, YAxis } from "recharts"
 
 export function QuestionsScores({
   type,
   exam,
 }: {
-  type: "pie" | "bar";
-  exam: number;
+  type: "pie" | "bar"
+  exam: number
 }) {
   const [questions, setQuestions] = useState<
     { questionId: number; scores: number[]; nOrder: number }[] | null
-  >(null);
+  >(null)
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       const res = await actions.exam.scorePerQuestion({
         examId: exam,
-      });
-      console.log(res.data?.questions);
+      })
+      console.log(res.data?.questions)
       if (res.data?.questions) {
-        setQuestions(res.data.questions);
+        setQuestions(res.data.questions)
       }
-    })();
-  }, []);
+    })()
+  }, [])
 
   if (questions === null) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   switch (type) {
@@ -63,7 +63,7 @@ export function QuestionsScores({
             </PieChart>
           </ChartContainer>
         </div>
-      );
+      )
     case "bar":
       return (
         <div>
@@ -91,6 +91,6 @@ export function QuestionsScores({
             </BarChart>
           </ChartContainer>
         </div>
-      );
+      )
   }
 }

@@ -1,11 +1,11 @@
-import { courseTable } from "@/course/schema/course-schema";
+import { courseTable } from "@/course/schema/course-schema"
 import {
   foreignKey,
   int,
   primaryKey,
   sqliteTable,
   text,
-} from "drizzle-orm/sqlite-core";
+} from "drizzle-orm/sqlite-core"
 
 // Tables
 export const studentTable = sqliteTable("student", {
@@ -13,7 +13,7 @@ export const studentTable = sqliteTable("student", {
   firstName: text({ length: 50 }).notNull(),
   lastName: text({ length: 50 }).notNull(),
   code: text({ length: 9 }).notNull(),
-});
+})
 
 export const studentCourseTable = sqliteTable(
   "student_course",
@@ -27,5 +27,5 @@ export const studentCourseTable = sqliteTable(
       columns: [t.studentId, t.courseId],
       foreignColumns: [studentTable.id, courseTable.id],
     }).onDelete("cascade"),
-  ],
-);
+  ]
+)

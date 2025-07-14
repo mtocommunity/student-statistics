@@ -1,19 +1,19 @@
 ---
-import GlobalStyles from "@/core/components/atoms/GlobalStyles.astro";
-import Sonner from "@/core/components/atoms/Sonner.astro";
-import { ClientRouter } from "astro:transitions";
-import { pwaAssetsHead } from "virtual:pwa-assets/head";
-import { pwaInfo } from "virtual:pwa-info";
+import GlobalStyles from "@/core/components/atoms/GlobalStyles.astro"
+import Sonner from "@/core/components/atoms/Sonner.astro"
+import { ClientRouter } from "astro:transitions"
+import { pwaAssetsHead } from "virtual:pwa-assets/head"
+import { pwaInfo } from "virtual:pwa-info"
 
 // Context
 interface Props {
-  title?: string;
+  title?: string
 }
 
-const { title } = Astro.props;
+const { title } = Astro.props
 const finalTitle = title
   ? `${title} | Student Statistics`
-  : "Student Statistics";
+  : "Student Statistics"
 ---
 
 <html lang="es" class="dark">

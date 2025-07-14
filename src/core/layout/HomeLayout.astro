@@ -1,12 +1,12 @@
 ---
-import Header from "@/core/components/organisms/Header.astro";
-import Sidebar from "@/core/components/organisms/Sidebar.astro";
-import Layout from "@/core/layout/Layout.astro";
-import type { ComponentProps } from "astro/types";
+import Header from "@/core/components/organisms/Header.astro"
+import Sidebar from "@/core/components/organisms/Sidebar.astro"
+import Layout from "@/core/layout/Layout.astro"
+import type { ComponentProps } from "astro/types"
 
 // Context
-type Props = ComponentProps<typeof Layout>;
-const props = Astro.props;
+type Props = ComponentProps<typeof Layout>
+const props = Astro.props
 ---
 
 <Layout {...props}>

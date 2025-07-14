@@ -1,25 +1,25 @@
-import { authFormStyles } from "@/auth/components/organisms/styles/auth-form-styles";
-import { loginSchema, type LoginData } from "@/auth/schema/login-schema";
-import { Button } from "@/core/components/atoms/button";
-import { cn } from "@/lib/tailwind";
-import { ReactComponent as EyeOff } from "@assets/svg/lu-eye-off.svg";
-import { ReactComponent as Eye } from "@assets/svg/lu-eye.svg";
-import { ReactComponent as User } from "@assets/svg/lu-user.svg";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { navigate } from "astro/virtual-modules/transitions-router.js";
-import { actions } from "astro:actions";
-import { useRef, useState } from "preact/hooks";
-import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { authFormStyles } from "@/auth/components/organisms/styles/auth-form-styles"
+import { loginSchema, type LoginData } from "@/auth/schema/login-schema"
+import { Button } from "@/core/components/atoms/button"
+import { cn } from "@/lib/tailwind"
+import { ReactComponent as EyeOff } from "@assets/svg/lu-eye-off.svg"
+import { ReactComponent as Eye } from "@assets/svg/lu-eye.svg"
+import { ReactComponent as User } from "@assets/svg/lu-user.svg"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { navigate } from "astro/virtual-modules/transitions-router.js"
+import { actions } from "astro:actions"
+import { useRef, useState } from "preact/hooks"
+import { Controller, useForm } from "react-hook-form"
+import { toast } from "sonner"
 
-const { inputClassname, labelClassname, svgInputClassname } = authFormStyles;
+const { inputClassname, labelClassname, svgInputClassname } = authFormStyles
 
 export function LoginForm() {
   // Password
-  const [showPassword, setPassword] = useState(false);
+  const [showPassword, setPassword] = useState(false)
 
   // Button
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null)
 
   // Form
   const { control, handleSubmit } = useForm({
@@ -29,26 +29,26 @@ export function LoginForm() {
       code: "",
       password: "",
     },
-  });
+  })
 
   const onSubmit = async (login: LoginData) => {
-    buttonRef.current?.setAttribute("data-loading", "");
+    buttonRef.current?.setAttribute("data-loading", "")
 
-    const { error } = await actions.auth.login(login);
+    const { error } = await actions.auth.login(login)
 
     if (error) {
       if (error.code === "INTERNAL_SERVER_ERROR")
         toast.error(
-          "Ocurrió un error en el servidor. Por favor, intenta nuevamente más tarde.",
-        );
+          "Ocurrió un error en el servidor. Por favor, intenta nuevamente más tarde."
+        )
       else
         toast.error(
-          "Por favor, verifica tus credenciales e intenta nuevamente.",
-        );
-    } else navigate("/");
+          "Por favor, verifica tus credenciales e intenta nuevamente."
+        )
+    } else navigate("/")
 
-    buttonRef.current?.removeAttribute("data-loading");
-  };
+    buttonRef.current?.removeAttribute("data-loading")
+  }
 
   return (
     <form
@@ -106,14 +106,14 @@ export function LoginForm() {
                 <Eye
                   class={cn(
                     svgInputClassname,
-                    "z-10 peer-[[type=password]]:hidden hover:cursor-pointer",
+                    "z-10 peer-[[type=password]]:hidden hover:cursor-pointer"
                   )}
                   onClick={() => setPassword((prev) => !prev)}
                 />
                 <EyeOff
                   class={cn(
                     svgInputClassname,
-                    "z-10 peer-[[type=text]]:hidden hover:cursor-pointer",
+                    "z-10 peer-[[type=text]]:hidden hover:cursor-pointer"
                   )}
                   onClick={() => setPassword((prev) => !prev)}
                 />
@@ -139,5 +139,5 @@ export function LoginForm() {
         ¿Olvidaste tu contraseña?
       </a>
     </form>
-  );
+  )
 }

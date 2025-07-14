@@ -1,5 +1,5 @@
-import { semesterTable } from "@/semester/schema/semester-schema";
-import { int, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { semesterTable } from "@/semester/schema/semester-schema"
+import { int, sqliteTable, text } from "drizzle-orm/sqlite-core"
 
 // Tables
 export const courseTable = sqliteTable("course", {
@@ -11,4 +11,4 @@ export const courseTable = sqliteTable("course", {
   lastUpdateAt: int({ mode: "timestamp" })
     .notNull()
     .$default(() => new Date()),
-});
+})

@@ -1,43 +1,43 @@
 ---
-import ChevronRight from "@assets/svg/lu-chevron-right.svg";
+import ChevronRight from "@assets/svg/lu-chevron-right.svg"
 
 // Context
 interface Props {
-  page: number;
-  totalPages: number;
-  baseUrl: string;
+  page: number
+  totalPages: number
+  baseUrl: string
 }
 
-const { page, totalPages, baseUrl } = Astro.props;
+const { page, totalPages, baseUrl } = Astro.props
 
 // Pagination
 // - Previous page
-const previousPage = page - 1;
-const hasPreviousPage = page > 1;
+const previousPage = page - 1
+const hasPreviousPage = page > 1
 
-const previousPageUrl = new URL(baseUrl, Astro.url);
-previousPageUrl.searchParams.set("page", previousPage.toString());
+const previousPageUrl = new URL(baseUrl, Astro.url)
+previousPageUrl.searchParams.set("page", previousPage.toString())
 
 // - Next page
-const nextPage = page + 1;
-const hasNextPage = nextPage <= totalPages;
+const nextPage = page + 1
+const hasNextPage = nextPage <= totalPages
 
-const nextPageUrl = new URL(baseUrl, Astro.url);
-nextPageUrl.searchParams.set("page", nextPage.toString());
+const nextPageUrl = new URL(baseUrl, Astro.url)
+nextPageUrl.searchParams.set("page", nextPage.toString())
 
 // - Pages to display
-const isOverflowAtStart = page > 3 && totalPages > 5;
-const isOverflowAtEnd = page < totalPages - 2 && totalPages > 5;
-const pages = [];
+const isOverflowAtStart = page > 3 && totalPages > 5
+const isOverflowAtEnd = page < totalPages - 2 && totalPages > 5
+const pages = []
 
 if (isOverflowAtStart && isOverflowAtEnd) {
-  pages.push(page - 1, page, page + 1);
+  pages.push(page - 1, page, page + 1)
 } else if (isOverflowAtStart) {
-  pages.push(totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+  pages.push(totalPages - 3, totalPages - 2, totalPages - 1, totalPages)
 } else if (isOverflowAtEnd) {
-  pages.push(1, 2, 3, 4);
+  pages.push(1, 2, 3, 4)
 } else {
-  pages.push(...Array.from({ length: totalPages }, (_, i) => i + 1));
+  pages.push(...Array.from({ length: totalPages }, (_, i) => i + 1))
 }
 ---
 
@@ -70,19 +70,19 @@ if (isOverflowAtStart && isOverflowAtEnd) {
     {
       pages.map((pageNumber) => {
         // Check if the page number is active
-        const isActive = pageNumber === page;
+        const isActive = pageNumber === page
 
         // URL for the page
-        const url = new URL(baseUrl, Astro.url);
-        url.searchParams.set("page", pageNumber.toString());
+        const url = new URL(baseUrl, Astro.url)
+        url.searchParams.set("page", pageNumber.toString())
 
         // Transition name
-        let viewTransitionName: string | undefined;
+        let viewTransitionName: string | undefined
 
-        if (pageNumber === 1) viewTransitionName = "pagination-first";
+        if (pageNumber === 1) viewTransitionName = "pagination-first"
         else if (pageNumber === totalPages)
-          viewTransitionName = "pagination-last";
-        else viewTransitionName = `pagination-${pageNumber}`;
+          viewTransitionName = "pagination-last"
+        else viewTransitionName = `pagination-${pageNumber}`
 
         return (
           <li
@@ -95,7 +95,7 @@ if (isOverflowAtStart && isOverflowAtEnd) {
           >
             <a href={url.toString()}>{pageNumber}</a>
           </li>
-        );
+        )
       })
     }
 

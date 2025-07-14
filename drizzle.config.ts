@@ -1,6 +1,6 @@
-import { defineConfig } from "drizzle-kit";
+import { defineConfig } from "drizzle-kit"
 
-const { DATABASE_URL: databaseUrl } = process.env;
+const { DATABASE_URL: databaseUrl } = process.env
 
 export default defineConfig({
   out: "./drizzle",
@@ -10,4 +10,4 @@ export default defineConfig({
     url: databaseUrl!,
   },
   casing: "snake_case",
-});
+})

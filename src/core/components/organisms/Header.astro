@@ -1,12 +1,12 @@
 ---
-import { breadcrumbsName } from "@/core/components/organisms/data/header-data";
-import ChevronRight from "@assets/svg/lu-chevron-right.svg";
+import { breadcrumbsName } from "@/core/components/organisms/data/header-data"
+import ChevronRight from "@assets/svg/lu-chevron-right.svg"
 
 // Context
-const { pathname } = Astro.url;
-const pathnames = pathname.split("/").filter(Boolean);
+const { pathname } = Astro.url
+const pathnames = pathname.split("/").filter(Boolean)
 
-if (pathnames.length === 0) pathnames.push("");
+if (pathnames.length === 0) pathnames.push("")
 ---
 
 <header
@@ -26,15 +26,15 @@ if (pathnames.length === 0) pathnames.push("");
   >
     {
       pathnames.map((name, index) => {
-        const isLast = index === pathnames.length - 1;
-        const displayName = breadcrumbsName[name] || name;
+        const isLast = index === pathnames.length - 1
+        const displayName = breadcrumbsName[name] || name
 
         if (isLast)
           return (
             <span class="text-primary-100 hover:text-primary-200">
               {displayName}
             </span>
-          );
+          )
 
         return (
           <>
@@ -47,7 +47,7 @@ if (pathnames.length === 0) pathnames.push("");
 
             <ChevronRight class="text-primary-500 inline size-4" />
           </>
-        );
+        )
       })
     }
   </div>

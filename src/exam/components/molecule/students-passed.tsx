@@ -2,36 +2,36 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/core/components/ui/chart";
-import { actions } from "astro:actions";
-import { useEffect, useState } from "react";
-import { Bar, BarChart, Pie, PieChart, XAxis, YAxis } from "recharts";
+} from "@/core/components/ui/chart"
+import { actions } from "astro:actions"
+import { useEffect, useState } from "react"
+import { Bar, BarChart, Pie, PieChart, XAxis, YAxis } from "recharts"
 
 export function StudentsPassed({
   type,
   exam,
 }: {
-  type: "pie" | "bar";
-  exam: number;
+  type: "pie" | "bar"
+  exam: number
 }) {
   const [studentsPassed, setStudentsPassed] = useState<{
-    studentsPassed: number;
-    totalStudents: number;
-  } | null>(null);
+    studentsPassed: number
+    totalStudents: number
+  } | null>(null)
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       const res = await actions.exam.studentsPassed({
         examId: exam,
-      });
+      })
       if (res.data) {
-        setStudentsPassed(res.data);
+        setStudentsPassed(res.data)
       }
-    })();
-  }, []);
+    })()
+  }, [])
 
   if (studentsPassed === null) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   switch (type) {
@@ -70,7 +70,7 @@ export function StudentsPassed({
             </PieChart>
           </ChartContainer>
         </div>
-      );
+      )
     case "bar":
       return (
         <div>
@@ -105,6 +105,6 @@ export function StudentsPassed({
             </BarChart>
           </ChartContainer>
         </div>
-      );
+      )
   }
 }

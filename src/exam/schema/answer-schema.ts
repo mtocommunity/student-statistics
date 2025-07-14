@@ -1,5 +1,5 @@
-import { questionTable } from "@/exam/schema/question-schema";
-import { userTable } from "@/user/schema/user-schema";
+import { questionTable } from "@/exam/schema/question-schema"
+import { userTable } from "@/user/schema/user-schema"
 import {
   foreignKey,
   int,
@@ -7,7 +7,7 @@ import {
   real,
   sqliteTable,
   text,
-} from "drizzle-orm/sqlite-core";
+} from "drizzle-orm/sqlite-core"
 
 // Tables
 export const answerTable = sqliteTable(
@@ -23,5 +23,5 @@ export const answerTable = sqliteTable(
       columns: [table.studentCode, table.questionId],
       foreignColumns: [userTable.code, questionTable.id],
     }).onDelete("cascade"),
-  ],
-);
+  ]
+)

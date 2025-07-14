@@ -1,31 +1,31 @@
-import { authFormStyles } from "@/auth/components/organisms/styles/auth-form-styles";
+import { authFormStyles } from "@/auth/components/organisms/styles/auth-form-styles"
 import {
   registerSchema,
   type RegisterData,
-} from "@/auth/schema/register-schema";
-import { Button } from "@/core/components/atoms/button";
-import { cn } from "@/lib/tailwind";
-import { ReactComponent as EyeOff } from "@assets/svg/lu-eye-off.svg";
-import { ReactComponent as Eye } from "@assets/svg/lu-eye.svg";
-import { ReactComponent as User } from "@assets/svg/lu-user.svg";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { actions, isInputError } from "astro:actions";
-import { navigate } from "astro:transitions/client";
-import { useRef, useState } from "preact/hooks";
-import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
+} from "@/auth/schema/register-schema"
+import { Button } from "@/core/components/atoms/button"
+import { cn } from "@/lib/tailwind"
+import { ReactComponent as EyeOff } from "@assets/svg/lu-eye-off.svg"
+import { ReactComponent as Eye } from "@assets/svg/lu-eye.svg"
+import { ReactComponent as User } from "@assets/svg/lu-user.svg"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { actions, isInputError } from "astro:actions"
+import { navigate } from "astro:transitions/client"
+import { useRef, useState } from "preact/hooks"
+import { Controller, useForm } from "react-hook-form"
+import { toast } from "sonner"
 
 // Styles
-const { inputClassname, labelClassname, svgInputClassname } = authFormStyles;
+const { inputClassname, labelClassname, svgInputClassname } = authFormStyles
 
 // Component
 export function RegisterForm() {
   // Password
-  const [showPassword, setPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showPassword, setPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   // Button
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null)
 
   // Form
   const { control, handleSubmit, setError } = useForm({
@@ -38,36 +38,36 @@ export function RegisterForm() {
       password: "",
       confirmPassword: "",
     },
-  });
+  })
 
   const onSubmit = async (register: RegisterData) => {
-    buttonRef.current?.setAttribute("data-loading", "");
+    buttonRef.current?.setAttribute("data-loading", "")
 
-    const { error } = await actions.auth.register(register);
+    const { error } = await actions.auth.register(register)
 
     if (!error) {
-      buttonRef.current?.removeAttribute("data-loading");
+      buttonRef.current?.removeAttribute("data-loading")
 
-      toast.success(`¡Bienvenido, ${register.name}!`);
-      navigate("/");
+      toast.success(`¡Bienvenido, ${register.name}!`)
+      navigate("/")
 
-      return;
+      return
     }
 
     if (isInputError(error)) {
-      type ErrorFields = keyof typeof error.fields;
-      const fields = Object.keys(error.fields) as ErrorFields[];
+      type ErrorFields = keyof typeof error.fields
+      const fields = Object.keys(error.fields) as ErrorFields[]
 
       for (const field of fields) {
         setError(field, {
           type: "validate",
           message: error.fields[field]![0],
-        });
+        })
       }
     }
 
-    buttonRef.current?.removeAttribute("data-loading");
-  };
+    buttonRef.current?.removeAttribute("data-loading")
+  }
 
   return (
     <form
@@ -178,14 +178,14 @@ export function RegisterForm() {
                 <Eye
                   class={cn(
                     svgInputClassname,
-                    "z-10 peer-[[type=password]]:hidden hover:cursor-pointer",
+                    "z-10 peer-[[type=password]]:hidden hover:cursor-pointer"
                   )}
                   onClick={() => setPassword((prev) => !prev)}
                 />
                 <EyeOff
                   class={cn(
                     svgInputClassname,
-                    "z-10 peer-[[type=text]]:hidden hover:cursor-pointer",
+                    "z-10 peer-[[type=text]]:hidden hover:cursor-pointer"
                   )}
                   onClick={() => setPassword((prev) => !prev)}
                 />
@@ -219,14 +219,14 @@ export function RegisterForm() {
                 <Eye
                   class={cn(
                     svgInputClassname,
-                    "z-10 peer-[[type=password]]:hidden hover:cursor-pointer",
+                    "z-10 peer-[[type=password]]:hidden hover:cursor-pointer"
                   )}
                   onClick={() => setShowConfirmPassword((prev) => !prev)}
                 />
                 <EyeOff
                   class={cn(
                     svgInputClassname,
-                    "z-10 peer-[[type=text]]:hidden hover:cursor-pointer",
+                    "z-10 peer-[[type=text]]:hidden hover:cursor-pointer"
                   )}
                   onClick={() => setShowConfirmPassword((prev) => !prev)}
                 />
@@ -248,5 +248,5 @@ export function RegisterForm() {
         Registrarme
       </Button>
     </form>
-  );
+  )
 }

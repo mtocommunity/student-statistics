@@ -1,21 +1,21 @@
 ---
-import HomeLayout from "@/core/layout/HomeLayout.astro";
-import SemesterMainContent from "@/semester/components/contents/SemesterMainContent.astro";
-import BookmarkCheck from "@assets/svg/lu-bookmark-check.svg";
+import HomeLayout from "@/core/layout/HomeLayout.astro"
+import SemesterMainContent from "@/semester/components/contents/SemesterMainContent.astro"
+import BookmarkCheck from "@assets/svg/lu-bookmark-check.svg"
 
 // Context
-const { searchParams } = Astro.url;
-const pageRaw = searchParams.get("page");
-const totalPages = 250;
-let page = pageRaw ? parseInt(pageRaw, 10) : 1;
-page = isNaN(page) ? 1 : page;
+const { searchParams } = Astro.url
+const pageRaw = searchParams.get("page")
+const totalPages = 250
+let page = pageRaw ? parseInt(pageRaw, 10) : 1
+page = isNaN(page) ? 1 : page
 
 // Verify if page is a valid number
 if (page > totalPages) {
-  page = 1;
-  searchParams.set("page", page.toString());
+  page = 1
+  searchParams.set("page", page.toString())
 
-  return Astro.redirect(Astro.url.toString(), 302);
+  return Astro.redirect(Astro.url.toString(), 302)
 }
 ---
 

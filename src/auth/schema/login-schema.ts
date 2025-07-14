@@ -1,4 +1,4 @@
-import { z } from "astro/zod";
+import { z } from "astro/zod"
 
 export const loginSchema = z.object({
   code: z
@@ -8,5 +8,5 @@ export const loginSchema = z.object({
       message: "El código debe comenzar con 'C' seguido de 5 dígitos",
     }),
   password: z.string().min(6),
-});
-export type LoginData = z.infer<typeof loginSchema>;
+})
+export type LoginData = z.infer<typeof loginSchema>

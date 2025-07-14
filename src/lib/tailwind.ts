@@ -1,5 +1,5 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
 
 /**
  * Combines class names using `clsx` and resolves Tailwind CSS class conflicts using `tailwind-merge`.
@@ -8,7 +8,7 @@ import { twMerge } from "tailwind-merge";
  * @returns A single merged class name string.
  */
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(...inputs));
+  return twMerge(clsx(...inputs))
 }
 
 /**
@@ -16,4 +16,4 @@ export function cn(...inputs: ClassValue[]) {
  * Helps with prettier class name sorting.
  */
 export const tw = (strings: TemplateStringsArray, ...values: unknown[]) =>
-  String.raw({ raw: strings }, ...values);
+  String.raw({ raw: strings }, ...values)

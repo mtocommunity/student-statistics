@@ -1,10 +1,10 @@
-export const site = "https://student-statistics.martindotpy.dev";
+export const site = "https://student-statistics.martindotpy.dev"
 
 export const {
   DEV: isDev,
   DATABASE_URL: databaseUrl,
   JWT_SECRET: jwtSecret,
-} = import.meta.env;
+} = import.meta.env
 
 export const privateRoutes: RegExp[] = [
   /^\/$/,
@@ -12,7 +12,7 @@ export const privateRoutes: RegExp[] = [
   /^\/courses/,
   /^\/exams/,
   /^\/students/,
-];
+]
 
 // JWT
-export const jwtSecretEncoded = new TextEncoder().encode(jwtSecret);
+export const jwtSecretEncoded = new TextEncoder().encode(jwtSecret)

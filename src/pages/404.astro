@@ -1,18 +1,18 @@
 ---
-import Link from "@/core/components/atoms/Link.astro";
-import HomeLayout from "@/core/layout/HomeLayout.astro";
-import Layout from "@/core/layout/Layout.astro";
-import { tw } from "@/lib/tailwind";
+import Link from "@/core/components/atoms/Link.astro"
+import HomeLayout from "@/core/layout/HomeLayout.astro"
+import Layout from "@/core/layout/Layout.astro"
+import { tw } from "@/lib/tailwind"
 
 // Context
-const hasAuth = !!Astro.cookies.get("token");
-const ContextLayout = hasAuth ? HomeLayout : Layout;
+const hasAuth = !!Astro.cookies.get("token")
+const ContextLayout = hasAuth ? HomeLayout : Layout
 
-const linkText = hasAuth ? "Volver al inicio" : "Volver al login";
-const linkHref = hasAuth ? "/" : "/login";
+const linkText = hasAuth ? "Volver al inicio" : "Volver al login"
+const linkHref = hasAuth ? "/" : "/login"
 
 // Styles
-const sectionClassname = hasAuth ? tw`min-h-full` : tw`min-h-svh`;
+const sectionClassname = hasAuth ? tw`min-h-full` : tw`min-h-svh`
 ---
 
 <ContextLayout title="¡Ups!">

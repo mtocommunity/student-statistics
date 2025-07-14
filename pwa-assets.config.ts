@@ -1,9 +1,9 @@
-import type { Asset } from "@vite-pwa/assets-generator";
-import { defineConfig } from "@vite-pwa/assets-generator/config";
+import type { Asset } from "@vite-pwa/assets-generator"
+import { defineConfig } from "@vite-pwa/assets-generator/config"
 
 const resizeOptions: Asset["resizeOptions"] = {
   background: "#09090b",
-};
+}
 
 export default defineConfig({
   headLinkOptions: {
@@ -29,4 +29,4 @@ export default defineConfig({
     },
   },
   images: ["public/favicon.svg"],
-});
+})

@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants"
 
 export const buttonVariants = tv({
   base: "group flex cursor-pointer items-center justify-center gap-1.5 rounded px-4 py-2 text-center font-medium transition-colors disabled:brightness-90 data-[loading]:cursor-auto data-[loading]:opacity-75",
@@ -185,9 +185,9 @@ export const buttonVariants = tv({
     variant: "solid",
     colorSchema: "primary",
   },
-});
+})
 
-export type ButtonVariants = VariantProps<typeof buttonVariants>;
+export type ButtonVariants = VariantProps<typeof buttonVariants>
 
 export const spinnerVariants = tv({
   base: "size-0 transition-[width,height] duration-200 group-data-[loading]:size-[1em] group-data-[loading]:animate-spin",
@@ -204,4 +204,4 @@ export const spinnerVariants = tv({
   defaultVariants: {
     colorSchema: "primary",
   },
-});
+})

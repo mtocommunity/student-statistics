@@ -4,6 +4,7 @@ WORKDIR /app
 
 ENV TZ=America/Lima
 ENV HOST=0.0.0.0
+ENV NODE_ENV=production
 
 
 FROM base AS builder

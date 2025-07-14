@@ -2,13 +2,13 @@ import {
   buttonVariants,
   spinnerVariants,
   type ButtonVariants,
-} from "@/core/components/atoms/styles/button-style";
-import { cn } from "@/lib/tailwind";
-import { ReactComponent as Spinner } from "@assets/svg/spinner.svg";
-import { forwardRef } from "preact/compat";
+} from "@/core/components/atoms/styles/button-style"
+import { cn } from "@/lib/tailwind"
+import { ReactComponent as Spinner } from "@assets/svg/spinner.svg"
+import { forwardRef } from "preact/compat"
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  ButtonVariants;
+  ButtonVariants
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, children, colorSchema, variant, ...props }, ref) => {
@@ -22,6 +22,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
         {children}
       </button>
-    );
-  },
-);
+    )
+  }
+)

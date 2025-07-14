@@ -3,17 +3,17 @@
 /// <reference types="vite-plugin-pwa/pwa-assets" />
 /// <reference types="vite-plugin-pwa/vanillajs" />
 
-import type { UserPublic } from "@/user/schema/user-schema";
+import type { UserPublic } from "@/user/schema/user-schema"
 
 declare global {
   namespace App {
     interface Locals {
-      user: UserPublic;
+      user: UserPublic
     }
   }
 
   interface ImportMetaEnv {
-    readonly DATABASE_URL: string;
-    readonly JWT_SECRET: string;
+    readonly DATABASE_URL: string
+    readonly JWT_SECRET: string
   }
 }

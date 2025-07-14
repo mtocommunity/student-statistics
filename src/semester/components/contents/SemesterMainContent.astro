@@ -1,15 +1,15 @@
 ---
-import PaginationNav from "@/core/components/molecules/PaginationNav.astro";
-import Section from "@/core/components/molecules/Section.astro";
+import PaginationNav from "@/core/components/molecules/PaginationNav.astro"
+import Section from "@/core/components/molecules/Section.astro"
 
 // Context
 interface Props {
-  page: number;
-  totalPages: number;
+  page: number
+  totalPages: number
 }
 
-const { page, totalPages } = Astro.props;
-const { pathname: baseUrl } = Astro.url;
+const { page, totalPages } = Astro.props
+const { pathname: baseUrl } = Astro.url
 ---
 
 <Section class="flex flex-1 flex-col px-0">

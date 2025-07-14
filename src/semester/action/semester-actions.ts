@@ -1,1 +1,1 @@
-export const semesterActions = {};
+export const semesterActions = {}

@@ -1,5 +1,5 @@
-import { examTable } from "@/exam/schema/exam-schema";
-import { int, real, sqliteTable } from "drizzle-orm/sqlite-core";
+import { examTable } from "@/exam/schema/exam-schema"
+import { int, real, sqliteTable } from "drizzle-orm/sqlite-core"
 
 // Tables
 export const questionTable = sqliteTable("question", {
@@ -9,4 +9,4 @@ export const questionTable = sqliteTable("question", {
   examId: int()
     .notNull()
     .references(() => examTable.id, { onDelete: "cascade" }),
-});
+})

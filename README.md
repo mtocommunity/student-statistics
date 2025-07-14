@@ -39,7 +39,6 @@ rendimiento estudiantil.
   ingreso se puede realizar por importación de archivo o ingreso manual.
 - La aplicación generará un reporte detallado con la información proporcionada.
   El reporte debe incluir:
-
   - Un gráfico de pastel que muestre el número de aprobados y desaprobados.
 
     <p align="center">

@@ -1,18 +1,18 @@
 ---
-import Link from "@/core/components/atoms/Link.astro";
-import { sidebarLinks } from "@/core/components/organisms/data/sidebar-data";
-import MoveLeft from "@assets/svg/lu-move-left.svg";
-import LogOut from "@assets/svg/lu-log-out.svg";
-import { sidebarNavItemsClassname } from "@/core/components/organisms/styles/sidebar-styles";
-import { sidebarLinkMatch } from "@/core/components/organisms/auxiliar/sidebar-aux";
+import Link from "@/core/components/atoms/Link.astro"
+import { sidebarLinks } from "@/core/components/organisms/data/sidebar-data"
+import MoveLeft from "@assets/svg/lu-move-left.svg"
+import LogOut from "@assets/svg/lu-log-out.svg"
+import { sidebarNavItemsClassname } from "@/core/components/organisms/styles/sidebar-styles"
+import { sidebarLinkMatch } from "@/core/components/organisms/auxiliar/sidebar-aux"
 
 // Context
-const currentPathname = Astro.url.pathname;
+const currentPathname = Astro.url.pathname
 let index = sidebarLinks.findIndex((link) =>
-  sidebarLinkMatch(link.href, currentPathname),
-);
+  sidebarLinkMatch(link.href, currentPathname)
+)
 
-if (index === -1) index = -3;
+if (index === -1) index = -3
 ---
 
 <aside
@@ -84,7 +84,7 @@ if (index === -1) index = -3;
       <ul>
         {
           sidebarLinks.map((link) => {
-            const { href, label, svg: SVG } = link;
+            const { href, label, svg: SVG } = link
 
             return (
               <li>
@@ -101,7 +101,7 @@ if (index === -1) index = -3;
                   {label}
                 </a>
               </li>
-            );
+            )
           })
         }
       </ul>
@@ -127,107 +127,107 @@ if (index === -1) index = -3;
   </nav>
 
   <script>
-    import { sidebarLinkMatch } from "@/core/components/organisms/auxiliar/sidebar-aux";
-    import { controlBodyScrollLock } from "@/lib/body-scroll";
-    import { $, $$ } from "@/lib/dom-selector";
+    import { sidebarLinkMatch } from "@/core/components/organisms/auxiliar/sidebar-aux"
+    import { controlBodyScrollLock } from "@/lib/body-scroll"
+    import { $, $$ } from "@/lib/dom-selector"
 
     // Elements
-    const $overlay = $<HTMLDivElement>("#home-aside .overlay")!;
-    const $homeAside = $<HTMLDivElement>("#home-aside")!;
-    const $menuToggle = $<HTMLInputElement>("#menu-toggle")!;
-    const $menuButton = $<HTMLLabelElement>("#menu-button")!;
-    const $menuCloseButton = $<HTMLButtonElement>("#menu-close-button")!;
+    const $overlay = $<HTMLDivElement>("#home-aside .overlay")!
+    const $homeAside = $<HTMLDivElement>("#home-aside")!
+    const $menuToggle = $<HTMLInputElement>("#menu-toggle")!
+    const $menuButton = $<HTMLLabelElement>("#menu-button")!
+    const $menuCloseButton = $<HTMLButtonElement>("#menu-close-button")!
 
     // Scroll
-    const { lockScroll, unlockScroll } = controlBodyScrollLock();
+    const { lockScroll, unlockScroll } = controlBodyScrollLock()
 
     // Toggle the navigation menu
     function toggleMenu(bool: boolean) {
-      $menuToggle.checked = bool;
-      $menuButton.setAttribute("aria-expanded", bool.toString());
+      $menuToggle.checked = bool
+      $menuButton.setAttribute("aria-expanded", bool.toString())
 
-      $menuButton.tabIndex = bool ? -1 : 0;
-      $menuCloseButton.tabIndex = bool ? 0 : -1;
+      $menuButton.tabIndex = bool ? -1 : 0
+      $menuCloseButton.tabIndex = bool ? 0 : -1
 
       if (bool) {
-        $menuCloseButton.focus();
+        $menuCloseButton.focus()
 
-        lockScroll();
+        lockScroll()
 
-        $homeAside.classList.remove("overflow-y-auto");
+        $homeAside.classList.remove("overflow-y-auto")
       } else {
-        $menuButton.focus();
+        $menuButton.focus()
 
-        unlockScroll();
+        unlockScroll()
 
-        $homeAside.classList.add("overflow-y-auto");
+        $homeAside.classList.add("overflow-y-auto")
       }
 
       // Dispatch custom event for menu open
       const event = new CustomEvent(bool ? "menu-open" : "menu-close", {
         bubbles: true,
         composed: true,
-      });
-      document.dispatchEvent(event);
+      })
+      document.dispatchEvent(event)
     }
 
     $menuToggle.addEventListener("change", (e) => {
-      const isChecked = (e.target as HTMLInputElement).checked;
+      const isChecked = (e.target as HTMLInputElement).checked
 
-      toggleMenu(isChecked);
-    });
+      toggleMenu(isChecked)
+    })
 
-    $menuButton.addEventListener("click", () => toggleMenu(true));
+    $menuButton.addEventListener("click", () => toggleMenu(true))
     $menuButton.addEventListener("keydown", (e) => {
-      if (e.key !== "Enter") return;
+      if (e.key !== "Enter") return
 
-      e.preventDefault();
-      toggleMenu(true);
-    });
+      e.preventDefault()
+      toggleMenu(true)
+    })
 
     $menuCloseButton.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") return;
+      if (e.key === "Enter") return
 
-      e.preventDefault();
-      toggleMenu(false);
-    });
-    $menuCloseButton.addEventListener("click", () => toggleMenu(false));
+      e.preventDefault()
+      toggleMenu(false)
+    })
+    $menuCloseButton.addEventListener("click", () => toggleMenu(false))
 
-    $overlay.addEventListener("click", () => toggleMenu(false));
+    $overlay.addEventListener("click", () => toggleMenu(false))
 
     // Links
-    const linksSelector = "nav > div > ul a";
-    const $sidebarHighlight = $<HTMLDivElement>("#sidebar-highlight")!;
-    const $links = $$<HTMLAnchorElement>(linksSelector, $homeAside);
+    const linksSelector = "nav > div > ul a"
+    const $sidebarHighlight = $<HTMLDivElement>("#sidebar-highlight")!
+    const $links = $$<HTMLAnchorElement>(linksSelector, $homeAside)
 
     $links.forEach(($link) =>
-      $link.addEventListener("click", () => toggleMenu(false)),
-    );
+      $link.addEventListener("click", () => toggleMenu(false))
+    )
 
     document.addEventListener("astro:after-swap", () => {
-      const currentPathname = window.location.pathname;
+      const currentPathname = window.location.pathname
 
-      let isFound = false;
+      let isFound = false
 
       $links.forEach(($link, i) => {
-        const href = $link.getAttribute("href");
+        const href = $link.getAttribute("href")
 
-        if (!href) return;
+        if (!href) return
 
-        const isCurrent = sidebarLinkMatch(href, currentPathname);
+        const isCurrent = sidebarLinkMatch(href, currentPathname)
 
         if (isCurrent) {
-          $link.setAttribute("data-current", "");
+          $link.setAttribute("data-current", "")
 
-          $sidebarHighlight.style.setProperty("--position-index", i.toString());
+          $sidebarHighlight.style.setProperty("--position-index", i.toString())
 
-          isFound = true;
-        } else $link.removeAttribute("data-current");
-      });
+          isFound = true
+        } else $link.removeAttribute("data-current")
+      })
 
       if (!isFound)
-        $sidebarHighlight.style.setProperty("--position-index", "-3");
-    });
+        $sidebarHighlight.style.setProperty("--position-index", "-3")
+    })
   </script>
 
   <style>

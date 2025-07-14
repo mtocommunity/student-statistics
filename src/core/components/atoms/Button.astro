@@ -3,13 +3,13 @@ import {
   buttonVariants,
   spinnerVariants,
   type ButtonVariants,
-} from "@/core/components/atoms/styles/button-style";
-import { cn } from "@/lib/tailwind";
-import Spinner from "@assets/svg/spinner.svg";
-import type { HTMLAttributes } from "astro/types";
+} from "@/core/components/atoms/styles/button-style"
+import { cn } from "@/lib/tailwind"
+import Spinner from "@assets/svg/spinner.svg"
+import type { HTMLAttributes } from "astro/types"
 
 // Context
-type Props = HTMLAttributes<"button"> & ButtonVariants;
+type Props = HTMLAttributes<"button"> & ButtonVariants
 
 const {
   variant,
@@ -17,7 +17,7 @@ const {
   class: className,
   "class:list": classList,
   ...props
-} = Astro.props;
+} = Astro.props
 ---
 
 <button

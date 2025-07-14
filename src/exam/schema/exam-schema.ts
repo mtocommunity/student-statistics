@@ -1,8 +1,8 @@
-import { courseTable } from "@/course/schema/course-schema";
-import { int, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { courseTable } from "@/course/schema/course-schema"
+import { int, real, sqliteTable, text } from "drizzle-orm/sqlite-core"
 
 // Constants
-export const MIN_PASSING_SCORE = 11.6;
+export const MIN_PASSING_SCORE = 11.6
 
 // Tables
 export const examTable = sqliteTable("exam", {
@@ -15,4 +15,4 @@ export const examTable = sqliteTable("exam", {
   lastUpdateAt: int({ mode: "timestamp" })
     .notNull()
     .$default(() => new Date()),
-});
+})

@@ -1,11 +1,11 @@
-import node from "@astrojs/node";
-import preact from "@astrojs/preact";
-import svgr from "@svgr/rollup";
-import tailwindcss from "@tailwindcss/vite";
-import pwa from "@vite-pwa/astro";
-import compress from "astro-compress";
-import { defineConfig, fontProviders } from "astro/config";
-import { isDev, site } from "./src/config";
+import node from "@astrojs/node"
+import preact from "@astrojs/preact"
+import svgr from "@svgr/rollup"
+import tailwindcss from "@tailwindcss/vite"
+import pwa from "@vite-pwa/astro"
+import compress from "astro-compress"
+import { defineConfig, fontProviders } from "astro/config"
+import { isDev, site } from "./src/config"
 
 export default defineConfig({
   site,
@@ -61,12 +61,12 @@ export default defineConfig({
           {
             urlPattern: ({ url }) => {
               const extensionPattern =
-                /\.(?:png|jpg|jpeg|svg|webp|avif|gif|ico|js|css|woff2?|ttf|otf)$/;
+                /\.(?:png|jpg|jpeg|svg|webp|avif|gif|ico|js|css|woff2?|ttf|otf)$/
               return (
                 extensionPattern.test(url.pathname) &&
                 !url.pathname.startsWith("/src/") &&
                 !url.pathname.startsWith("/node_modules/")
-              );
+              )
             },
             handler: "CacheFirst",
             options: {
@@ -129,4 +129,4 @@ export default defineConfig({
   adapter: node({
     mode: "standalone",
   }),
-});
+})

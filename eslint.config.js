@@ -1,10 +1,10 @@
-import eslint from "@eslint/js";
-import eslintConfigPrettier from "eslint-config-prettier/flat";
-import eslintPluginAstro from "eslint-plugin-astro";
-import eslintPluginReact from "eslint-plugin-react";
-import eslintPluginReactHooks from "eslint-plugin-react-hooks";
-import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
-import tseslint from "typescript-eslint";
+import eslint from "@eslint/js"
+import eslintConfigPrettier from "eslint-config-prettier/flat"
+import eslintPluginAstro from "eslint-plugin-astro"
+import eslintPluginReact from "eslint-plugin-react"
+import eslintPluginReactHooks from "eslint-plugin-react-hooks"
+import eslintPluginReactRefresh from "eslint-plugin-react-refresh"
+import tseslint from "typescript-eslint"
 
 export default tseslint.config(
   {
@@ -72,5 +72,5 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
     },
-  },
-);
+  }
+)

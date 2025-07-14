@@ -1,13 +1,13 @@
 ---
-import { LoginForm } from "@/auth/components/organisms/login-form";
-import Link from "@/core/components/atoms/Link.astro";
-import Layout from "@/core/layout/Layout.astro";
-import Favicon from "@assets/svg/favicon.svg";
+import { LoginForm } from "@/auth/components/organisms/login-form"
+import Link from "@/core/components/atoms/Link.astro"
+import Layout from "@/core/layout/Layout.astro"
+import Favicon from "@assets/svg/favicon.svg"
 
 // Redirect to home if already logged in
-const token = Astro.cookies.get("token");
+const token = Astro.cookies.get("token")
 
-if (token) return Astro.redirect("/", 302);
+if (token) return Astro.redirect("/", 302)
 ---
 
 <Layout title="Login">

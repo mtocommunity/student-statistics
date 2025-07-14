@@ -35,12 +35,8 @@
           "name": "course_semester_id_semester_id_fk",
           "tableFrom": "course",
           "tableTo": "semester",
-          "columnsFrom": [
-            "semester_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["semester_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -80,12 +76,8 @@
           "name": "semester_user_code_user_code_fk",
           "tableFrom": "semester",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_code"
-          ],
-          "columnsTo": [
-            "code"
-          ],
+          "columnsFrom": ["user_code"],
+          "columnsTo": ["code"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -125,24 +117,15 @@
           "name": "answer_student_code_question_id_user_code_id_fk",
           "tableFrom": "answer",
           "tableTo": "user",
-          "columnsFrom": [
-            "student_code",
-            "question_id"
-          ],
-          "columnsTo": [
-            "code",
-            "id"
-          ],
+          "columnsFrom": ["student_code", "question_id"],
+          "columnsTo": ["code", "id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {
         "answer_student_code_question_id_pk": {
-          "columns": [
-            "student_code",
-            "question_id"
-          ],
+          "columns": ["student_code", "question_id"],
           "name": "answer_student_code_question_id_pk"
         }
       },
@@ -188,12 +171,8 @@
           "name": "exam_course_id_course_id_fk",
           "tableFrom": "exam",
           "tableTo": "course",
-          "columnsFrom": [
-            "course_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["course_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -240,12 +219,8 @@
           "name": "question_exam_id_exam_id_fk",
           "tableFrom": "question",
           "tableTo": "exam",
-          "columnsFrom": [
-            "exam_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["exam_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -278,24 +253,15 @@
           "name": "student_course_student_id_course_id_student_id_id_fk",
           "tableFrom": "student_course",
           "tableTo": "student",
-          "columnsFrom": [
-            "student_id",
-            "course_id"
-          ],
-          "columnsTo": [
-            "id",
-            "id"
-          ],
+          "columnsFrom": ["student_id", "course_id"],
+          "columnsTo": ["id", "id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {
         "student_course_student_id_course_id_pk": {
-          "columns": [
-            "student_id",
-            "course_id"
-          ],
+          "columns": ["student_id", "course_id"],
           "name": "student_course_student_id_course_id_pk"
         }
       },

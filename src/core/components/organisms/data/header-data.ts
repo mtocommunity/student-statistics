@@ -4,4 +4,4 @@ export const breadcrumbsName: Record<string, string> = {
   courses: "Cursos",
   exams: "Exámenes",
   students: "Estudiantes",
-};
+}

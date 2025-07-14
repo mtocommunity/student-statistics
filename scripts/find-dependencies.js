@@ -1,10 +1,10 @@
-import { readdir, readFile, writeFile } from "fs/promises";
-import { dirname, extname, join } from "path";
-import { fileURLToPath } from "url";
-import bunLock from "../bun.lock" assert { type: "jsonc" };
-import currentPackage from "../package.json" assert { type: "json" };
+import { readdir, readFile, writeFile } from "fs/promises"
+import { dirname, extname, join } from "path"
+import { fileURLToPath } from "url"
+import bunLock from "../bun.lock" assert { type: "jsonc" }
+import currentPackage from "../package.json" assert { type: "json" }
 
-const importRegex = /(?:from|import)\s*['"]([^'"]+)['"];/g;
+const importRegex = /(?:from|import)\s*['"]([^'"]+)['"];/g
 
 /**
  * Strips comments from the given code.
@@ -12,7 +12,7 @@ const importRegex = /(?:from|import)\s*['"]([^'"]+)['"];/g;
  * @returns {string} - The code without comments.
  */
 function stripComments(code) {
-  return code.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
+  return code.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "")
 }
 
 /**
@@ -21,21 +21,21 @@ function stripComments(code) {
  * @returns {Promise<string[]>} - A promise that resolves to an array of file paths.
  */
 async function getJsFilesRecursively(dir) {
-  let results = [];
-  const list = await readdir(dir, { withFileTypes: true });
+  let results = []
+  const list = await readdir(dir, { withFileTypes: true })
 
   for (const dirent of list) {
-    const filePath = join(dir, dirent.name);
+    const filePath = join(dir, dirent.name)
 
     if (dirent.isDirectory()) {
-      const nested = await getJsFilesRecursively(filePath);
-      results = results.concat(nested);
+      const nested = await getJsFilesRecursively(filePath)
+      results = results.concat(nested)
     } else if (extname(filePath) === ".mjs") {
-      results.push(filePath);
+      results.push(filePath)
     }
   }
 
-  return results;
+  return results
 }
 
 /**
@@ -44,23 +44,23 @@ async function getJsFilesRecursively(dir) {
  * @returns {Promise<Set<string>>} - A promise that resolves to a set of external dependencies.
  */
 async function extractExternalDependencies(filePath) {
-  const content = await readFile(filePath, "utf8");
-  const cleaned = stripComments(content);
-  const dependencies = new Set();
-  let match;
+  const content = await readFile(filePath, "utf8")
+  const cleaned = stripComments(content)
+  const dependencies = new Set()
+  let match
 
   while ((match = importRegex.exec(cleaned)) !== null) {
-    const importPath = match[1];
+    const importPath = match[1]
     const dep = importPath.startsWith("@")
       ? importPath.split("/").slice(0, 2).join("/")
-      : importPath.split("/")[0];
+      : importPath.split("/")[0]
 
     if (!dep.startsWith(".") && !dep.startsWith("node")) {
-      dependencies.add(dep);
+      dependencies.add(dep)
     }
   }
 
-  return dependencies;
+  return dependencies
 }
 
 /**
@@ -69,21 +69,21 @@ async function extractExternalDependencies(filePath) {
  * @returns {Promise<string[]>} - A promise that resolves to an array of external dependencies.
  */
 async function getAllExternalDependencies(basePath) {
-  const jsFiles = await getJsFilesRecursively(basePath);
-  const allDeps = new Set();
+  const jsFiles = await getJsFilesRecursively(basePath)
+  const allDeps = new Set()
 
   for (const file of jsFiles) {
-    const deps = await extractExternalDependencies(file);
-    deps.forEach((dep) => allDeps.add(dep));
+    const deps = await extractExternalDependencies(file)
+    deps.forEach((dep) => allDeps.add(dep))
   }
 
-  return Array.from(allDeps);
+  return Array.from(allDeps)
 }
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
-const targetDir = join(__dirname, "..", "./dist");
+const targetDir = join(__dirname, "..", "./dist")
 
 getAllExternalDependencies(targetDir).then(async (deps) => {
   // Create a package.json file with the dependencies
@@ -91,27 +91,27 @@ getAllExternalDependencies(targetDir).then(async (deps) => {
     name: currentPackage.name,
     version: currentPackage.version,
     dependencies: {},
-  };
+  }
 
   deps.forEach((dep) => {
-    const bunLockEntry = bunLock.packages[dep]?.[0];
+    const bunLockEntry = bunLock.packages[dep]?.[0]
 
     // Use the version from bun.lock if available
     if (bunLockEntry) {
-      packageJson.dependencies[dep] = bunLockEntry.split("@").pop();
+      packageJson.dependencies[dep] = bunLockEntry.split("@").pop()
     } else {
-      packageJson.dependencies[dep] = "latest";
+      packageJson.dependencies[dep] = "latest"
     }
-  });
+  })
 
   // Removes the "bun:" dependency prefix if it exists
   Object.keys(packageJson.dependencies).forEach((key) => {
     if (key.startsWith("bun:")) {
-      delete packageJson.dependencies[key];
+      delete packageJson.dependencies[key]
     }
-  });
+  })
 
   // Write the package.json file
-  const packageJsonPath = join(__dirname, "..", "./dist/package.json");
-  await writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
-});
+  const packageJsonPath = join(__dirname, "..", "./dist/package.json")
+  await writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2))
+})

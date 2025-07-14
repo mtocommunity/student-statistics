@@ -1,5 +1,5 @@
-import logger from "@/logger";
-import { registerSW } from "virtual:pwa-register";
+import logger from "@/logger"
+import { registerSW } from "virtual:pwa-register"
 
 window.addEventListener("load", () => {
   registerSW({
@@ -13,16 +13,16 @@ window.addEventListener("load", () => {
               cacheName.startsWith("static-resources")
             )
               caches.delete(cacheName).then(() => {
-                logger.info(`Cache ${cacheName} cleared`);
-              });
-          });
-        });
+                logger.info(`Cache ${cacheName} cleared`)
+              })
+          })
+        })
     },
     onNeedRefresh() {
-      logger.info("PWA application needs refresh");
+      logger.info("PWA application needs refresh")
     },
     onOfflineReady() {
-      logger.info("PWA application ready to work offline");
+      logger.info("PWA application ready to work offline")
     },
-  });
-});
+  })
+})

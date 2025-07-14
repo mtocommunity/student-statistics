@@ -8,6 +8,8 @@ export default {
   ],
   printWidth: 80,
   tabWidth: 2,
+  semi: false,
+  trailingComma: "es5",
   proseWrap: "always",
   overrides: [
     {
@@ -19,4 +21,4 @@ export default {
     },
   ],
   tailwindFunctions: ["tw", "tv", "cn", "clsx", "twMerge", "cva"],
-};
+}
