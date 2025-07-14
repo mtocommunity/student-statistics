@@ -28,7 +28,7 @@ export function StudentsPassed({
         setStudentsPassed(res.data)
       }
     })()
-  }, [])
+  }, [exam])
 
   if (studentsPassed === null) {
     return <div>Loading...</div>

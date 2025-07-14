@@ -28,7 +28,7 @@ export function QuestionsScores({
         setQuestions(res.data.questions)
       }
     })()
-  }, [])
+  }, [exam])
 
   if (questions === null) {
     return <div>Loading...</div>
