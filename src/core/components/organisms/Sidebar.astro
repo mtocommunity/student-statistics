@@ -56,8 +56,8 @@ if (index === -1) index = -3
   <nav
     id="menu"
     class:list={[
-      "no-scrollbar hidden w-16 flex-1 flex-col overflow-y-auto transition-[width]",
-      "lg:flex lg:w-22",
+      "no-scrollbar invisible absolute w-16 flex-1 flex-col overflow-y-auto transition-[width]",
+      "lg:visible lg:static lg:flex lg:w-22",
     ]}
   >
     <button
@@ -235,7 +235,7 @@ if (index === -1) index = -3
 
     #menu-toggle:checked {
       & ~ #menu {
-        @apply bg-primary-950 absolute top-0 left-0 z-20 flex min-h-svh w-72;
+        @apply bg-primary-950 visible absolute top-0 left-0 z-20 min-h-svh w-72;
 
         & #menu-close-button {
           @apply block;
