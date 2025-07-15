@@ -128,6 +128,7 @@ function ChartTooltipContent({
     nameKey?: string
     labelKey?: string
     color?: string
+    active?: boolean
   } & Omit<
     RechartsPrimitive.DefaultTooltipContentProps<ValueType, NameType>,
     "accessibilityLayer"
