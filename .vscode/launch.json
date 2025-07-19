@@ -3,20 +3,12 @@
   "configurations": [
     {
       "name": "Student Statistics (Server) 🐞",
-      "command": "bun run dev --host",
       "request": "launch",
-      "type": "node-terminal",
+      "type": "bun",
+      "program": "dev",
+      "args": ["--host"],
+      "cwd": "${workspaceFolder}",
       "internalConsoleOptions": "neverOpen",
-      "presentation": {
-        "hidden": true
-      }
-    },
-    {
-      "name": "Student Statistics (Browser - MS Edge) 🐞",
-      "request": "launch",
-      "type": "msedge",
-      "url": "http://localhost:4321",
-      "webRoot": "${workspaceFolder}",
       "presentation": {
         "hidden": true
       }
@@ -34,15 +26,7 @@
   ],
   "compounds": [
     {
-      "name": "Student Statistics (Server + Browser) 🐞 Windows",
-      "configurations": [
-        "Student Statistics (Server) 🐞",
-        "Student Statistics (Browser - MS Edge) 🐞"
-      ],
-      "stopAll": true
-    },
-    {
-      "name": "Student Statistics (Server + Browser) 🐞 Linux/Mac",
+      "name": "Student Statistics (Server + Browser) 🐞",
       "configurations": [
         "Student Statistics (Server) 🐞",
         "Student Statistics (Browser - Chrome) 🐞"

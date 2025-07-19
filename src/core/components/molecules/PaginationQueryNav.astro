@@ -5,24 +5,23 @@ import ChevronRight from "@assets/svg/lu-chevron-right.svg"
 interface Props {
   page: number
   totalPages: number
-  baseUrl: string
 }
 
-const { page, totalPages, baseUrl } = Astro.props
+const { page, totalPages } = Astro.props
 
 // Pagination
 // - Previous page
 const previousPage = page - 1
 const hasPreviousPage = page > 1
 
-const previousPageUrl = new URL(baseUrl, Astro.url)
+const previousPageUrl = new URL(Astro.url)
 previousPageUrl.searchParams.set("page", previousPage.toString())
 
 // - Next page
 const nextPage = page + 1
 const hasNextPage = nextPage <= totalPages
 
-const nextPageUrl = new URL(baseUrl, Astro.url)
+const nextPageUrl = new URL(Astro.url)
 nextPageUrl.searchParams.set("page", nextPage.toString())
 
 // - Pages to display
@@ -39,6 +38,13 @@ if (isOverflowAtStart && isOverflowAtEnd) {
 } else {
   pages.push(...Array.from({ length: totalPages }, (_, i) => i + 1))
 }
+
+// First and last href
+const firstPageUrl = new URL(Astro.url)
+firstPageUrl.searchParams.set("page", "1")
+
+const lastPageUrl = new URL(Astro.url)
+lastPageUrl.searchParams.set("page", totalPages.toString())
 ---
 
 <nav>
@@ -58,7 +64,7 @@ if (isOverflowAtStart && isOverflowAtEnd) {
       isOverflowAtStart && (
         <>
           <li style={{ viewTransitionName: "pagination-first" }}>
-            <a href={`${baseUrl}?page=1`}>1</a>
+            <a href={firstPageUrl.toString()}>1</a>
           </li>
           <li>
             <span class="pagination-overflow">...</span>
@@ -73,7 +79,7 @@ if (isOverflowAtStart && isOverflowAtEnd) {
         const isActive = pageNumber === page
 
         // URL for the page
-        const url = new URL(baseUrl, Astro.url)
+        const url = new URL(Astro.url)
         url.searchParams.set("page", pageNumber.toString())
 
         // Transition name
@@ -106,7 +112,7 @@ if (isOverflowAtStart && isOverflowAtEnd) {
             <span class="pagination-overflow">...</span>
           </li>
           <li style={{ viewTransitionName: "pagination-last" }}>
-            <a href={`${baseUrl}?page=${totalPages}`}>{totalPages}</a>
+            <a href={lastPageUrl.toString()}>{totalPages}</a>
           </li>
         </>
       )

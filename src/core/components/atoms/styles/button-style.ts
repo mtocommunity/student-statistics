@@ -1,7 +1,7 @@
 import { tv, type VariantProps } from "tailwind-variants"
 
 export const buttonVariants = tv({
-  base: "group flex cursor-pointer items-center justify-center gap-1.5 rounded px-4 py-2 text-center font-medium transition-colors disabled:brightness-90 data-[loading]:cursor-auto data-[loading]:opacity-75",
+  base: "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive group shrink-0 cursor-pointer items-center justify-center gap-2 rounded px-4 py-2 text-center text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 disabled:brightness-90 data-[loading]:inline-flex data-[loading]:cursor-auto data-[loading]:gap-1.5 data-[loading]:opacity-75 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   variants: {
     variant: {
       solid: "",

@@ -11,7 +11,7 @@ import { ReactComponent as User } from "@assets/svg/lu-user.svg"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { actions, isInputError } from "astro:actions"
 import { navigate } from "astro:transitions/client"
-import { useRef, useState } from "preact/hooks"
+import { useRef, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 
@@ -176,14 +176,14 @@ export function RegisterForm() {
                 />
 
                 <Eye
-                  class={cn(
+                  className={cn(
                     svgInputClassname,
                     "z-10 peer-[[type=password]]:hidden hover:cursor-pointer"
                   )}
                   onClick={() => setPassword((prev) => !prev)}
                 />
                 <EyeOff
-                  class={cn(
+                  className={cn(
                     svgInputClassname,
                     "z-10 peer-[[type=text]]:hidden hover:cursor-pointer"
                   )}
@@ -217,14 +217,14 @@ export function RegisterForm() {
                 />
 
                 <Eye
-                  class={cn(
+                  className={cn(
                     svgInputClassname,
                     "z-10 peer-[[type=password]]:hidden hover:cursor-pointer"
                   )}
                   onClick={() => setShowConfirmPassword((prev) => !prev)}
                 />
                 <EyeOff
-                  class={cn(
+                  className={cn(
                     svgInputClassname,
                     "z-10 peer-[[type=text]]:hidden hover:cursor-pointer"
                   )}

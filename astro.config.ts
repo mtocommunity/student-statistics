@@ -1,5 +1,5 @@
 import node from "@astrojs/node"
-import preact from "@astrojs/preact"
+import react from "@astrojs/react"
 import svgr from "@svgr/rollup"
 import tailwindcss from "@tailwindcss/vite"
 import pwa from "@vite-pwa/astro"
@@ -11,7 +11,7 @@ export default defineConfig({
   site,
 
   integrations: [
-    preact({ compat: true }),
+    react(),
     pwa({
       mode: isDev ? "development" : "production",
       base: "/",
@@ -116,9 +116,6 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss(), svgr()],
-    ssr: {
-      noExternal: ["sonner", "react-hook-form", "recharts"],
-    },
     server: {
       allowedHosts: ["dev.martindotpy.dev"],
     },

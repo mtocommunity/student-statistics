@@ -1,14 +1,19 @@
 ---
 import HomeLayout from "@/core/layout/HomeLayout.astro"
+import { pageQuerySchema } from "@/core/schema/query-schema"
 import SemesterMainContent from "@/semester/components/contents/SemesterMainContent.astro"
 import BookmarkCheck from "@assets/svg/lu-bookmark-check.svg"
 
 // Context
 const { searchParams } = Astro.url
-const pageRaw = searchParams.get("page")
+
+// Content
 const totalPages = 250
-let page = pageRaw ? parseInt(pageRaw, 10) : 1
-page = isNaN(page) ? 1 : page
+
+// Page parameters
+let { data: page = 1 } = await pageQuerySchema.safeParseAsync(
+  searchParams.get("page")
+)
 
 // Verify if page is a valid number
 if (page > totalPages) {

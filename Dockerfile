@@ -29,7 +29,6 @@ COPY --from=builder /app/dist /app/dist
 RUN mv dist/package.json package.json
 
 RUN bun --bun install --production --ci
-RUN bun --bun add react@npm:@preact/compat react-dom@npm:@preact/compat
 
 RUN rm -rf package.json
 

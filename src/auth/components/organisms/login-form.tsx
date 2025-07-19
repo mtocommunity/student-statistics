@@ -6,9 +6,9 @@ import { ReactComponent as EyeOff } from "@assets/svg/lu-eye-off.svg"
 import { ReactComponent as Eye } from "@assets/svg/lu-eye.svg"
 import { ReactComponent as User } from "@assets/svg/lu-user.svg"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { navigate } from "astro/virtual-modules/transitions-router.js"
 import { actions } from "astro:actions"
-import { useRef, useState } from "preact/hooks"
+import { navigate } from "astro:transitions/client"
+import { useRef, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 
@@ -104,14 +104,14 @@ export function LoginForm() {
                 />
 
                 <Eye
-                  class={cn(
+                  className={cn(
                     svgInputClassname,
                     "z-10 peer-[[type=password]]:hidden hover:cursor-pointer"
                   )}
                   onClick={() => setPassword((prev) => !prev)}
                 />
                 <EyeOff
-                  class={cn(
+                  className={cn(
                     svgInputClassname,
                     "z-10 peer-[[type=text]]:hidden hover:cursor-pointer"
                   )}

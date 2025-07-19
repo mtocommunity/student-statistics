@@ -83,7 +83,7 @@ uso de tecnologías. Además, el soporte para el idioma inglés se vuelve opcion
 - Typescript
 - Bun JS
 - Astro
-- Preact
+- React
 - Tailwind CSS
 
 ### 🔧 Especificaciones técnicas adicionales
