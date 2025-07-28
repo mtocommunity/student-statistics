@@ -171,6 +171,7 @@ export function RegisterForm() {
                   type={showPassword ? "text" : "password"}
                   className={inputClassname}
                   placeholder="••••••••"
+                  autoComplete="new-password"
                   {...field}
                   {...(error && { "aria-invalid": true })}
                 />
@@ -212,6 +213,7 @@ export function RegisterForm() {
                   type={showConfirmPassword ? "text" : "password"}
                   className={inputClassname}
                   placeholder="••••••••"
+                  autoComplete="new-password"
                   {...field}
                   {...(error && { "aria-invalid": true })}
                 />
@@ -244,6 +246,7 @@ export function RegisterForm() {
         ref={buttonRef}
         className="mt-2"
         style={{ viewTransitionName: "auth-button" }}
+        type="submit"
       >
         Registrarme
       </Button>

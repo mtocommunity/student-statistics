@@ -11,11 +11,15 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   ButtonVariants
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, children, colorSchema, variant, ...props }, ref) => {
+  (
+    { className, children, colorSchema, variant, type = "button", ...props },
+    ref
+  ) => {
     return (
       <button
         ref={ref}
         className={cn(buttonVariants({ colorSchema, variant }), className)}
+        type={type}
         {...props}
       >
         <Spinner className={spinnerVariants({ colorSchema })} />

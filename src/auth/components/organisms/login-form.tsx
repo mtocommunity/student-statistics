@@ -12,8 +12,10 @@ import { useRef, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 
+// Styles
 const { inputClassname, labelClassname, svgInputClassname } = authFormStyles
 
+// Component
 export function LoginForm() {
   // Password
   const [showPassword, setPassword] = useState(false)
@@ -131,6 +133,7 @@ export function LoginForm() {
         ref={buttonRef}
         className="mt-2"
         style={{ viewTransitionName: "auth-button" }}
+        type="submit"
       >
         Ingresar
       </Button>
