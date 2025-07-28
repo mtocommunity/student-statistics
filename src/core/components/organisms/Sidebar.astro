@@ -125,24 +125,44 @@ if (index === -1) index = -3
       </Link>
     </footer>
   </nav>
+</aside>
 
-  <script>
-    import { sidebarLinkMatch } from "@/core/components/organisms/auxiliar/sidebar-aux"
-    import { controlBodyScrollLock } from "@/lib/body-scroll"
-    import { $, $$ } from "@/lib/dom-selector"
+<script>
+  import { sidebarLinkMatch } from "@/core/components/organisms/auxiliar/sidebar-aux"
+  import { controlBodyScrollLock } from "@/lib/body-scroll"
+  import { $, $$ } from "@/lib/dom-selector"
 
+  function initialize() {
     // Elements
-    const $overlay = $<HTMLDivElement>("#home-aside .overlay")!
-    const $homeAside = $<HTMLDivElement>("#home-aside")!
-    const $menuToggle = $<HTMLInputElement>("#menu-toggle")!
-    const $menuButton = $<HTMLLabelElement>("#menu-button")!
-    const $menuCloseButton = $<HTMLButtonElement>("#menu-close-button")!
+    const $overlay = $<HTMLDivElement>("#home-aside .overlay")
+    const $homeAside = $<HTMLDivElement>("#home-aside")
+    const $menuToggle = $<HTMLInputElement>("#menu-toggle")
+    const $menuButton = $<HTMLLabelElement>("#menu-button")
+    const $menuCloseButton = $<HTMLButtonElement>("#menu-close-button")
+
+    if (
+      !$overlay ||
+      !$homeAside ||
+      !$menuToggle ||
+      !$menuButton ||
+      !$menuCloseButton
+    )
+      return
 
     // Scroll
     const { lockScroll, unlockScroll } = controlBodyScrollLock()
 
     // Toggle the navigation menu
     function toggleMenu(bool: boolean) {
+      if (
+        !$overlay ||
+        !$homeAside ||
+        !$menuToggle ||
+        !$menuButton ||
+        !$menuCloseButton
+      )
+        return
+
       $menuToggle.checked = bool
       $menuButton.setAttribute("aria-expanded", bool.toString())
 
@@ -204,64 +224,64 @@ if (index === -1) index = -3
       $link.addEventListener("click", () => toggleMenu(false))
     )
 
-    document.addEventListener("astro:after-swap", () => {
-      const currentPathname = window.location.pathname
+    const currentPathname = window.location.pathname
 
-      let isFound = false
+    let isFound = false
 
-      $links.forEach(($link, i) => {
-        const href = $link.getAttribute("href")
+    $links.forEach(($link, i) => {
+      const href = $link.getAttribute("href")
 
-        if (!href) return
+      if (!href) return
 
-        const isCurrent = sidebarLinkMatch(href, currentPathname)
+      const isCurrent = sidebarLinkMatch(href, currentPathname)
 
-        if (isCurrent) {
-          $link.setAttribute("data-current", "")
+      if (isCurrent) {
+        $link.setAttribute("data-current", "")
 
-          $sidebarHighlight.style.setProperty("--position-index", i.toString())
+        $sidebarHighlight.style.setProperty("--position-index", i.toString())
 
-          isFound = true
-        } else $link.removeAttribute("data-current")
-      })
-
-      if (!isFound)
-        $sidebarHighlight.style.setProperty("--position-index", "-3")
+        isFound = true
+      } else $link.removeAttribute("data-current")
     })
-  </script>
 
-  <style>
-    @reference "@styles";
+    if (!isFound) $sidebarHighlight.style.setProperty("--position-index", "-3")
+  }
 
-    #menu-toggle:checked {
-      & ~ #menu {
-        @apply bg-primary-950 visible absolute top-0 left-0 z-20 min-h-svh w-72;
+  initialize()
+  document.addEventListener("astro:after-swap", initialize)
+</script>
 
-        & #menu-close-button {
-          @apply block;
-        }
+<style>
+  @reference "@styles";
 
-        & a {
-          @apply flex-row justify-start gap-4 px-5 text-base;
+  #menu-toggle:checked {
+    & ~ #menu {
+      @apply bg-primary-950 visible absolute top-0 left-0 z-20 min-h-svh w-72;
 
-          & span {
-            @apply text-base;
-          }
-        }
+      & #menu-close-button {
+        @apply block;
+      }
 
-        & #logout-text {
-          @apply inline-block;
+      & a {
+        @apply flex-row justify-start gap-4 px-5 text-base;
+
+        & span {
+          @apply text-base;
         }
       }
 
-      & ~ .overlay {
-        @apply fixed inset-0 z-10 block;
-        background-color: color-mix(
-          in srgb,
-          var(--color-primary-950) 30%,
-          transparent 100%
-        );
+      & #logout-text {
+        @apply inline-block;
       }
     }
-  </style>
-</aside>
+
+    & ~ .overlay {
+      @apply fixed inset-0 z-10 block;
+      background-color: color-mix(
+        in srgb,
+        var(--color-primary-950) 30%,
+        transparent 100%
+      );
+    }
+  }
+</style>
