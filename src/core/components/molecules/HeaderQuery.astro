@@ -1,0 +1,72 @@
+---
+import { Button } from "@/core/components/atoms/button"
+import { HeaderQueryToggle } from "@/core/components/atoms/header-query-toggle"
+import type { OrderQuery } from "@/core/schema/query-schema"
+import { LuSearch } from "react-icons/lu"
+
+// Context
+interface Props {
+  q?: string
+  orderQuery?: OrderQuery
+}
+
+const { q, orderQuery } = Astro.props
+
+// Verify if has query defined
+const hasQuery = q !== undefined && q.trim().length > 0
+
+// Title
+const orderTitle = `Ordenar de manera ${orderQuery === "asc" ? "descendente" : "ascendente"}`
+---
+
+<header>
+  <form
+    id="search-form"
+    method="get"
+    class="flex flex-1 items-center justify-end gap-2"
+  >
+    <input
+      type="text"
+      class="w-full max-w-60 min-w-24 py-2 text-sm"
+      name="q"
+      placeholder="Buscar..."
+      autocomplete="off"
+      {...hasQuery && {
+        value: q,
+        autofocus: true,
+        "data-has-query": hasQuery,
+      }}
+    />
+    <Button client:load title="Buscar" className="h-9 px-3">
+      <LuSearch />
+    </Button>
+
+    <HeaderQueryToggle client:load {orderQuery} {orderTitle} />
+  </form>
+
+  <slot />
+</header>
+
+<script>
+  import { $ } from "@/lib/dom-selector"
+
+  function initialize() {
+    // Get elements
+    const input = $<HTMLInputElement>("input[name='q']")
+
+    if (!input) return
+
+    // Check if input has a query
+    const hasQuery = input.dataset.hasQuery === "true"
+
+    if (!hasQuery) return
+
+    // Set focus and add selection range
+    input.focus()
+    input.setSelectionRange(input.value.length, input.value.length)
+  }
+
+  // Initialize the component
+  initialize()
+  document.addEventListener("astro:after-swap", initialize)
+</script>

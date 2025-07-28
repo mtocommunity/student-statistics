@@ -1,0 +1,14 @@
+---
+import type { Semester } from "@/semester/schema/semester-schema"
+
+// Context
+interface Props {
+  semester: Semester
+}
+
+const { semester } = Astro.props
+---
+
+<a href=`/semester/${semester.id}` class="group flex">
+  <article></article>
+</a>

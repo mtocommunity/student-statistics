@@ -1,27 +1,62 @@
 ---
 import HomeLayout from "@/core/layout/HomeLayout.astro"
-import { pageQuerySchema } from "@/core/schema/query-schema"
+import { db } from "@/core/repository"
+import {
+  orderQuerySchema,
+  pageQuerySchema,
+  searchQuerySchema,
+} from "@/core/schema/query-schema"
 import SemesterMainContent from "@/semester/components/contents/SemesterMainContent.astro"
+import { semesterTable } from "@/semester/schema/semester-schema"
 import BookmarkCheck from "@assets/svg/lu-bookmark-check.svg"
+import { asc, count, desc, sql } from "drizzle-orm"
+
+// Constants
+const PAGE_LIMIT = 12
 
 // Context
 const { searchParams } = Astro.url
+const { user } = Astro.locals
 
-// Content
-const totalPages = 250
+// Query parameters
+let [{ data: page = 1 }, { data: q = "" }, { data: orderQuery }] =
+  await Promise.all([
+    pageQuerySchema.safeParseAsync(searchParams.get("page")),
+    searchQuerySchema.safeParseAsync(searchParams.get("q")),
+    orderQuerySchema.safeParseAsync(searchParams.get("order")),
+  ])
 
-// Page parameters
-let { data: page = 1 } = await pageQuerySchema.safeParseAsync(
-  searchParams.get("page")
-)
+// Count all semesters
+const totalSemesters = await db
+  .select({ count: count() })
+  .from(semesterTable)
+  .where(
+    sql`${semesterTable.name} like ${`%${q}%`} and ${semesterTable.userCode} = ${user.code}`
+  )
+
+const { count: totalCount } = totalSemesters[0] ?? { count: 0 }
+const totalPages = Math.ceil(totalCount / PAGE_LIMIT)
 
 // Verify if page is a valid number
-if (page > totalPages) {
+if (totalPages > 0 && page > totalPages) {
   page = 1
   searchParams.set("page", page.toString())
 
   return Astro.redirect(Astro.url.toString(), 302)
 }
+
+// Search the semesters
+const semesters = await db
+  .select()
+  .from(semesterTable)
+  .where(
+    sql`${semesterTable.name} like ${`%${q ?? ""}%`} and ${semesterTable.userCode} = ${user.code}`
+  )
+  .orderBy(
+    orderQuery === "asc" ? asc(semesterTable.name) : desc(semesterTable.name)
+  )
+  .limit(PAGE_LIMIT)
+  .offset((page - 1) * PAGE_LIMIT)
 ---
 
 <HomeLayout title="Ciclos">
@@ -33,5 +68,5 @@ if (page > totalPages) {
 
   <div role="none" class="bg-primary-400 my-4 h-px"></div>
 
-  <SemesterMainContent {page} {totalPages} />
+  <SemesterMainContent {semesters} {page} {totalPages} {q} {orderQuery} />
 </HomeLayout>

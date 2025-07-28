@@ -1,31 +1,48 @@
 ---
-import { HeaderQuery } from "@/core/components/molecules/header-query"
+import HeaderQuery from "@/core/components/molecules/HeaderQuery.astro"
 import PaginationQueryNav from "@/core/components/molecules/PaginationQueryNav.astro"
 import Section from "@/core/components/organisms/data/Section.astro"
-import { orderQuerySchema, searchQuerySchema } from "@/core/schema/query-schema"
+import type { OrderQuery } from "@/core/schema/query-schema"
+import SemesterCard from "@/semester/components/molecules/SemesterCard.astro"
+import { type Semester } from "@/semester/schema/semester-schema"
+import { LuPackageOpen } from "react-icons/lu"
 
 // Context
 interface Props {
+  semesters: Semester[]
   page: number
   totalPages: number
+  q?: string
+  orderQuery?: OrderQuery
 }
 
-const { page, totalPages } = Astro.props
-const { searchParams } = Astro.url
-
-// Query parameters
-const { data: q } = await searchQuerySchema.safeParseAsync(
-  searchParams.get("q")
-)
-const { data: orderQuery } = await orderQuerySchema.safeParseAsync(
-  searchParams.get("order")
-)
+const { semesters, page, totalPages, q, orderQuery } = Astro.props
+const hasSemesters = semesters.length > 0
 ---
 
 <Section class="flex w-full max-w-none flex-1 flex-col px-0">
-  <HeaderQuery client:load {q} {orderQuery} />
+  <HeaderQuery {q} {orderQuery} />
 
-  <div class="flex-1"></div>
+  <div
+    class:list={[
+      "flex-1 pt-4",
+      {
+        "flex flex-col items-center justify-center gap-4": !hasSemesters,
+        "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4": hasSemesters,
+      },
+    ]}
+  >
+    {
+      hasSemesters ? (
+        semesters.map((semester) => <SemesterCard semester={semester} />)
+      ) : (
+        <>
+          <LuPackageOpen className="size-18 stroke-1" />
+          Parece que aún no ha creado un ciclo.
+        </>
+      )
+    }
+  </div>
 
   <PaginationQueryNav {page} {totalPages} />
 </Section>
