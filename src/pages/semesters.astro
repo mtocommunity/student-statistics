@@ -19,19 +19,20 @@ const { searchParams } = Astro.url
 const { user } = Astro.locals
 
 // Query parameters
-let [{ data: page = 1 }, { data: q = "" }, { data: orderQuery }] =
-  await Promise.all([
+let [{ data: page = 1 }, { data: q }, { data: orderQuery }] = await Promise.all(
+  [
     pageQuerySchema.safeParseAsync(searchParams.get("page")),
     searchQuerySchema.safeParseAsync(searchParams.get("q")),
     orderQuerySchema.safeParseAsync(searchParams.get("order")),
-  ])
+  ]
+)
 
 // Count all semesters
 const totalSemesters = await db
   .select({ count: count() })
   .from(semesterTable)
   .where(
-    sql`${semesterTable.name} like ${`%${q}%`} and ${semesterTable.userCode} = ${user.code}`
+    sql`${semesterTable.name} like ${`%${q ?? ""}%`} and ${semesterTable.userCode} = ${user.code}`
   )
 
 const { count: totalCount } = totalSemesters[0] ?? { count: 0 }
