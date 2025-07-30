@@ -1,3 +1,16 @@
+# Git
+.git
+.gitignore
+
+# Husky
+.husky/
+
+# Github
+.github/
+
+# Doc
+doc/
+
 # Build
 dist/
 .astro/
@@ -23,9 +36,6 @@ pnpm-debug.log*
 # IDE / Editor
 .vscode/
 .idea/
-
-# Husky
-.husky/
 
 # Dev
 dev-dist/
