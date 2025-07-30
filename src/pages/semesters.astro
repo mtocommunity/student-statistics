@@ -6,7 +6,7 @@ import {
   pageQuerySchema,
   searchQuerySchema,
 } from "@/core/schema/query-schema"
-import SemesterMainContent from "@/semester/components/contents/SemesterMainContent.astro"
+import SemesterMainSection from "@/semester/components/sections/SemesterMainSection.astro"
 import { semesterTable } from "@/semester/schema/semester-schema"
 import BookmarkCheck from "@assets/svg/lu-bookmark-check.svg"
 import { asc, count, desc, sql } from "drizzle-orm"
@@ -69,5 +69,5 @@ const semesters = await db
 
   <div role="none" class="bg-primary-400 my-4 h-px"></div>
 
-  <SemesterMainContent {semesters} {page} {totalPages} {q} {orderQuery} />
+  <SemesterMainSection {semesters} {page} {totalPages} {q} {orderQuery} />
 </HomeLayout>
