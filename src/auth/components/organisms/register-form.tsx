@@ -1,29 +1,20 @@
-import { authFormStyles } from "@/auth/components/organisms/styles/auth-form-styles"
 import {
   registerSchema,
   type RegisterData,
 } from "@/auth/schema/register-schema"
 import { Button } from "@/core/components/atoms/button"
-import { cn } from "@/lib/tailwind"
-import { ReactComponent as EyeOff } from "@assets/svg/lu-eye-off.svg"
-import { ReactComponent as Eye } from "@assets/svg/lu-eye.svg"
+import { PasswordInput } from "@/form/components/molecules/password-input"
+import { TextInput } from "@/form/components/molecules/text-input"
 import { ReactComponent as User } from "@assets/svg/lu-user.svg"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { actions, isInputError } from "astro:actions"
 import { navigate } from "astro:transitions/client"
-import { useRef, useState } from "react"
-import { Controller, useForm } from "react-hook-form"
+import { useRef } from "react"
+import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-
-// Styles
-const { inputClassname, labelClassname, svgInputClassname } = authFormStyles
 
 // Component
 export function RegisterForm() {
-  // Password
-  const [showPassword, setPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-
   // Button
   const buttonRef = useRef<HTMLButtonElement | null>(null)
 
@@ -74,173 +65,45 @@ export function RegisterForm() {
       className="grid w-full gap-3 text-sm"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <label htmlFor="code" className={labelClassname}>
-        Código
-        <Controller
-          control={control}
-          name="code"
-          render={({ field, fieldState: { error } }) => (
-            <>
-              <div className="relative">
-                <input
-                  id="code"
-                  type="text"
-                  placeholder="C12345"
-                  className={inputClassname}
-                  autoComplete="username"
-                  autoFocus
-                  {...field}
-                  {...(error && { "aria-invalid": true })}
-                />
+      <TextInput
+        control={control}
+        name="code"
+        label="Código"
+        inputProps={{
+          placeholder: "C12345",
+          autoComplete: "username",
+          autoFocus: true,
+        }}
+        icon={User}
+      />
 
-                <User className={cn(svgInputClassname, "peer")} />
-              </div>
+      <TextInput
+        control={control}
+        name="name"
+        label="Nombre"
+        inputProps={{
+          placeholder: "Luis",
+          autoComplete: "name",
+        }}
+      />
 
-              {error && (
-                <span className="text-xs text-red-400">{error.message}</span>
-              )}
-            </>
-          )}
-        />
-      </label>
+      <TextInput
+        control={control}
+        name="lastname"
+        label="Apellidos"
+        inputProps={{
+          placeholder: "Bazán",
+          autoComplete: "name",
+        }}
+      />
 
-      <label htmlFor="name" className={labelClassname}>
-        Nombre
-        <Controller
-          control={control}
-          name="name"
-          render={({ field, fieldState: { error } }) => (
-            <>
-              <div className="relative">
-                <input
-                  id="name"
-                  type="text"
-                  placeholder="Luis"
-                  className={inputClassname}
-                  autoComplete="name"
-                  {...field}
-                  {...(error && { "aria-invalid": true })}
-                />
-              </div>
+      <PasswordInput control={control} name="password" label="Contraseña" />
 
-              {error && (
-                <span className="text-xs text-red-400">{error.message}</span>
-              )}
-            </>
-          )}
-        />
-      </label>
-
-      <label htmlFor="lastname" className={labelClassname}>
-        Apellidos
-        <Controller
-          control={control}
-          name="lastname"
-          render={({ field, fieldState: { error } }) => (
-            <>
-              <div className="relative">
-                <input
-                  id="lastname"
-                  type="text"
-                  placeholder="Bazán"
-                  className={inputClassname}
-                  autoComplete="name"
-                  {...field}
-                  {...(error && { "aria-invalid": true })}
-                />
-              </div>
-
-              {error && (
-                <span className="text-xs text-red-400">{error.message}</span>
-              )}
-            </>
-          )}
-        />
-      </label>
-
-      <label htmlFor="password" className={labelClassname}>
-        Contraseña
-        <Controller
-          control={control}
-          name="password"
-          render={({ field, fieldState: { error } }) => (
-            <>
-              <div className="relative">
-                <input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  className={inputClassname}
-                  placeholder="••••••••"
-                  autoComplete="new-password"
-                  {...field}
-                  {...(error && { "aria-invalid": true })}
-                />
-
-                <Eye
-                  className={cn(
-                    svgInputClassname,
-                    "z-10 peer-[[type=password]]:hidden hover:cursor-pointer"
-                  )}
-                  onClick={() => setPassword((prev) => !prev)}
-                />
-                <EyeOff
-                  className={cn(
-                    svgInputClassname,
-                    "z-10 peer-[[type=text]]:hidden hover:cursor-pointer"
-                  )}
-                  onClick={() => setPassword((prev) => !prev)}
-                />
-              </div>
-
-              {error && (
-                <span className="text-xs text-red-400">{error.message}</span>
-              )}
-            </>
-          )}
-        />
-      </label>
-
-      <label htmlFor="confirmPassword" className={labelClassname}>
-        Confirmar contraseña
-        <Controller
-          control={control}
-          name="confirmPassword"
-          render={({ field, fieldState: { error } }) => (
-            <>
-              <div className="relative">
-                <input
-                  id="confirmPassword"
-                  type={showConfirmPassword ? "text" : "password"}
-                  className={inputClassname}
-                  placeholder="••••••••"
-                  autoComplete="new-password"
-                  {...field}
-                  {...(error && { "aria-invalid": true })}
-                />
-
-                <Eye
-                  className={cn(
-                    svgInputClassname,
-                    "z-10 peer-[[type=password]]:hidden hover:cursor-pointer"
-                  )}
-                  onClick={() => setShowConfirmPassword((prev) => !prev)}
-                />
-                <EyeOff
-                  className={cn(
-                    svgInputClassname,
-                    "z-10 peer-[[type=text]]:hidden hover:cursor-pointer"
-                  )}
-                  onClick={() => setShowConfirmPassword((prev) => !prev)}
-                />
-              </div>
-
-              {error && (
-                <span className="text-xs text-red-400">{error.message}</span>
-              )}
-            </>
-          )}
-        />
-      </label>
+      <PasswordInput
+        control={control}
+        name="confirmPassword"
+        label="Confirmar contraseña"
+      />
 
       <Button
         ref={buttonRef}

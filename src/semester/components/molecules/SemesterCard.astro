@@ -1,4 +1,10 @@
 ---
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/core/components/ui/card"
 import type { Semester } from "@/semester/schema/semester-schema"
 
 // Context
@@ -9,6 +15,22 @@ interface Props {
 const { semester } = Astro.props
 ---
 
-<a href=`/semester/${semester.id}` class="group flex">
-  <article></article>
+<a href=`/semester/${semester.id}`>
+  <Card className="h-full w-full rounded">
+    <CardHeader className="flex flex-1 flex-col">
+      <CardTitle className="text-3xl">
+        {semester.name}
+      </CardTitle>
+
+      <CardDescription className="mt-2">
+        Ultima actualización: {
+          semester.lastUpdateAt.toLocaleDateString("es-ES", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })
+        }
+      </CardDescription>
+    </CardHeader>
+  </Card>
 </a>

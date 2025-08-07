@@ -35,7 +35,7 @@ export const buttonVariants = tv({
     {
       variant: "solid",
       colorSchema: "success",
-      class: "bg-green-500 text-white hover:bg-green-600",
+      class: "bg-green-700 text-white hover:bg-green-800",
     },
     {
       variant: "solid",
