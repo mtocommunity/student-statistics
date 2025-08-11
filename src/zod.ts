@@ -134,6 +134,6 @@ z4.config({
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    return spanishErrorMap(issue, { defaultError: "Error de validación" })
+    return spanishErrorMap(issue, { defaultError: issue.message })
   },
 })
