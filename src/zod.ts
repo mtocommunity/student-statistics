@@ -1,4 +1,5 @@
 import { z, type ZodErrorMap } from "astro/zod"
+import z4 from "zod/v4"
 
 const spanishErrorMap: ZodErrorMap = (issue, context) => {
   let message: string
@@ -127,3 +128,12 @@ const spanishErrorMap: ZodErrorMap = (issue, context) => {
 }
 
 z.setErrorMap(spanishErrorMap)
+z4.config({
+  customError: (issue) => {
+    issue.type = issue.origin
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    return spanishErrorMap(issue, { defaultError: "Error de validación" })
+  },
+})
