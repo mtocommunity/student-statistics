@@ -1,5 +1,5 @@
 ---
-import { ActionsDataDialog } from "@/core/components/molecules/actions-data-dialog"
+import { ActionsDataDialog } from "@/core/components/molecules/actions-data-menu"
 import {
   Card,
   CardDescription,
@@ -17,7 +17,7 @@ const { semester } = Astro.props
 ---
 
 <article class="relative">
-  <a href=`/semester/${semester.id}`>
+  <a href=`/semesters/${semester.id}`>
     <Card className="h-full w-full rounded">
       <CardHeader className="flex flex-1 flex-col">
         <CardTitle className="mr-12 text-3xl">
