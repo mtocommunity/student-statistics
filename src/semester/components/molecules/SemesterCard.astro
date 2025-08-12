@@ -20,7 +20,7 @@ const { semester } = Astro.props
   <a href=`/semesters/${semester.id}`>
     <Card className="h-full w-full rounded">
       <CardHeader className="flex flex-1 flex-col">
-        <CardTitle className="mr-12 text-3xl">
+        <CardTitle className="mr-12 w-full truncate text-3xl">
           {semester.name}
         </CardTitle>
 
