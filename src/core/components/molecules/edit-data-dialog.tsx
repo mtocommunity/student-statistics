@@ -11,28 +11,38 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/core/components/ui/dialog"
 import { controlledInputFactory } from "@/form/components/input-factory"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { navigate } from "astro:transitions/client"
 import { useRef } from "react"
 import { useForm } from "react-hook-form"
-import { LuPlus } from "react-icons/lu"
 import { toast } from "sonner"
 import type z4 from "zod/v4"
 
 // Component
-interface CreateDataDialogProps {
+interface EditDataDialogProps {
   dataName: DataName
+  editData: z4.infer<
+    (typeof dataInfo)[keyof typeof dataInfo]["schema"]["update"]
+  >
+  open: boolean
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export function CreateDataDialog({ dataName }: CreateDataDialogProps) {
+export function EditDataDialog({
+  dataName,
+  editData,
+  open,
+  setOpen,
+}: EditDataDialogProps) {
   // Data info
   const {
     name,
-    schema: { create: createSchema },
+    schema: { update: updateSchema },
+    disabled: { update: updateDisabled } = {},
     labels,
-    action: { create: createAction },
+    action: { update: updateAction },
     postSuccess,
   } = dataInfo[dataName]
 
@@ -40,12 +50,13 @@ export function CreateDataDialog({ dataName }: CreateDataDialogProps) {
   const formRef = useRef<HTMLFormElement>(null)
   const closeDialogButtonRef = useRef<HTMLButtonElement>(null)
   const { control, handleSubmit, reset } = useForm({
-    resolver: zodResolver(createSchema),
+    resolver: zodResolver(updateSchema),
+    defaultValues: editData,
   })
 
   // Handle submit
-  const onSubmit = async (input: z4.infer<typeof createSchema>) => {
-    const { data, error } = await createAction(input)
+  const onSubmit = async (input: z4.infer<typeof updateSchema>) => {
+    const { data, error } = await updateAction(input)
 
     if (error) {
       console.error("Error creating data:", error)
@@ -56,34 +67,24 @@ export function CreateDataDialog({ dataName }: CreateDataDialogProps) {
     reset()
     closeDialogButtonRef.current?.click()
     postSuccess(data)
+    navigate(new URL(window.location.href).toString())
   }
 
   // Generate inputs
   const inputs = controlledInputFactory({
-    schema: createSchema,
+    schema: updateSchema,
+    disabled: updateDisabled,
     control,
     labels,
   })
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button>
-          <span className="flex items-center justify-center gap-1">
-            <LuPlus />
-
-            <span className="max-sm:sr-only">Crear</span>
-          </span>
-        </Button>
-      </DialogTrigger>
-
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Crear nuevo {name}</DialogTitle>
+          <DialogTitle>Editar {name}</DialogTitle>
 
-          <DialogDescription>
-            Completa el formulario para crear un nuevo {name}.
-          </DialogDescription>
+          <DialogDescription>Edita el registro de {name}.</DialogDescription>
         </DialogHeader>
 
         <form
@@ -101,7 +102,7 @@ export function CreateDataDialog({ dataName }: CreateDataDialogProps) {
           </DialogClose>
 
           <Button onClick={() => formRef.current?.requestSubmit()}>
-            Crear {name}
+            Editar {name}
           </Button>
         </DialogFooter>
       </DialogContent>

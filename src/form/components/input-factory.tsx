@@ -3,6 +3,14 @@ import type { Control } from "react-hook-form"
 import type { ZodObject } from "zod/v4"
 import type { $ZodShape, $ZodTypeDef } from "zod/v4/core"
 
+// Unsupported type error
+export class UnsupportedInputTypeError extends Error {
+  constructor(type: string) {
+    super(`Unsupported input type: ${type}`)
+    this.name = "UnsupportedInputTypeError"
+  }
+}
+
 // Default values for types
 const defaultValues: Partial<Record<$ZodTypeDef["type"], unknown>> = {
   string: "",
@@ -12,6 +20,9 @@ const defaultValues: Partial<Record<$ZodTypeDef["type"], unknown>> = {
 interface ControlledInputFactoryOptions<Shape extends $ZodShape = $ZodShape> {
   control: Control
   schema: ZodObject<Shape>
+  disabled?: {
+    [key in keyof Shape]?: boolean
+  }
   labels?: {
     [key in keyof Shape]?: string
   }
@@ -26,6 +37,7 @@ export function controlledInputFactory({
   schema,
   control,
   labels,
+  disabled = {},
 }: ControlledInputFactoryOptions): React.ReactElement[] {
   // Extract the shape of the validator
   const shape = schema.shape
@@ -34,11 +46,24 @@ export function controlledInputFactory({
   const inputs: React.ReactElement[] = []
 
   for (const [key, value] of Object.entries(shape)) {
-    const valueType = value._zod.def.type
+    let zodType = value._zod.def.type
+    let zodDefinition = value._zod.def
     const label = labels?.[key] ?? key
-    const defaultValue = defaultValues[valueType]
+    const defaultValue = defaultValues[zodType]
+    const isDisabled = disabled[key] ?? false
 
-    switch (valueType) {
+    while (
+      (zodType === "optional" || zodType === "nonoptional") &&
+      "innerType" in zodDefinition &&
+      zodDefinition.innerType &&
+      typeof zodDefinition.innerType === "object" &&
+      "def" in zodDefinition.innerType
+    ) {
+      zodDefinition = zodDefinition.innerType.def as $ZodTypeDef
+      zodType = zodDefinition.type
+    }
+
+    switch (zodType) {
       case "string":
         inputs.push(
           <TextInput
@@ -47,11 +72,32 @@ export function controlledInputFactory({
             name={key}
             label={label}
             defaultValue={defaultValue}
+            inputProps={{
+              readOnly: isDisabled,
+              tabIndex: isDisabled ? -1 : 0,
+            }}
+          />
+        )
+        break
+      case "number":
+        // TODO: Change to number input
+        inputs.push(
+          <TextInput
+            key={key}
+            control={control}
+            name={key}
+            label={label}
+            inputProps={{
+              type: "number",
+              readOnly: isDisabled,
+              tabIndex: isDisabled ? -1 : 0,
+            }}
+            defaultValue={defaultValue}
           />
         )
         break
       default:
-        throw new Error(`Unsupported input type: ${valueType}`)
+        throw new UnsupportedInputTypeError(zodType)
     }
   }
 

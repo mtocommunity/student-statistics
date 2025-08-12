@@ -106,7 +106,7 @@
   select[multiple],
   textarea,
   select {
-    @apply bg-primary-900! border-border! focus:border-primary-500! focus:ring-primary-500! rounded!;
+    @apply bg-primary-900! border-border! focus:border-primary-500! focus:ring-primary-500! read-only:border-primary-700! read-only:text-primary-500! rounded! read-only:cursor-default! read-only:brightness-90!;
 
     &[aria-invalid="true"] {
       @apply border-destructive focus:border-destructive focus:ring-destructive;
