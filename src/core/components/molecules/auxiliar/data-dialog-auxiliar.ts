@@ -1,4 +1,9 @@
 import {
+  createCourseSchema,
+  deleteCourseSchema,
+  updateCourseSchema,
+} from "@/course/validation/course-validation"
+import {
   createSemesterSchema,
   deleteSemesterSchema,
   updateSemesterSchema,
@@ -10,7 +15,7 @@ import type z4 from "zod/v4"
 import type { core, ZodObject } from "zod/v4"
 
 // Data names
-export type DataName = "semester"
+export type DataName = "semester" | "course"
 
 // Data info
 interface DataInfo<
@@ -114,6 +119,38 @@ export const dataInfo: Record<DataName, DataInfo> = {
       create: actions.semester.create,
       update: actions.semester.update,
       delete: actions.semester.delete,
+    },
+    postSuccess: (data) => {
+      toast.success(data.message)
+      if (data.url) navigate(data.url)
+    },
+  }) as unknown as DataInfo,
+
+  course: defineDataInfo({
+    name: "curso",
+    schema: {
+      create: createCourseSchema,
+      update: updateCourseSchema,
+      delete: deleteCourseSchema,
+    },
+    disabled: {
+      create: {
+        semesterId: true,
+      },
+      update: {
+        id: true,
+        semesterId: true,
+      },
+    },
+    labels: {
+      id: "ID",
+      name: "Nombre",
+      semesterId: "ID del Ciclo",
+    },
+    action: {
+      create: actions.course.create,
+      update: actions.course.update,
+      delete: actions.course.delete,
     },
     postSuccess: (data) => {
       toast.success(data.message)

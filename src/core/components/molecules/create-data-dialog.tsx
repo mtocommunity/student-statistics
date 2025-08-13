@@ -22,15 +22,20 @@ import { toast } from "sonner"
 import type z4 from "zod/v4"
 
 // Component
-interface CreateDataDialogProps {
-  dataName: DataName
+interface CreateDataDialogProps<TDataName extends DataName> {
+  dataName: TDataName
+  defaultValues?: z4.infer<(typeof dataInfo)[TDataName]["schema"]["create"]>
 }
 
-export function CreateDataDialog({ dataName }: CreateDataDialogProps) {
+export function CreateDataDialog<TDataName extends DataName>({
+  dataName,
+  defaultValues,
+}: CreateDataDialogProps<TDataName>) {
   // Data info
   const {
     name,
     schema: { create: createSchema },
+    disabled: { create: createDisabled } = {},
     labels,
     action: { create: createAction },
     postSuccess,
@@ -41,6 +46,7 @@ export function CreateDataDialog({ dataName }: CreateDataDialogProps) {
   const closeDialogButtonRef = useRef<HTMLButtonElement>(null)
   const { control, handleSubmit, reset } = useForm({
     resolver: zodResolver(createSchema),
+    defaultValues,
   })
 
   // Handle submit
@@ -61,6 +67,7 @@ export function CreateDataDialog({ dataName }: CreateDataDialogProps) {
   // Generate inputs
   const inputs = controlledInputFactory({
     schema: createSchema,
+    disabled: createDisabled,
     control,
     labels,
   })

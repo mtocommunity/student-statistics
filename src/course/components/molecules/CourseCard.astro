@@ -1,0 +1,47 @@
+---
+import { ActionsDataDialog } from "@/core/components/molecules/actions-data-menu"
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/core/components/ui/card"
+import type { Course } from "@/course/schema/course-schema"
+
+// Context
+interface Props {
+  course: Course
+}
+
+const { course } = Astro.props
+const { semesterId } = Astro.params
+---
+
+<article class="relative">
+  <a href=`/semesters/${semesterId}/courses/${course.id}`>
+    <Card className="h-full w-full rounded">
+      <CardHeader className="flex flex-1 flex-col">
+        <CardTitle className="mr-12 text-3xl">
+          {course.name}
+        </CardTitle>
+
+        <CardDescription className="mt-2">
+          Ultima actualización: {
+            course.lastUpdateAt.toLocaleDateString("es-ES", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            })
+          }
+        </CardDescription>
+      </CardHeader>
+    </Card>
+  </a>
+
+  <ActionsDataDialog
+    client:load
+    dataName="course"
+    data={course}
+    buttonClassName="absolute right-5 top-5"
+  />
+</article>

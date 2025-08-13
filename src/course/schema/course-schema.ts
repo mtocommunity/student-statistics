@@ -12,3 +12,4 @@ export const courseTable = sqliteTable("course", {
     .notNull()
     .$default(() => new Date()),
 })
+export type Course = typeof courseTable.$inferSelect
