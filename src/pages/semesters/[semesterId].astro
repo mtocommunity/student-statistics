@@ -9,8 +9,8 @@ import {
 import CourseMainSection from "@/course/components/sections/CourseMainSection.astro"
 import { courseTable } from "@/course/schema/course-schema"
 import { semesterTable } from "@/semester/schema/semester-schema"
-import BookmarkCheck from "@assets/svg/lu-bookmark-check.svg"
 import { asc, count, desc, sql } from "drizzle-orm"
+import { LuBook } from "react-icons/lu"
 
 // Constants
 const PAGE_LIMIT = 12
@@ -74,9 +74,9 @@ const courses = await db
 
 <HomeLayout title="Ciclos">
   <header class="flex items-center gap-2">
-    <BookmarkCheck class="size-7" />
+    <LuBook className="size-7" />
 
-    <h1 class="inline text-2xl font-bold">Ciclos</h1>
+    <h1 class="inline text-2xl font-bold">Cursos</h1>
   </header>
 
   <div role="none" class="bg-primary-400 my-4 h-px"></div>

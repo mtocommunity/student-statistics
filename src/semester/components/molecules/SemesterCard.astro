@@ -16,11 +16,11 @@ interface Props {
 const { semester } = Astro.props
 ---
 
-<article class="relative">
+<article class="relative h-full max-h-56">
   <a href=`/semesters/${semester.id}`>
-    <Card className="h-full w-full rounded">
+    <Card className="size-full rounded">
       <CardHeader className="flex flex-1 flex-col">
-        <CardTitle className="mr-12 w-full truncate text-3xl">
+        <CardTitle className="max-w-[85%] truncate text-3xl">
           {semester.name}
         </CardTitle>
 

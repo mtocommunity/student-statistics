@@ -36,7 +36,7 @@ const hasCourses = courses.length > 0
       "flex-1 gap-4 py-4",
       {
         "flex flex-col items-center justify-center": !hasCourses,
-        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4":
+        "grid auto-rows-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:grid-rows-3":
           hasCourses,
       },
     ]}

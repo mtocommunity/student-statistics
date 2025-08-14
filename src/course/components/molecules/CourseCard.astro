@@ -17,11 +17,11 @@ const { course } = Astro.props
 const { semesterId } = Astro.params
 ---
 
-<article class="relative">
+<article class="relative h-full max-h-56">
   <a href=`/semesters/${semesterId}/courses/${course.id}`>
     <Card className="h-full w-full rounded">
       <CardHeader className="flex flex-1 flex-col">
-        <CardTitle className="mr-12 text-3xl">
+        <CardTitle className="max-w-[85%] truncate text-3xl">
           {course.name}
         </CardTitle>
 
