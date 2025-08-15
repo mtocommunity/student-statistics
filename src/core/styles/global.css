@@ -78,12 +78,14 @@
   }
 
   * {
+    @apply border-border outline-ring/50;
+
     scrollbar-width: thin;
     scrollbar-color: var(--color-primary-700) transparent;
   }
 
   body {
-    @apply bg-primary-950 text-primary-100 selection:bg-primary-700 !antialiased select-none;
+    @apply bg-background text-foreground selection:bg-primary-700 !antialiased select-none;
 
     & * {
       @apply scroll-smooth text-sm;
@@ -156,13 +158,4 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.552 0.016 285.938);
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
 }
