@@ -4,45 +4,51 @@ import HeaderQuery from "@/core/components/molecules/HeaderQuery.astro"
 import PaginationQueryNav from "@/core/components/molecules/PaginationQueryNav.astro"
 import Section from "@/core/components/organisms/Section.astro"
 import type { OrderQuery } from "@/core/schema/query-schema"
-import SemesterCard from "@/semester/components/molecules/SemesterCard.astro"
-import { type Semester } from "@/semester/schema/semester-schema"
+import ExamCard from "@/exam/components/molecules/ExamCard.astro"
+import type { Exam } from "@/exam/schema/exam-schema"
 import { LuPackageOpen } from "react-icons/lu"
 
 // Context
 interface Props {
-  semesters: Semester[]
+  exams: Exam[]
   page: number
   totalPages: number
   q?: string
   orderQuery?: OrderQuery
 }
 
-const { semesters, page, totalPages, q, orderQuery } = Astro.props
-const hasSemesters = semesters.length > 0
+const { courseId } = Astro.params
+const { exams, page, totalPages, q, orderQuery } = Astro.props
+
+const hasExams = exams.length > 0
 ---
 
 <Section class="flex w-full max-w-none flex-1 flex-col px-0">
   <HeaderQuery {q} {orderQuery}>
-    <CreateDataDialog client:load dataName="semester" />
+    <CreateDataDialog
+      client:load
+      dataName="exam"
+      defaultValues={{ courseId: Number(courseId) }}
+    />
   </HeaderQuery>
 
   <div
     class:list={[
       "flex-1 gap-4 py-4",
       {
-        "flex flex-col items-center justify-center": !hasSemesters,
+        "flex flex-col items-center justify-center": !hasExams,
         "grid auto-rows-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:grid-rows-3":
-          hasSemesters,
+          hasExams,
       },
     ]}
   >
     {
-      hasSemesters ? (
-        semesters.map((semester) => <SemesterCard {semester} />)
+      hasExams ? (
+        exams.map((exam) => <ExamCard {exam} />)
       ) : (
         <>
           <LuPackageOpen className="size-18 stroke-1" />
-          Parece que aún no ha creado un ciclo.
+          Parece que aún no ha creado un curso.
         </>
       )
     }

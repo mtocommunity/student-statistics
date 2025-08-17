@@ -16,6 +16,7 @@ const examNotFoundError: ZodIssue = {
   path: ["exam"],
 }
 
+// Action
 export const studentsPassedAction = defineAction({
   input: statisticsSchema,
   async handler({ examId }, { clientAddress }) {

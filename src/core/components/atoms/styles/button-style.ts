@@ -1,5 +1,6 @@
 import { tv, type VariantProps } from "tailwind-variants"
 
+// Button style variants
 export const buttonVariants = tv({
   base: "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive group shrink-0 cursor-pointer items-center justify-center gap-2 rounded px-4 py-2 text-center text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 disabled:brightness-90 data-[loading]:inline-flex data-[loading]:cursor-auto data-[loading]:gap-1.5 data-[loading]:opacity-75 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   variants: {
@@ -186,9 +187,9 @@ export const buttonVariants = tv({
     colorSchema: "primary",
   },
 })
-
 export type ButtonVariants = VariantProps<typeof buttonVariants>
 
+// Spinner variants
 export const spinnerVariants = tv({
   base: "size-0 transition-[width,height] duration-200 group-data-[loading]:size-[1em] group-data-[loading]:animate-spin",
   variants: {

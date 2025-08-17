@@ -16,3 +16,4 @@ export const examTable = sqliteTable("exam", {
     .notNull()
     .$default(() => new Date()),
 })
+export type Exam = typeof examTable.$inferSelect

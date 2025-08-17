@@ -2,7 +2,7 @@ import { sqliteTable, text } from "drizzle-orm/sqlite-core"
 import { createSelectSchema } from "drizzle-zod"
 import type { z } from "zod/v4"
 
-// Tables
+// Table
 export const userTable = sqliteTable("user", {
   code: text({ length: 6 }).primaryKey(),
   name: text({ length: 40 }).notNull(),

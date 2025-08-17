@@ -118,6 +118,10 @@
       @apply border-destructive focus:border-destructive focus:ring-destructive;
     }
   }
+
+  input[type="text"][inputmode="numeric"] {
+    @apply rounded-r-none!;
+  }
 }
 
 @utility no-scrollbar {

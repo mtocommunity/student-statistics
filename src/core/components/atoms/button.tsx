@@ -7,6 +7,7 @@ import { cn } from "@/lib/tailwind"
 import { ReactComponent as Spinner } from "@assets/svg/spinner.svg"
 import { forwardRef } from "react"
 
+// Component
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   ButtonVariants
 

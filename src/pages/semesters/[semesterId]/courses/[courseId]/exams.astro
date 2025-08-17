@@ -1,0 +1,91 @@
+---
+import HomeLayout from "@/core/layout/HomeLayout.astro"
+import { db } from "@/core/repository"
+import {
+  orderQuerySchema,
+  pageQuerySchema,
+  searchQuerySchema,
+} from "@/core/schema/query-schema"
+import { courseTable } from "@/course/schema/course-schema"
+import ExamMainSection from "@/exam/components/sections/ExamMainSection.astro"
+import { examTable } from "@/exam/schema/exam-schema"
+import { semesterTable } from "@/semester/schema/semester-schema"
+import { asc, count, desc, sql } from "drizzle-orm"
+import { LuClipboardPenLine } from "react-icons/lu"
+
+// Constants
+const PAGE_LIMIT = 12
+
+// Context
+const { semesterId, courseId } = Astro.params
+const { searchParams } = Astro.url
+const { user } = Astro.locals
+
+// Query parameters
+let [{ data: page = 1 }, { data: q }, { data: orderQuery }] = await Promise.all(
+  [
+    pageQuerySchema.safeParseAsync(searchParams.get("page")),
+    searchQuerySchema.safeParseAsync(searchParams.get("q")),
+    orderQuerySchema.safeParseAsync(searchParams.get("order")),
+  ]
+)
+
+// Count all exams
+const totalExams = await db
+  .select({ count: count() })
+  .from(examTable)
+  .leftJoin(courseTable, sql`${examTable.courseId} = ${courseTable.id}`)
+  .leftJoin(semesterTable, sql`${courseTable.semesterId} = ${semesterTable.id}`)
+  .where(
+    sql`${courseTable.name} LIKE ${`%${q ?? ""}%`}
+        AND ${examTable.courseId} = ${courseId}
+        AND ${courseTable.semesterId} = ${semesterId}
+        AND ${semesterTable.userCode} = ${user.code}`
+  )
+
+const { count: totalCount } = totalExams[0] ?? { count: 0 }
+const totalPages = Math.ceil(totalCount / PAGE_LIMIT)
+
+// Verify if page is a valid number
+if (totalPages > 0 && page > totalPages) {
+  page = 1
+  searchParams.set("page", page.toString())
+
+  return Astro.redirect(Astro.url.toString(), 302)
+}
+
+// Search the exams
+const sorter = orderQuery === "asc" ? asc : desc
+const exams = await db
+  .select({
+    id: examTable.id,
+    name: examTable.name,
+    courseId: examTable.courseId,
+    minPassingScore: examTable.minPassingScore,
+    lastUpdateAt: examTable.lastUpdateAt,
+  })
+  .from(examTable)
+  .leftJoin(courseTable, sql`${examTable.courseId} = ${courseTable.id}`)
+  .leftJoin(semesterTable, sql`${courseTable.semesterId} = ${semesterTable.id}`)
+  .where(
+    sql`${courseTable.name} LIKE ${`%${q ?? ""}%`}
+        AND ${examTable.courseId} = ${courseId}
+        AND ${courseTable.semesterId} = ${semesterId}
+        AND ${semesterTable.userCode} = ${user.code}`
+  )
+  .orderBy(sorter(semesterTable.name))
+  .limit(PAGE_LIMIT)
+  .offset((page - 1) * PAGE_LIMIT)
+---
+
+<HomeLayout title="Ciclos">
+  <header class="flex items-center gap-2">
+    <LuClipboardPenLine className="size-7" />
+
+    <h1 class="inline text-2xl font-bold">Examenes</h1>
+  </header>
+
+  <div role="none" class="bg-primary-400 my-4 h-px"></div>
+
+  <ExamMainSection {exams} {page} {totalPages} {q} {orderQuery} />
+</HomeLayout>

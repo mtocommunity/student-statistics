@@ -6,32 +6,38 @@ import {
   CardHeader,
   CardTitle,
 } from "@/core/components/ui/card"
-import type { Semester } from "@/semester/schema/semester-schema"
+import type { Exam } from "@/exam/schema/exam-schema"
 
 // Context
 interface Props {
-  semester: Semester
+  exam: Exam
 }
 
-const { semester } = Astro.props
+const { exam } = Astro.props
+const { semesterId, courseId } = Astro.params
 ---
 
 <article class="relative h-full max-h-56">
-  <a href=`/semesters/${semester.id}/courses`>
-    <Card className="size-full rounded">
+  <a href=`/semesters/${semesterId}/courses/${courseId}/exams/${exam.id}`>
+    <Card className="h-full w-full rounded">
       <CardHeader className="flex flex-1 flex-col">
         <CardTitle className="max-w-[85%] truncate text-3xl">
-          {semester.name}
+          {exam.name}
         </CardTitle>
 
         <CardDescription className="mt-2">
           Ultima actualización: {
-            semester.lastUpdateAt.toLocaleDateString("es-ES", {
+            exam.lastUpdateAt.toLocaleDateString("es-ES", {
               year: "numeric",
               month: "2-digit",
               day: "2-digit",
             })
           }
+
+          <br />
+
+          <strong> Puntaje mínimo: </strong>
+          {exam.minPassingScore}
         </CardDescription>
       </CardHeader>
     </Card>
@@ -39,8 +45,8 @@ const { semester } = Astro.props
 
   <ActionsDataDialog
     client:load
-    dataName="semester"
-    data={semester}
+    dataName="exam"
+    data={exam}
     buttonClassName="absolute right-5 top-5"
   />
 </article>

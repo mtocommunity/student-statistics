@@ -1,5 +1,6 @@
 import { z } from "astro/zod"
 
+// Schemas
 export const loginSchema = z.object({
   code: z
     .string()

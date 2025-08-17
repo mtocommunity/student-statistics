@@ -1,3 +1,4 @@
+import { NumberInput } from "@/form/components/molecules/number-input"
 import { TextInput } from "@/form/components/molecules/text-input"
 import type { Control } from "react-hook-form"
 import type { ZodObject } from "zod/v4"
@@ -14,6 +15,7 @@ export class UnsupportedInputTypeError extends Error {
 // Default values for types
 const defaultValues: Partial<Record<$ZodTypeDef["type"], unknown>> = {
   string: "",
+  number: 0,
 }
 
 // Input factory
@@ -79,23 +81,40 @@ export function controlledInputFactory({
           />
         )
         break
-      case "number":
-        // TODO: Change to number input
+      case "number": {
+        let maxValue: number | undefined
+        let minValue: number | undefined
+
+        for (const check of zodDefinition.checks ?? []) {
+          console.log(check)
+          if ("value" in check._zod.def)
+            switch (check._zod.def.check) {
+              case "less_than":
+                maxValue = check._zod.def.value as number
+                break
+
+              case "greater_than":
+                minValue = check._zod.def.value as number
+                break
+            }
+        }
         inputs.push(
-          <TextInput
+          <NumberInput
             key={key}
             control={control}
             name={key}
             label={label}
             inputProps={{
-              type: "number",
               readOnly: isDisabled,
               tabIndex: isDisabled ? -1 : 0,
+              max: maxValue,
+              min: minValue,
             }}
-            defaultValue={defaultValue}
+            defaultValue={defaultValue as number}
           />
         )
         break
+      }
       default:
         throw new UnsupportedInputTypeError(zodType)
     }
