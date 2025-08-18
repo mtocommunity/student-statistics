@@ -128,12 +128,4 @@ const spanishErrorMap: ZodErrorMap = (issue, context) => {
 }
 
 z.setErrorMap(spanishErrorMap)
-z4.config({
-  customError: (issue) => {
-    issue.type = issue.origin
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    return spanishErrorMap(issue, { defaultError: issue.message })
-  },
-})
+z4.config(z4.locales.es())
