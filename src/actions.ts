@@ -1,5 +1,5 @@
-import { authAction } from "@/auth/action/auth-action"
-import { courseAction } from "@/course/action/course-action"
+import { authAction } from "@/auth/action/auth-actions"
+import { courseAction } from "@/course/action/course-actions"
 import { examAction } from "@/exam/action/exam-action"
 import { semesterAction } from "@/semester/action/semester-action"
 

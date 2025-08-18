@@ -1,4 +1,4 @@
-import { registerSchema } from "@/auth/schema/register-schema"
+import { registerSchema } from "@/auth/validation/register-validation"
 import { jwtSecretEncoded } from "@/config"
 import { db } from "@/core/repository"
 import logger from "@/logger"

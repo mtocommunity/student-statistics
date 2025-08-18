@@ -1,4 +1,4 @@
-import { loginSchema, type LoginData } from "@/auth/schema/login-schema"
+import { loginSchema, type LoginData } from "@/auth/validation/login-validation"
 import { Button } from "@/core/components/atoms/button"
 import { PasswordInput } from "@/form/components/molecules/password-input"
 import { TextInput } from "@/form/components/molecules/text-input"

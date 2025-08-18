@@ -1,4 +1,4 @@
-import { onAuthMiddleware } from "@/auth/middleware/auth-middleware"
+import { onAuthMiddleware } from "@/auth/middleware/auth-middlewares"
 import { sequence } from "astro:middleware"
 
 // Middlewares

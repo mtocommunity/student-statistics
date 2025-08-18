@@ -1,5 +1,5 @@
 import { Toggle } from "@/core/components/ui/toggle"
-import type { OrderQuery } from "@/core/schema/query-schema"
+import type { OrderQuery } from "@/core/validation/query-validation"
 import { $ } from "@/lib/dom-selector"
 import { LuArrowDown01 } from "react-icons/lu"
 

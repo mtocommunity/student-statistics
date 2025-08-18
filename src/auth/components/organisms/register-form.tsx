@@ -1,7 +1,7 @@
 import {
   registerSchema,
   type RegisterData,
-} from "@/auth/schema/register-schema"
+} from "@/auth/validation/register-validation"
 import { Button } from "@/core/components/atoms/button"
 import { PasswordInput } from "@/form/components/molecules/password-input"
 import { TextInput } from "@/form/components/molecules/text-input"

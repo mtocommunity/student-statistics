@@ -4,7 +4,8 @@ import { z } from "astro/zod"
 export const loginSchema = z.object({
   code: z
     .string()
-    .transform((value) => value.trim().toUpperCase())
+    .trim()
+    .toUpperCase()
     .refine((value) => /^[C][0-9]{5}$/.test(value), {
       message: "El código debe comenzar con 'C' seguido de 5 dígitos",
     }),

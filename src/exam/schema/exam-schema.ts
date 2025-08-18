@@ -2,7 +2,7 @@ import { courseTable } from "@/course/schema/course-schema"
 import { int, real, sqliteTable, text } from "drizzle-orm/sqlite-core"
 
 // Constants
-export const MIN_PASSING_SCORE = 11.6
+export const MIN_PASSING_SCORE = 11.5
 
 // Tables
 export const examTable = sqliteTable("exam", {

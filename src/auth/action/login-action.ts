@@ -1,4 +1,4 @@
-import { loginSchema } from "@/auth/schema/login-schema"
+import { loginSchema } from "@/auth/validation/login-validation"
 import { isDev, jwtSecretEncoded } from "@/config"
 import { db } from "@/core/repository"
 import logger from "@/logger"
