@@ -5,7 +5,7 @@ import PaginationQueryNav from "@/core/components/molecules/PaginationQueryNav.a
 import Section from "@/core/components/organisms/Section.astro"
 import type { OrderQuery } from "@/core/schema/query-schema"
 import ExamCard from "@/exam/components/molecules/ExamCard.astro"
-import type { Exam } from "@/exam/schema/exam-schema"
+import { MIN_PASSING_SCORE, type Exam } from "@/exam/schema/exam-schema"
 import { LuPackageOpen } from "react-icons/lu"
 
 // Context
@@ -28,7 +28,10 @@ const hasExams = exams.length > 0
     <CreateDataDialog
       client:load
       dataName="exam"
-      defaultValues={{ courseId: Number(courseId) }}
+      defaultValues={{
+        courseId: Number(courseId),
+        minPassingScore: MIN_PASSING_SCORE,
+      }}
     />
   </HeaderQuery>
 
