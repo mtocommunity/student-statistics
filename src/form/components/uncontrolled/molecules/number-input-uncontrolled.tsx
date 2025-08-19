@@ -39,6 +39,7 @@ export const NumberInputUncontrolled = forwardRef<
       prefix,
       value: controlledValue,
       className,
+      readOnly,
       ...props
     },
     ref
@@ -140,6 +141,7 @@ export const NumberInputUncontrolled = forwardRef<
             className
           )}
           getInputRef={ref}
+          readOnly={readOnly}
           {...props}
         />
 
@@ -149,7 +151,7 @@ export const NumberInputUncontrolled = forwardRef<
             className="border-input flex-1/2 rounded-l-none rounded-br-none border-b-[0.5px] border-l-0 px-2 py-0 focus-visible:relative"
             variant="outline"
             onClick={handleIncrement}
-            disabled={value === max}
+            disabled={value === max || readOnly}
           >
             <LuChevronUp className="size-3" />
           </Button>
@@ -158,7 +160,7 @@ export const NumberInputUncontrolled = forwardRef<
             className="border-input flex-1/2 rounded-l-none rounded-tr-none border-t-[0.5px] border-l-0 px-2 py-0 focus-visible:relative"
             variant="outline"
             onClick={handleDecrement}
-            disabled={value === min}
+            disabled={value === min || readOnly}
           >
             <LuChevronDown className="size-3" />
           </Button>
