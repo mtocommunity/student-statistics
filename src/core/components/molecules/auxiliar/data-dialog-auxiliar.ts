@@ -3,8 +3,9 @@ import {
   deleteCourseSchema,
   updateCourseSchema,
 } from "@/course/validation/course-validation"
+import { createExamWrapperService } from "@/exam/service/create-exam-wrapper-service"
 import {
-  createExamSchema,
+  createExamWithExcelSchema,
   deleteExamSchema,
   updateExamSchema,
 } from "@/exam/validation/exam-validation"
@@ -16,8 +17,8 @@ import {
 import { navigate } from "astro/virtual-modules/transitions-router.js"
 import { actions, type SafeResult } from "astro:actions"
 import { toast } from "sonner"
-import type z4 from "zod/v4"
 import type { core, ZodObject } from "zod/v4"
+import z4 from "zod/v4"
 
 // Data names
 export type DataName = "semester" | "course" | "exam"
@@ -166,7 +167,7 @@ export const dataInfo: Record<DataName, DataInfo> = {
   exam: defineDataInfo({
     name: "examen",
     schema: {
-      create: createExamSchema,
+      create: createExamWithExcelSchema,
       update: updateExamSchema,
       delete: deleteExamSchema,
     },
@@ -184,9 +185,10 @@ export const dataInfo: Record<DataName, DataInfo> = {
       name: "Nombre",
       courseId: "ID del Curso",
       minPassingScore: "Puntuación mínima",
+      file: "Excel",
     },
     action: {
-      create: actions.exam.create,
+      create: async (input) => await createExamWrapperService(input),
       update: actions.exam.update,
       delete: actions.exam.delete,
     },

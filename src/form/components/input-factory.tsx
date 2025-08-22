@@ -1,3 +1,4 @@
+import { FileInput } from "@/form/components/molecules/file-input"
 import { NumberInput } from "@/form/components/molecules/number-input"
 import { TextInput } from "@/form/components/molecules/text-input"
 import type { Control } from "react-hook-form"
@@ -86,7 +87,6 @@ export function controlledInputFactory({
         let minValue: number | undefined
 
         for (const check of zodDefinition.checks ?? []) {
-          console.log(check)
           if ("value" in check._zod.def)
             switch (check._zod.def.check) {
               case "less_than":
@@ -115,8 +115,25 @@ export function controlledInputFactory({
         )
         break
       }
-      default:
+      case "file":
+        inputs.push(
+          <FileInput
+            key={key}
+            control={control}
+            name={key}
+            label={label}
+            inputProps={{
+              readOnly: isDisabled,
+              tabIndex: isDisabled ? -1 : 0,
+            }}
+          />
+        )
+        break
+      default: {
+        console.log({ zodDefinition: zodDefinition.checks })
+
         throw new UnsupportedInputTypeError(zodType)
+      }
     }
   }
 

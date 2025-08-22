@@ -2,7 +2,7 @@ import { courseTable } from "@/course/schema/course-schema"
 import { int, real, sqliteTable, text } from "drizzle-orm/sqlite-core"
 
 // Constants
-export const MIN_PASSING_SCORE = 11.5
+export const MIN_PASSING_SCORE = 12
 
 // Tables
 export const examTable = sqliteTable("exam", {
@@ -17,3 +17,10 @@ export const examTable = sqliteTable("exam", {
     .$default(() => new Date()),
 })
 export type Exam = typeof examTable.$inferSelect
+
+// Types
+export interface ExamTable {
+  maxScorePerQuestion: number[]
+  studentNames: string[]
+  scores: (number | null)[][]
+}

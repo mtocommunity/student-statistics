@@ -41,7 +41,7 @@ export const createCourseAction = defineAction({
     return {
       success: true,
       message: "¡Curso creado correctamente!",
-      url: `/semesters/${input.semesterId}/courses/${createdCourse!.id}`,
+      url: `/semesters/${input.semesterId}/courses/${createdCourse!.id}/exams`,
     }
   },
 })

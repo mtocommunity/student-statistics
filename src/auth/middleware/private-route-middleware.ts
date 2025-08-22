@@ -1,6 +1,9 @@
 import { jwtSecretEncoded, privateRoutes } from "@/config"
 import logger from "@/logger"
-import { userPublicSchema, type UserPublic } from "@/user/schema/user-schema"
+import {
+  userPublicSchema,
+  type UserPublic,
+} from "@/user/validation/user-validation"
 import { defineMiddleware } from "astro:middleware"
 import { jwtDecrypt } from "jose"
 import picocolors from "picocolors"

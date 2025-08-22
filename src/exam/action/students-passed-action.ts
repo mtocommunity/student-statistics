@@ -1,7 +1,5 @@
 import { db } from "@/core/repository"
-import { answerTable } from "@/exam/schema/answer-schema"
 import { examTable } from "@/exam/schema/exam-schema"
-import { questionTable } from "@/exam/schema/question-schema"
 import { statisticsSchema } from "@/exam/schema/statistics-schema"
 import logger from "@/logger"
 import type { ZodIssue } from "astro/zod"
@@ -34,24 +32,24 @@ export const studentsPassedAction = defineAction({
       throw new ActionInputError([examNotFoundError])
     }
 
-    const questions = await db
-      .select()
-      .from(questionTable)
-      .where(eq(questionTable.examId, examId))
-      .leftJoin(answerTable, eq(questionTable.id, answerTable.questionId))
+    // TODO: Adapt to the new relationship
+    // const questions = await db
+    //   .select()
+    //   .from(questionTable)
+    //   .where(eq(questionTable.examId, examId))
+    //   .leftJoin(answerTable, eq(questionTable.id, answerTable.questionId))
 
-    const studentsScore = new Map<string, number>()
-
-    questions.forEach((question) => {
-      const actualScore =
-        studentsScore.get(question.answer?.studentCode as string) ?? 0
-      studentsScore.set(
-        question.answer?.studentCode as string,
-        actualScore + (question.answer?.score ?? 0)
-      )
-    })
+    // questions.forEach((question) => {
+    //   const actualScore =
+    //     studentsScore.get(question.answer?.studentCode as string) ?? 0
+    //   studentsScore.set(
+    //     question.answer?.studentCode as string,
+    //     actualScore + (question.answer?.score ?? 0)
+    //   )
+    // })
 
     let studentsPassed = 0
+    const studentsScore = new Map<string, number>()
 
     studentsScore.forEach((score) => {
       if (score >= exam.minPassingScore) {

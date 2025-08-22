@@ -19,7 +19,7 @@ export const createSemesterAction = defineAction({
     return {
       success: true,
       message: "¡Ciclo creado correctamente!",
-      url: `/semesters/${createdSemester!.id}`,
+      url: `/semesters/${createdSemester!.id}/courses`,
     }
   },
 })

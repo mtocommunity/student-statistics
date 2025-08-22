@@ -1,27 +1,26 @@
 import { questionTable } from "@/exam/schema/question-schema"
-import { userTable } from "@/user/schema/user-schema"
+import { studentTable } from "@/student/schema/student-schema"
 import {
   foreignKey,
   int,
   primaryKey,
   real,
   sqliteTable,
-  text,
 } from "drizzle-orm/sqlite-core"
 
 // Tables
 export const answerTable = sqliteTable(
   "answer",
   {
-    studentCode: text({ length: 6 }).notNull(),
+    studentId: int().notNull(),
     questionId: int().notNull(),
     score: real(),
   },
   (table) => [
-    primaryKey({ columns: [table.studentCode, table.questionId] }),
+    primaryKey({ columns: [table.studentId, table.questionId] }),
     foreignKey({
-      columns: [table.studentCode, table.questionId],
-      foreignColumns: [userTable.code, questionTable.id],
+      columns: [table.studentId, table.questionId],
+      foreignColumns: [studentTable.id, questionTable.id],
     }).onDelete("cascade"),
   ]
 )

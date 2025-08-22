@@ -3,7 +3,7 @@
 /// <reference types="vite-plugin-pwa/pwa-assets" />
 /// <reference types="vite-plugin-pwa/vanillajs" />
 
-import type { UserPublic } from "@/user/schema/user-schema"
+import type { UserPublic } from "@/user/validation/user-validation"
 
 declare global {
   namespace App {
