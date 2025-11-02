@@ -85,7 +85,7 @@
   }
 
   body {
-    @apply bg-background text-foreground selection:bg-primary-700 !antialiased select-none;
+    @apply bg-background text-foreground selection:bg-primary-700 antialiased! select-none;
 
     & * {
       @apply scroll-smooth text-sm;
