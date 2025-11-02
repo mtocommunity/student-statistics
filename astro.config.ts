@@ -4,7 +4,7 @@ import svgr from "@svgr/rollup"
 import tailwindcss from "@tailwindcss/vite"
 import pwa from "@vite-pwa/astro"
 import compress from "astro-compress"
-import { defineConfig, fontProviders } from "astro/config"
+import { defineConfig, envField, fontProviders } from "astro/config"
 import { isDev, site } from "./src/config"
 
 export default defineConfig({
@@ -13,7 +13,6 @@ export default defineConfig({
   integrations: [
     react(),
     pwa({
-      mode: isDev ? "development" : "production",
       base: "/",
       scope: "/",
       includeAssets: ["favicon.svg"],
@@ -95,6 +94,13 @@ export default defineConfig({
       Exclude: "favicon.svg",
     }),
   ],
+
+  env: {
+    schema: {
+      JWT_SECRET: envField.string({ access: "secret", context: "server" }),
+      DATABASE_URL: envField.string({ access: "secret", context: "server" }),
+    },
+  },
 
   experimental: {
     fonts: [
