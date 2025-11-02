@@ -6,7 +6,6 @@
       "request": "launch",
       "type": "bun",
       "program": "dev",
-      "args": ["--host"],
       "cwd": "${workspaceFolder}",
       "internalConsoleOptions": "neverOpen",
       "presentation": {
@@ -14,7 +13,7 @@
       }
     },
     {
-      "name": "Student Statistics (Browser - Chrome) 🐞",
+      "name": "Student Statistics (Browser) 🐞",
       "request": "launch",
       "type": "chrome",
       "url": "http://localhost:4321",
@@ -29,7 +28,7 @@
       "name": "Student Statistics (Server + Browser) 🐞",
       "configurations": [
         "Student Statistics (Server) 🐞",
-        "Student Statistics (Browser - Chrome) 🐞"
+        "Student Statistics (Browser) 🐞"
       ],
       "stopAll": true
     }
