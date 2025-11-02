@@ -1,4 +1,4 @@
-/// <reference types="astro/client" />
+/// <reference types="../.astro/types.d.ts" />
 /// <reference types="vite-plugin-pwa/info" />
 /// <reference types="vite-plugin-pwa/pwa-assets" />
 /// <reference types="vite-plugin-pwa/vanillajs" />
@@ -10,10 +10,5 @@ declare global {
     interface Locals {
       user: UserPublic
     }
-  }
-
-  interface ImportMetaEnv {
-    readonly DATABASE_URL: string
-    readonly JWT_SECRET: string
   }
 }
