@@ -16,12 +16,14 @@ const {
   colorSchema,
   class: className,
   "class:list": classList,
+  type = "button",
   ...props
 } = Astro.props
 ---
 
 <button
   class={cn(buttonVariants({ variant, colorSchema }), className, classList)}
+  {type}
   {...props}
 >
   <Spinner class={spinnerVariants({ colorSchema })} />
