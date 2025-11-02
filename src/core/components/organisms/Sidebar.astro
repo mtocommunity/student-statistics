@@ -38,15 +38,15 @@ if (index === -1) index = -3
   >
     <div class="relative h-10">
       <div
-        class="bg-primary-50 absolute top-[32%] left-1/2 h-[2px] w-5 -translate-1/2 rounded"
+        class="bg-primary-50 absolute top-[32%] left-1/2 h-0.5 w-5 -translate-1/2 rounded"
       >
       </div>
       <div
-        class="bg-primary-50 absolute top-1/2 left-1/2 h-[2px] w-5 -translate-1/2 rounded"
+        class="bg-primary-50 absolute top-1/2 left-1/2 h-0.5 w-5 -translate-1/2 rounded"
       >
       </div>
       <div
-        class="bg-primary-50 absolute top-[68%] left-1/2 h-[2px] w-5 -translate-1/2 rounded"
+        class="bg-primary-50 absolute top-[68%] left-1/2 h-0.5 w-5 -translate-1/2 rounded"
       >
       </div>
     </div>
@@ -73,8 +73,8 @@ if (index === -1) index = -3
       <div
         role="none"
         class:list={[
-          "bg-secondary-400 absolute top-[calc(var(--spacing)_*_15_+_var(--position-index)*var(--spacing)_*_20)] left-0 z-60 h-20 w-1 rounded-r transition-[top]",
-          "lg:top-[calc(var(--spacing)_*_18_+_var(--position-index)*var(--spacing)_*_20)]",
+          "bg-secondary-400 absolute top-[calc(var(--spacing)*15+var(--position-index)*var(--spacing)*20)] left-0 z-60 h-20 w-1 rounded-r transition-[top]",
+          "lg:top-[calc(var(--spacing)*18+var(--position-index)*var(--spacing)*20)]",
         ]}
         style=`--position-index: ${index}`
         id="sidebar-highlight"
