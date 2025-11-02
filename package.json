@@ -3,7 +3,6 @@
   "type": "module",
   "license": "GPL-3.0-only",
   "description": "A web application for managing student statistics.",
-  "version": "0.0.1",
   "scripts": {
     "dev": "bunx --bun astro dev --host",
     "build": "bunx --bun astro check && bunx --bun astro build",
