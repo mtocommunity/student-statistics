@@ -12,13 +12,14 @@
     "format": "prettier --write .",
     "lint": "eslint . --ext .astro,.js,.jsx,.ts,.tsx,.mdx --fix",
     "husky": "husky",
+    "auth:generate": "bunx --bun auth@latest generate -y --config src/auth/configuration/auth-configuration.ts --output src/auth/schema/auth-schema.ts && prettier --write src/auth/schema/auth-schema.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
     "@astrojs/check": "0.9.6",
     "@astrojs/node": "9.5.4",
-    "@astrojs/react": "5.0.0-beta.4",
+    "@astrojs/react": "4.4.2",
     "@astroscope/boot": "0.3.4",
     "@base-ui/react": "1.2.0",
     "@hookform/resolvers": "5.2.2",
@@ -63,10 +64,11 @@
   "devDependencies": {
     "@eslint/js": "9.39.4",
     "@typescript-eslint/parser": "8.53.1",
+    "better-sqlite3": "12.6.2",
     "eslint": "9.39.4",
-    "eslint-plugin-drizzle": "0.2.3",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-astro": "1.6.0",
+    "eslint-plugin-drizzle": "0.2.3",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
     "eslint-plugin-react-hooks": "7.0.1",
@@ -84,9 +86,6 @@
   },
   "peerDependencies": {
     "typescript": "^5"
-  },
-  "overrides": {
-    "better-sqlite3": "npm:empty-package@0.0.0"
   },
   "lint-staged": {
     "*.{js,ts,cjs,mjs,astro,jsx,tsx}": ["eslint --fix", "prettier --write"]

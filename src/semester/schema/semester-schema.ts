@@ -1,5 +1,5 @@
-import { userTable } from "@/user/schema/user-schema"
 import { int, sqliteTable, text } from "drizzle-orm/sqlite-core"
+import { userTable } from "../../user/schema/user-schema"
 
 // Tables
 export const semesterTable = sqliteTable("semester", {

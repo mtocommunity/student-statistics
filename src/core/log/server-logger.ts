@@ -1,6 +1,6 @@
-import { isDev } from "@/core/configuration/app-configuration"
 import path from "path"
 import pino, { type Logger } from "pino"
+import { isDev } from "../../core/configuration/app-configuration"
 
 // Types
 export type Log = Logger // Alias

@@ -1,7 +1,7 @@
-import { databaseUrl } from "@/core/configuration/app-configuration"
-import * as semesterSchema from "@/semester/schema/semester-schema"
 import { Database } from "bun:sqlite"
 import { drizzle } from "drizzle-orm/bun-sqlite"
+import * as semesterSchema from "../semester/schema/semester-schema"
+import { databaseUrl } from "./configuration/app-configuration"
 
 // Schema
 export const schema = {

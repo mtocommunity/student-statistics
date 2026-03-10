@@ -6,7 +6,6 @@ import pwa from "@vite-pwa/astro"
 import compress from "astro-compress"
 import compressor from "astro-compressor"
 import { defineConfig, envField, fontProviders } from "astro/config"
-import babelPluginReactCompiler from "babel-plugin-react-compiler"
 import checker from "vite-plugin-checker"
 import svgr from "vite-plugin-svgr"
 
@@ -26,7 +25,7 @@ export default defineConfig({
 
   integrations: [
     boot(),
-    react({ babel: { plugins: [babelPluginReactCompiler] } }),
+    react({ babel: { plugins: ["babel-plugin-react-compiler"] } }),
     pwa({
       base: "/",
       scope: "/",
@@ -138,14 +137,8 @@ export default defineConfig({
 
   vite: {
     plugins: [
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       tailwindcss(),
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       svgr(),
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       ...(isDev
         ? [
             checker({

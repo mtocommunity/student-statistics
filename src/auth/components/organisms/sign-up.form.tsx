@@ -1,3 +1,4 @@
+import { authClient } from "@/auth/client/auth-client"
 import { SignUp } from "@/auth/request/sign-up-request"
 import { Button } from "@/core/components/ui/button"
 import { ControlledInput } from "@/form/components/controlled/controlled-input"
@@ -13,20 +14,27 @@ export function RegisterForm() {
   const buttonRef = useRef<HTMLButtonElement | null>(null)
 
   // Form
-  const { control } = useForm({
+  const { control, handleSubmit } = useForm({
     mode: "onSubmit",
     resolver: zodResolver(SignUp),
     defaultValues: {
       email: "",
       name: "",
-      lastname: "",
       password: "",
       confirmPassword: "",
     },
   })
 
+  const onSubmit = handleSubmit(async (data) => {
+    await authClient.signUp.email({
+      email: data.email,
+      name: data.name,
+      password: data.password,
+    })
+  })
+
   return (
-    <form className="grid w-full gap-3 text-sm">
+    <form className="grid w-full gap-3 text-sm" onSubmit={onSubmit}>
       <ControlledInput
         control={control}
         name="email"
@@ -45,16 +53,6 @@ export function RegisterForm() {
         label="Nombre"
         inputProps={{
           placeholder: "Luis",
-          autoComplete: "name",
-        }}
-      />
-
-      <ControlledInput
-        control={control}
-        name="lastname"
-        label="Apellidos"
-        inputProps={{
-          placeholder: "Bazán",
           autoComplete: "name",
         }}
       />

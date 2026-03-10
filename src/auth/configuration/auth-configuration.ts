@@ -1,8 +1,8 @@
-import { isDev } from "@/core/configuration/app-configuration"
-import { db, schema } from "@/core/database"
-import { serverLog } from "@/core/log/server-logger"
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
+import { isDev } from "../../core/configuration/app-configuration"
+import { db, schema } from "../../core/database"
+import { serverLog } from "../../core/log/server-logger"
 
 // Logger
 const authLogger = serverLog.child({ module: "auth" })
@@ -19,14 +19,6 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     maxPasswordLength: 60,
-  },
-  user: {
-    additionalFields: {
-      lastname: {
-        type: "string",
-        required: true,
-      },
-    },
   },
   telemetry: {
     enabled: false,
