@@ -1,4 +1,4 @@
-import { LuBookmarkCheck, LuLayoutDashboard } from "react-icons/lu"
+import { TbBookmark, TbLayoutDashboard } from "react-icons/tb"
 
 // Links
 interface HeaderLink {
@@ -9,12 +9,12 @@ interface HeaderLink {
 
 export const sidebarLinks: HeaderLink[] = [
   {
-    svg: LuLayoutDashboard,
+    svg: TbLayoutDashboard,
     href: "/",
     label: "Dashboard",
   },
   {
-    svg: LuBookmarkCheck,
+    svg: TbBookmark,
     href: "/semesters",
     label: "Ciclos",
   },

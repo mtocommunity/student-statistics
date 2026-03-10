@@ -6,7 +6,7 @@ import Section from "@/core/components/organisms/Section.astro"
 import type { OrderQuery } from "@/core/validation/query-validation"
 import CourseCard from "@/course/components/molecules/CourseCard.astro"
 import type { Course } from "@/course/schema/course-schema"
-import { LuPackageOpen } from "react-icons/lu"
+import { TbPackage } from "react-icons/tb"
 
 // Context
 interface Props {
@@ -47,7 +47,7 @@ const hasCourses = courses.length > 0
         courses.map((course) => <CourseCard {course} />)
       ) : (
         <>
-          <LuPackageOpen className="size-18 stroke-1" />
+          <TbPackage className="size-18 stroke-1" />
           Parece que aún no ha creado un curso.
         </>
       )

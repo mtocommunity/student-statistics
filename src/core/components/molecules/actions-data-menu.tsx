@@ -13,7 +13,7 @@ import {
 } from "@/core/components/ui/dropdown-menu"
 import { cn } from "@/core/lib/tailwind"
 import { useState } from "react"
-import { LuEllipsis, LuPen, LuTrash } from "react-icons/lu"
+import { TbDots, TbEdit, TbTrash } from "react-icons/tb"
 import type z from "zod"
 
 // Component
@@ -39,20 +39,20 @@ export function ActionsDataDialog({
         <DropdownMenuTrigger
           render={
             <Button className={cn("size-10 p-0", buttonClassName)}>
-              <LuEllipsis className="mx-auto" />
+              <TbDots className="mx-auto" />
             </Button>
           }
         />
 
         <DropdownMenuContent>
           <DropdownMenuItem onClick={() => setEditOpen(true)}>
-            <LuPen /> Editar
+            <TbEdit /> Editar
           </DropdownMenuItem>
           <DropdownMenuItem
             variant="destructive"
             onClick={() => setDeleteOpen(true)}
           >
-            <LuTrash className="text-destructive" /> Eliminar
+            <TbTrash className="text-destructive" /> Eliminar
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -6,7 +6,7 @@ import Section from "@/core/components/organisms/Section.astro"
 import type { OrderQuery } from "@/core/validation/query-validation"
 import ExamCard from "@/exam/components/molecules/ExamCard.astro"
 import { MIN_PASSING_SCORE, type Exam } from "@/exam/schema/exam-schema"
-import { LuPackageOpen } from "react-icons/lu"
+import { TbPackage } from "react-icons/tb"
 
 // Context
 interface Props {
@@ -50,7 +50,7 @@ const hasExams = exams.length > 0
         exams.map((exam) => <ExamCard {exam} />)
       ) : (
         <>
-          <LuPackageOpen className="size-18 stroke-1" />
+          <TbPackage className="size-18 stroke-1" />
           Parece que aún no ha creado un curso.
         </>
       )

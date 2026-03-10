@@ -1,6 +1,6 @@
 ---
 import { breadcrumbsName } from "@/core/components/organisms/data/header-data"
-import { LuChevronRight } from "react-icons/lu"
+import { TbChevronRight } from "react-icons/tb"
 
 // Context
 const { pathname } = Astro.url
@@ -43,7 +43,7 @@ if (pathnames.length === 0) pathnames.push("")
               {displayName}
             </a>
 
-            <LuChevronRight className="text-primary inline size-4" />
+            <TbChevronRight className="text-primary inline size-4" />
           </>
         )
       })

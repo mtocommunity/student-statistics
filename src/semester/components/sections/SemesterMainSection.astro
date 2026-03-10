@@ -6,7 +6,7 @@ import Section from "@/core/components/organisms/Section.astro"
 import type { OrderQuery } from "@/core/validation/query-validation"
 import SemesterCard from "@/semester/components/molecules/SemesterCard.astro"
 import { type Semester } from "@/semester/schema/semester-schema"
-import { LuPackageOpen } from "react-icons/lu"
+import { TbPackage } from "react-icons/tb"
 
 // Context
 interface Props {
@@ -41,7 +41,7 @@ const hasSemesters = semesters.length > 0
         semesters.map((semester) => <SemesterCard {semester} />)
       ) : (
         <>
-          <LuPackageOpen className="size-18 stroke-1" />
+          <TbPackage className="size-18 stroke-1" />
           Parece que aún no ha creado un ciclo.
         </>
       )

@@ -11,7 +11,7 @@ import ExamMainSection from "@/exam/components/sections/ExamMainSection.astro"
 import { examTable } from "@/exam/schema/exam-schema"
 import { semesterTable } from "@/semester/schema/semester-schema"
 import { asc, count, desc, sql } from "drizzle-orm"
-import { LuClipboardPenLine } from "react-icons/lu"
+import { TbClipboard } from "react-icons/tb"
 
 // Constants
 const PAGE_LIMIT = 12
@@ -80,7 +80,7 @@ const exams = await db
 
 <HomeLayout title="Ciclos">
   <header class="flex items-center gap-2">
-    <LuClipboardPenLine className="size-7" />
+    <TbClipboard className="size-7" />
 
     <h1 class="inline text-2xl font-bold">Examenes</h1>
   </header>

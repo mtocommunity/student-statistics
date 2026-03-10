@@ -9,7 +9,7 @@ import {
 import SemesterMainSection from "@/semester/components/sections/SemesterMainSection.astro"
 import { semesterTable } from "@/semester/schema/semester-schema"
 import { asc, count, desc, sql } from "drizzle-orm"
-import { LuBookmarkCheck } from "react-icons/lu"
+import { TbBookmark } from "react-icons/tb"
 
 // Constants
 const PAGE_LIMIT = 12
@@ -62,7 +62,7 @@ const semesters = await db
 
 <HomeLayout title="Ciclos">
   <header class="flex items-center gap-2">
-    <LuBookmarkCheck className="size-7" />
+    <TbBookmark className="size-7" />
 
     <h1 class="inline text-2xl font-bold">Ciclos</h1>
   </header>

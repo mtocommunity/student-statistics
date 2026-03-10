@@ -17,7 +17,7 @@ import { controlledInputFactory } from "@/form/components/controlled-input-facto
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import { LuPlus } from "react-icons/lu"
+import { TbPlus } from "react-icons/tb"
 import { toast } from "sonner"
 import type z from "zod"
 
@@ -80,7 +80,7 @@ export function CreateDataDialog<TDataName extends DataName>({
       <DialogTrigger
         render={
           <Button>
-            <LuPlus />
+            <TbPlus />
 
             <span className="max-sm:sr-only">Crear</span>
           </Button>

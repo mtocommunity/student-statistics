@@ -2,7 +2,7 @@ import { buttonVariants } from "@/core/components/ui/button"
 import { Toggle } from "@/core/components/ui/toggle"
 import { $ } from "@/core/lib/dom-selector"
 import type { OrderQuery } from "@/core/validation/query-validation"
-import { LuArrowDown01 } from "react-icons/lu"
+import { TbSortAscendingLetters, TbSortDescendingLetters } from "react-icons/tb"
 
 // Component
 interface HeaderQueryToggleProps {
@@ -30,7 +30,12 @@ export function HeaderQueryToggle({
       className={buttonVariants({ size: "icon", variant: "secondary" })}
     >
       <input type="hidden" name="order" value={orderQuery} />
-      <LuArrowDown01 />
+
+      {orderQuery === "asc" ? (
+        <TbSortAscendingLetters className="size-5" />
+      ) : (
+        <TbSortDescendingLetters className="size-5" />
+      )}
     </Toggle>
   )
 }

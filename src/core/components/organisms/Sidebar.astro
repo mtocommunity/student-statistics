@@ -2,7 +2,7 @@
 import { sidebarLinks } from "@/core/components/organisms/data/sidebar-data"
 import { sidebarNavItemsClassName } from "@/core/components/organisms/styles/sidebar-styles"
 import { sidebarLinkMatch } from "@/core/components/organisms/auxiliar/sidebar-aux"
-import { LuLogOut, LuMoveLeft } from "react-icons/lu"
+import { TbLogout, TbArrowLeft } from "react-icons/tb"
 import { Link } from "@/core/components/ui/link"
 import { cn } from "@/core/lib/tailwind"
 
@@ -66,7 +66,7 @@ if (index === -1) index = -3
       title="Cerrar menú"
       tabindex="-1"
     >
-      <LuMoveLeft className="size-8 text-white" />
+      <TbArrowLeft className="size-8 text-white" />
     </button>
 
     <div>
@@ -118,7 +118,7 @@ if (index === -1) index = -3
         title="Cerrar sesión"
         data-astro-prefetch="false"
       >
-        <LuLogOut className="aspect-square size-6" />
+        <TbLogout className="aspect-square size-6" />
 
         <span id="logout-text" class="hidden">Salir</span>
       </Link>
