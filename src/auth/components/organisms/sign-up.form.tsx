@@ -48,7 +48,7 @@ export function RegisterForm() {
         label="Email"
         inputProps={{
           placeholder: "yo@email.com",
-          autoComplete: "username",
+          autoComplete: "email",
           autoFocus: true,
         }}
         icon={TbUser}
@@ -70,6 +70,7 @@ export function RegisterForm() {
         label="Contraseña"
         inputProps={{
           placeholder: "••••••••",
+          autoComplete: "new-password",
         }}
       />
 
@@ -79,6 +80,7 @@ export function RegisterForm() {
         label="Confirmar contraseña"
         inputProps={{
           placeholder: "••••••••",
+          autoComplete: "new-password",
         }}
       />
 

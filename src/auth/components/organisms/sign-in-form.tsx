@@ -51,6 +51,7 @@ export function LoginForm() {
         label="Contraseña"
         inputProps={{
           placeholder: "••••••••",
+          autoComplete: "current-password",
         }}
       />
 
