@@ -22,10 +22,9 @@ RUN bun astro telemetry disable
 COPY . .
 
 RUN bun run build
-RUN bun scripts/find-dependencies.js
 
 
-FROM oven/bun:1-distroless AS runtime
+FROM oven/bun:1-slim AS runtime
 
 ARG TZ
 ARG HOST
@@ -35,16 +34,16 @@ ENV TZ=$TZ
 ENV HOST=$HOST
 ENV NODE_ENV=$NODE_ENV
 
-COPY drizzle drizzle
-COPY scripts/migrate.ts scripts/migrate.ts
+WORKDIR /app
+
+COPY bun.lock ./
+COPY package.json ./
+
+RUN bun install --ci
+
+COPY drizzle dist/server/drizzle
 
 COPY --from=builder /app/dist /app/dist
-
-RUN mv dist/package.json package.json
-
-RUN bun install --production --ci
-
-RUN rm -rf package.json
 
 EXPOSE 4321
 
