@@ -12,7 +12,7 @@ export const createSemesterAction = defineAction({
       .insert(semesterTable)
       .values({
         name: input.name,
-        userCode: ctx.locals.user.code,
+        userId: ctx.locals.user.id,
       })
       .returning()
 

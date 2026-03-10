@@ -1,5 +1,8 @@
-
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/core/components/ui/chart"
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/core/components/ui/chart"
 import { actions } from "astro:actions"
 import { useEffect, useState } from "react"
 import { Bar, BarChart, Pie, PieChart, XAxis, YAxis } from "recharts"
@@ -51,6 +54,7 @@ export function QuestionsScores({
                   amount:
                     q.scores.reduce((acc, score) => acc + score) /
                       q.scores.length || 0,
+                  // eslint-disable-next-line react-hooks/purity
                   fill: `hsl(${Math.floor(Math.random() * 360)}, 70%, 50%)`,
                 }))}
                 dataKey="amount"
@@ -78,6 +82,7 @@ export function QuestionsScores({
                 amount:
                   q.scores.reduce((acc, score) => acc + score) /
                     q.scores.length || 0,
+                // eslint-disable-next-line react-hooks/purity
                 fill: `hsl(${Math.floor(Math.random() * 360)}, 70%, 50%)`,
               }))}
             >

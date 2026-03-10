@@ -1,3 +1,4 @@
+import { buttonVariants } from "@/core/components/ui/button"
 import { Toggle } from "@/core/components/ui/toggle"
 import { $ } from "@/core/lib/dom-selector"
 import type { OrderQuery } from "@/core/validation/query-validation"
@@ -26,6 +27,7 @@ export function HeaderQueryToggle({
           $inputOrder.form?.requestSubmit()
         }
       }}
+      className={buttonVariants({ size: "icon", variant: "secondary" })}
     >
       <input type="hidden" name="order" value={orderQuery} />
       <LuArrowDown01 />

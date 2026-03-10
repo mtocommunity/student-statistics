@@ -1,9 +1,10 @@
 ---
 import { sidebarLinks } from "@/core/components/organisms/data/sidebar-data"
-import { sidebarNavItemsClassname } from "@/core/components/organisms/styles/sidebar-styles"
+import { sidebarNavItemsClassName } from "@/core/components/organisms/styles/sidebar-styles"
 import { sidebarLinkMatch } from "@/core/components/organisms/auxiliar/sidebar-aux"
 import { LuLogOut, LuMoveLeft } from "react-icons/lu"
 import { Link } from "@/core/components/ui/link"
+import { cn } from "@/core/lib/tailwind"
 
 // Context
 const currentPathname = Astro.url.pathname
@@ -16,7 +17,7 @@ if (index === -1) index = -3
 
 <aside
   class:list={[
-    "bg-primary no-scrollbar sticky top-0 z-30 flex max-h-screen w-16 flex-col overflow-y-auto text-white",
+    "bg-sidebar no-scrollbar sticky top-0 z-30 flex max-h-screen w-16 flex-col overflow-y-auto text-white",
     "z-50 lg:w-22",
   ]}
   transition:persist
@@ -37,15 +38,15 @@ if (index === -1) index = -3
   >
     <div class="relative h-10">
       <div
-        class="bg-muted absolute top-[32%] left-1/2 h-0.5 w-5 -translate-1/2 rounded"
+        class="bg-sidebar-foreground absolute top-[32%] left-1/2 h-0.5 w-5 -translate-1/2 rounded"
       >
       </div>
       <div
-        class="bg-muted absolute top-1/2 left-1/2 h-0.5 w-5 -translate-1/2 rounded"
+        class="bg-sidebar-foreground absolute top-1/2 left-1/2 h-0.5 w-5 -translate-1/2 rounded"
       >
       </div>
       <div
-        class="bg-muted absolute top-[68%] left-1/2 h-0.5 w-5 -translate-1/2 rounded"
+        class="bg-sidebar-foreground absolute top-[68%] left-1/2 h-0.5 w-5 -translate-1/2 rounded"
       >
       </div>
     </div>
@@ -72,7 +73,7 @@ if (index === -1) index = -3
       <div
         role="none"
         class:list={[
-          "bg-secondary absolute top-[calc(var(--spacing)*15+var(--position-index)*var(--spacing)*20)] left-0 z-60 h-20 w-1 rounded-r transition-[top]",
+          "bg-secondary-foreground absolute top-[calc(var(--spacing)*15+var(--position-index)*var(--spacing)*20)] left-0 z-60 h-20 w-1 rounded-r transition-[top]",
           "lg:top-[calc(var(--spacing)*18+var(--position-index)*var(--spacing)*20)]",
         ]}
         style=`--position-index: ${index}`
@@ -89,7 +90,7 @@ if (index === -1) index = -3
               <li>
                 <a
                   href={href}
-                  class={sidebarNavItemsClassname}
+                  class={sidebarNavItemsClassName}
                   title={label}
                   data-current={
                     sidebarLinkMatch(href, currentPathname) ? "" : undefined
@@ -110,10 +111,10 @@ if (index === -1) index = -3
       <Link
         href="/logout"
         variant="ghost"
-        class:list={[
-          sidebarNavItemsClassname,
-          "flex items-center gap-2 rounded-none py-2",
-        ]}
+        className={cn(
+          sidebarNavItemsClassName,
+          "flex! items-center gap-2 rounded-none py-2"
+        )}
         title="Cerrar sesión"
         data-astro-prefetch="false"
       >
@@ -254,7 +255,7 @@ if (index === -1) index = -3
 
   #menu-toggle:checked {
     & ~ #menu {
-      @apply bg-primary visible absolute top-0 left-0 z-20 min-h-svh w-72;
+      @apply bg-sidebar visible absolute top-0 left-0 z-20 min-h-svh w-72;
 
       & #menu-close-button {
         @apply block;
@@ -277,7 +278,7 @@ if (index === -1) index = -3
       @apply fixed inset-0 z-10 block;
       background-color: color-mix(
         in srgb,
-        var(--color-primary) 30%,
+        var(--color-background) 30%,
         transparent 100%
       );
     }

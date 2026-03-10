@@ -22,11 +22,13 @@ if (token) return Astro.redirect("/", 302)
 
       <h1 class="text-2xl font-bold">Student Statistics</h1>
 
-      <p class="text-center text-sm">
-        ¿Ya tienes una cuenta?
+      <div class="flex items-center justify-center">
+        <p class="text-center text-sm">¿Ya tienes una cuenta?</p>
 
-        <Link href="/login" className="text-white underline"> Inicia sesión </Link>
-      </p>
+        <Link href="/login" className="text-white underline">
+          Inicia sesión
+        </Link>
+      </div>
     </div>
 
     <RegisterForm client:load />

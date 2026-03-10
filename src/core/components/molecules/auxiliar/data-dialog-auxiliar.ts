@@ -1,6 +1,6 @@
 import {
-  InsertCourse,
   DeleteCourse,
+  InsertCourse,
   UpdateCourse,
 } from "@/course/validation/course-validation"
 import { createExamWrapperService } from "@/exam/service/create-exam-wrapper-service"
@@ -17,8 +17,8 @@ import {
 import { navigate } from "astro/virtual-modules/transitions-router.js"
 import { actions, type SafeResult } from "astro:actions"
 import { toast } from "sonner"
-import type { core, ZodObject } from "zod/v4"
-import z4 from "zod/v4"
+import type { core, ZodObject } from "zod"
+import z from "zod"
 
 // Data names
 export type DataName = "semester" | "course" | "exam"
@@ -28,13 +28,13 @@ interface DataInfo<
   TCreateShape extends core.$ZodShape = core.$ZodShape,
   TUpdateShape extends core.$ZodShape = core.$ZodShape,
   TDeleteShape extends core.$ZodShape = core.$ZodShape,
-  TCreateObject extends z4.infer<ZodObject<TCreateShape>> = z4.infer<
+  TCreateObject extends z.infer<ZodObject<TCreateShape>> = z.infer<
     ZodObject<TCreateShape>
   >,
-  TUpdateObject extends z4.infer<ZodObject<TUpdateShape>> = z4.infer<
+  TUpdateObject extends z.infer<ZodObject<TUpdateShape>> = z.infer<
     ZodObject<TUpdateShape>
   >,
-  TDeleteObject extends z4.infer<ZodObject<TDeleteShape>> = z4.infer<
+  TDeleteObject extends z.infer<ZodObject<TDeleteShape>> = z.infer<
     ZodObject<TDeleteShape>
   >,
 > {
@@ -55,6 +55,7 @@ interface DataInfo<
   labels?: {
     [key in keyof (TCreateShape & TUpdateShape)]?: string
   }
+  hidden?: (keyof (TCreateShape & TUpdateShape))[]
   action: {
     create: (input: TCreateObject) => Promise<
       SafeResult<
@@ -112,11 +113,6 @@ export const dataInfo: Record<DataName, DataInfo> = {
       update: UpdateSemester,
       delete: DeleteSemester,
     },
-    disabled: {
-      update: {
-        id: true,
-      },
-    },
     labels: {
       id: "ID",
       name: "Nombre",
@@ -126,6 +122,7 @@ export const dataInfo: Record<DataName, DataInfo> = {
       update: actions.semester.update,
       delete: actions.semester.delete,
     },
+    hidden: ["id"],
     postSuccess: (data) => {
       toast.success(data.message)
       if (data.url) navigate(data.url)
@@ -139,15 +136,7 @@ export const dataInfo: Record<DataName, DataInfo> = {
       update: UpdateCourse,
       delete: DeleteCourse,
     },
-    disabled: {
-      create: {
-        semesterId: true,
-      },
-      update: {
-        id: true,
-        semesterId: true,
-      },
-    },
+    hidden: ["id", "semesterId"],
     labels: {
       id: "ID",
       name: "Nombre",
@@ -171,15 +160,7 @@ export const dataInfo: Record<DataName, DataInfo> = {
       update: UpdateExam,
       delete: DeleteExam,
     },
-    disabled: {
-      create: {
-        courseId: true,
-      },
-      update: {
-        id: true,
-        courseId: true,
-      },
-    },
+    hidden: ["id", "courseId"],
     labels: {
       id: "ID",
       name: "Nombre",

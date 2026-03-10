@@ -34,7 +34,7 @@ export const createExamAction = defineAction({
       )
       .where(
         sql`${courseTable.id} = ${input.courseId}
-            AND ${semesterTable.userCode} = ${ctx.locals.user.code}`
+            AND ${semesterTable.userId} = ${ctx.locals.user.id}`
       )
     const { semesterId } = semesterIdQueryResult ?? {}
 

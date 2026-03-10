@@ -20,6 +20,7 @@ export const UpdateSemester = createUpdateSchema(semesterTable, {
   })
   .required({
     id: true,
+    name: true,
   })
 export type UpdateSemester = z.infer<typeof UpdateSemester>
 

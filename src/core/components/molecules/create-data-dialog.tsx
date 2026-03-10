@@ -15,16 +15,16 @@ import {
 } from "@/core/components/ui/dialog"
 import { controlledInputFactory } from "@/form/components/controlled-input-factory"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useRef } from "react"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { LuPlus } from "react-icons/lu"
 import { toast } from "sonner"
-import type z4 from "zod/v4"
+import type z from "zod"
 
 // Component
 interface CreateDataDialogProps<TDataName extends DataName> {
   dataName: TDataName
-  defaultValues?: z4.infer<(typeof dataInfo)[TDataName]["schema"]["create"]>
+  defaultValues?: z.infer<(typeof dataInfo)[TDataName]["schema"]["create"]>
 }
 
 export function CreateDataDialog<TDataName extends DataName>({
@@ -37,20 +37,22 @@ export function CreateDataDialog<TDataName extends DataName>({
     schema: { create: createSchema },
     disabled: { create: createDisabled } = {},
     labels,
+    hidden,
     action: { create: createAction },
     postSuccess,
   } = dataInfo[dataName]
 
+  // Dialog
+  const [open, setOpen] = useState(false)
+
   // Form handling
-  const formRef = useRef<HTMLFormElement>(null)
-  const closeDialogButtonRef = useRef<HTMLButtonElement>(null)
   const { control, handleSubmit, reset } = useForm({
     resolver: zodResolver(createSchema),
     defaultValues,
   })
 
   // Handle submit
-  const onSubmit = async (input: z4.infer<typeof createSchema>) => {
+  const onSubmit = handleSubmit(async (input: z.infer<typeof createSchema>) => {
     const { data, error } = await createAction(input)
 
     if (error) {
@@ -60,9 +62,9 @@ export function CreateDataDialog<TDataName extends DataName>({
     }
 
     reset()
-    closeDialogButtonRef.current?.click()
+    setOpen(false)
     postSuccess(data)
-  }
+  })
 
   // Generate inputs
   const inputs = controlledInputFactory({
@@ -70,50 +72,44 @@ export function CreateDataDialog<TDataName extends DataName>({
     disabled: createDisabled,
     control,
     labels,
+    hidden,
   })
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger
         render={
           <Button>
-            <span className="flex items-center justify-center gap-1">
-              <LuPlus />
+            <LuPlus />
 
-              <span className="max-sm:sr-only">Crear</span>
-            </span>
+            <span className="max-sm:sr-only">Crear</span>
           </Button>
         }
       />
 
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Crear nuevo {name}</DialogTitle>
+      <DialogContent
+        render={
+          <form onSubmit={onSubmit}>
+            <DialogHeader>
+              <DialogTitle>Crear nuevo {name}</DialogTitle>
 
-          <DialogDescription>
-            Completa el formulario para crear un nuevo {name}.
-          </DialogDescription>
-        </DialogHeader>
+              <DialogDescription>
+                Completa el formulario para crear un nuevo {name}.
+              </DialogDescription>
+            </DialogHeader>
 
-        <form
-          ref={formRef}
-          className="flex flex-col gap-2"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          {inputs}
-          <button type="submit" className="hidden" />
-        </form>
+            {inputs}
 
-        <DialogFooter>
-          <DialogClose
-            render={<Button ref={closeDialogButtonRef}>Cancelar</Button>}
-          />
+            <DialogFooter>
+              <DialogClose
+                render={<Button variant="secondary">Cancelar</Button>}
+              />
 
-          <Button onClick={() => formRef.current?.requestSubmit()}>
-            Crear {name}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
+              <Button type="submit">Crear {name}</Button>
+            </DialogFooter>
+          </form>
+        }
+      />
     </Dialog>
   )
 }

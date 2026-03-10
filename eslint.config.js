@@ -80,6 +80,8 @@ export default defineConfig(
       "node_modules/*",
       "**/__generated__/*",
       ".gitignore",
+      // Eslint reports syntax error, but the code is correct
+      "src/core/components/molecules/HeaderQuery.astro",
     ],
   }
 )

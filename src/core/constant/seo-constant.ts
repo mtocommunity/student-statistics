@@ -1,6 +1,6 @@
 // SEO
 export const appName =
-  "Paginación PDF - Herramienta simple para paginar tus archivos PDF"
-export const appShortName = "Paginación PDF"
+  "Student Statistics - Aplicación para gestionar estadística de notas de estudiantes"
+export const appShortName = "Student Statistics"
 export const author = "martindotpy"
 export const defaultTitle = appName

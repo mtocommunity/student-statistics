@@ -15,15 +15,14 @@ import {
 import { controlledInputFactory } from "@/form/components/controlled-input-factory"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { navigate } from "astro:transitions/client"
-import { useRef } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import type z4 from "zod/v4"
+import type z from "zod/v4"
 
 // Component
 interface EditDataDialogProps {
   dataName: DataName
-  editData: z4.infer<
+  editData: z.infer<
     (typeof dataInfo)[keyof typeof dataInfo]["schema"]["update"]
   >
   open: boolean
@@ -42,20 +41,19 @@ export function EditDataDialog({
     schema: { update: updateSchema },
     disabled: { update: updateDisabled } = {},
     labels,
+    hidden,
     action: { update: updateAction },
     postSuccess,
   } = dataInfo[dataName]
 
   // Form handling
-  const formRef = useRef<HTMLFormElement>(null)
-  const closeDialogButtonRef = useRef<HTMLButtonElement>(null)
   const { control, handleSubmit, reset } = useForm({
     resolver: zodResolver(updateSchema),
     defaultValues: editData,
   })
 
   // Handle submit
-  const onSubmit = async (input: z4.infer<typeof updateSchema>) => {
+  const onSubmit = handleSubmit(async (input: z.infer<typeof updateSchema>) => {
     const { data, error } = await updateAction(input)
 
     if (error) {
@@ -65,10 +63,10 @@ export function EditDataDialog({
     }
 
     reset()
-    closeDialogButtonRef.current?.click()
+    setOpen(false)
     postSuccess(data)
     navigate(new URL(window.location.href).toString())
-  }
+  })
 
   // Generate inputs
   const inputs = controlledInputFactory({
@@ -76,36 +74,34 @@ export function EditDataDialog({
     disabled: updateDisabled,
     control,
     labels,
+    hidden,
   })
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Editar {name}</DialogTitle>
+      <DialogContent
+        render={
+          <form onSubmit={onSubmit}>
+            <DialogHeader>
+              <DialogTitle>Editar {name}</DialogTitle>
 
-          <DialogDescription>Edita el registro de {name}.</DialogDescription>
-        </DialogHeader>
+              <DialogDescription>
+                Edita el registro de {name}.
+              </DialogDescription>
+            </DialogHeader>
 
-        <form
-          ref={formRef}
-          className="flex flex-col gap-2"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          {inputs}
-          <button type="submit" className="hidden" />
-        </form>
+            {inputs}
 
-        <DialogFooter>
-          <DialogClose
-            render={<Button ref={closeDialogButtonRef}>Cancelar</Button>}
-          />
+            <DialogFooter>
+              <DialogClose
+                render={<Button variant="secondary">Cancelar</Button>}
+              />
 
-          <Button onClick={() => formRef.current?.requestSubmit()}>
-            Editar {name}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
+              <Button type="submit">Editar {name}</Button>
+            </DialogFooter>
+          </form>
+        }
+      />
     </Dialog>
   )
 }

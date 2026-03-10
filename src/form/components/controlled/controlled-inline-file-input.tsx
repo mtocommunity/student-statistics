@@ -7,7 +7,7 @@ import {
 } from "@/core/components/ui/input-group"
 import type { ClassNameProp } from "@/core/kit/component-kit"
 import { cn } from "@/core/lib/tailwind"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import {
   Controller,
   type FieldPath,
@@ -51,6 +51,9 @@ export function ControlledInlineFileInput<
   // Draggin state
   const [isDragging, setIsDragging] = useState(false)
 
+  // Input
+  const inputRef = useRef<HTMLInputElement | null>(null)
+
   return (
     <Controller
       control={control}
@@ -77,7 +80,12 @@ export function ControlledInlineFileInput<
             if (!files) return
             if (!inputProps.multiple) field.onChange(files[0])
             else field.onChange(files)
+
+            if (inputRef.current) {
+              inputRef.current.files = files
+            }
           }}
+          data-dragging={isDragging}
         >
           <FieldLabel
             htmlFor={name}
@@ -87,23 +95,23 @@ export function ControlledInlineFileInput<
             {label}
           </FieldLabel>
 
-          <InputGroup>
+          <InputGroup className="group-data-[dragging=true]/field:border-dashed group-data-[dragging=true]/field:file:border-dashed">
             <InputGroupInput
               id={name}
               type="file"
               accept={schema?._zod.bag.mime?.join(", ")}
               className={cn(
-                "text-muted-foreground file:border-input file:text-foreground p-0 pr-3 italic file:mr-3 file:h-full file:border-0 file:border-r file:border-solid file:bg-transparent file:px-3 file:text-xs file:font-medium file:not-italic",
-                {
-                  "border-dashed file:border-dashed": isDragging,
-                },
+                "text-muted-foreground file:border-input file:text-foreground aria-invalid:file:text-destructive aria-invalid:text-destructive aria-invalid:file:border-r-destructive p-0 pr-3 italic group-data-[dragging=true]/field:border-dashed file:mr-3 file:h-full file:border-0 file:border-r file:border-solid file:bg-transparent file:px-3 file:text-xs file:font-medium file:not-italic group-data-[dragging=true]/field:file:border-dashed",
                 inputClassName
               )}
               aria-invalid={fieldState.invalid}
               {...inputProps}
               name={field.name}
               onBlur={field.onBlur}
-              ref={field.ref}
+              ref={(instance) => {
+                field.ref(instance)
+                inputRef.current = instance
+              }}
               onChange={(e) => {
                 if (!inputProps.multiple) field.onChange(e.target.files?.[0])
                 else field.onChange(e.target.files)

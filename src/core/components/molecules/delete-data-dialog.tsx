@@ -69,6 +69,7 @@ export function DeleteDataDialog({
           <Button variant="destructive" onClick={deleteHandler}>
             Eliminar
           </Button>
+
           <DialogClose render={<Button>Cancelar</Button>} />
         </DialogFooter>
       </DialogContent>

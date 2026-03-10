@@ -18,7 +18,7 @@ export const updateSemesterAction = defineAction({
         name: input.name,
       })
       .where(
-        sql`${semesterTable.id} = ${input.id} AND ${semesterTable.userCode} = ${ctx.locals.user.code}`
+        sql`${semesterTable.id} = ${input.id} AND ${semesterTable.userId} = ${ctx.locals.user.id}`
       )
       .returning()
 

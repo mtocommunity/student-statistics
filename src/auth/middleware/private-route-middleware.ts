@@ -1,3 +1,4 @@
+import { auth } from "@/auth/configuration/auth-configuration"
 import { privateRoutes } from "@/core/configuration/app-configuration"
 import { defineMiddleware } from "astro:middleware"
 
@@ -7,7 +8,7 @@ export const onProtectedRouteRequest = defineMiddleware(
     if (context.isPrerendered) return next()
 
     // Context
-    const { request, url, cookies } = context
+    const { request, url } = context
 
     // Url
     const referer = request.headers.get("Referer")
@@ -21,12 +22,18 @@ export const onProtectedRouteRequest = defineMiddleware(
 
     if (!isPrivateRoute) return next()
 
-    // Check for token in cookies or Authorization header
-    const token =
-      cookies.get("token")?.value ||
-      request.headers.get("Authorization")?.replace("Bearer ", "")
+    // Check for session
+    const currentAuth = await auth.api.getSession({
+      headers: context.request.headers,
+    })
 
-    if (!token) return context.redirect("/login", 302)
+    if (!currentAuth) return context.redirect("/login", 302)
+
+    // Add user and session to context locals
+    const { user, session } = currentAuth
+
+    context.locals.user = user
+    context.locals.session = session
 
     return next()
   }

@@ -17,8 +17,8 @@ export const onLoggerRequest = defineMiddleware((ctx, next) => {
   const log = serverLog.child({
     requestId,
     path,
-    ip: ip === "unknown" ? undefined : ip,
-    userAgent: userAgent === "unknown" ? undefined : userAgent,
+    ip,
+    userAgent,
   })
 
   ctx.locals.log = log

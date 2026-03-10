@@ -1,7 +1,6 @@
+import { cn } from "@/core/lib/tailwind"
 import { Menu as MenuPrimitive } from "@base-ui/react/menu"
 import * as React from "react"
-
-import { cn } from "@/core/lib/tailwind"
 import { TbCheck, TbChevronRight } from "react-icons/tb"
 
 function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {

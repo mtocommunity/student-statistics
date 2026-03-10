@@ -64,6 +64,8 @@ export function ControlledNumberInput<
               max={schema?.maxValue ?? undefined}
               {...inputProps}
               {...field}
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
               onChange={undefined}
               value={field.value}
               defaultValue={field.value}

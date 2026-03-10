@@ -10,19 +10,24 @@ interface Props {
 const { page, totalPages } = Astro.props
 
 // Pagination
+function pageUrl(pageNumber: number) {
+  const url = new URL(Astro.url)
+  url.searchParams.set("page", pageNumber.toString())
+
+  return url.pathname + url.search + url.hash
+}
+
 // - Previous page
 const previousPage = page - 1
 const hasPreviousPage = page > 1
 
-const previousPageUrl = new URL(Astro.url)
-previousPageUrl.searchParams.set("page", previousPage.toString())
+const previousPageUrl = pageUrl(previousPage)
 
 // - Next page
 const nextPage = page + 1
 const hasNextPage = nextPage <= totalPages
 
-const nextPageUrl = new URL(Astro.url)
-nextPageUrl.searchParams.set("page", nextPage.toString())
+const nextPageUrl = pageUrl(nextPage)
 
 // - Pages to display
 const isOverflowAtStart = page > 3 && totalPages > 5
@@ -40,11 +45,8 @@ if (isOverflowAtStart && isOverflowAtEnd) {
 }
 
 // First and last href
-const firstPageUrl = new URL(Astro.url)
-firstPageUrl.searchParams.set("page", "1")
-
-const lastPageUrl = new URL(Astro.url)
-lastPageUrl.searchParams.set("page", totalPages.toString())
+const firstPageUrl = pageUrl(1)
+const lastPageUrl = pageUrl(totalPages)
 ---
 
 <nav>
@@ -52,7 +54,7 @@ lastPageUrl.searchParams.set("page", totalPages.toString())
     <li style={{ viewTransitionName: "pagination-previous" }}>
       <a
         {...hasPreviousPage
-          ? { href: previousPageUrl.toString() }
+          ? { href: previousPageUrl }
           : { "aria-disabled": "true", tabindex: "-1" }}
         class:list={[
           {
@@ -69,7 +71,7 @@ lastPageUrl.searchParams.set("page", totalPages.toString())
       isOverflowAtStart && (
         <>
           <li style={{ viewTransitionName: "pagination-first" }}>
-            <a href={firstPageUrl.toString()}>1</a>
+            <a href={firstPageUrl}>1</a>
           </li>
           <li>
             <span class="pagination-overflow">...</span>
@@ -84,8 +86,7 @@ lastPageUrl.searchParams.set("page", totalPages.toString())
         const isActive = pageNumber === page
 
         // URL for the page
-        const url = new URL(Astro.url)
-        url.searchParams.set("page", pageNumber.toString())
+        const url = pageUrl(pageNumber)
 
         // Transition name
         let viewTransitionName: string | undefined
@@ -99,12 +100,16 @@ lastPageUrl.searchParams.set("page", totalPages.toString())
           <li
             class:list={[
               {
-                "bg-primary rounded-full": isActive,
+                "bg-card rounded-full": isActive,
               },
             ]}
             style={{ viewTransitionName }}
           >
-            <a href={url.toString()}>{pageNumber}</a>
+            {isActive ? (
+              <span aria-current="page">{pageNumber}</span>
+            ) : (
+              <a href={url}>{pageNumber}</a>
+            )}
           </li>
         )
       })
@@ -117,7 +122,7 @@ lastPageUrl.searchParams.set("page", totalPages.toString())
             <span class="pagination-overflow">...</span>
           </li>
           <li style={{ viewTransitionName: "pagination-last" }}>
-            <a href={lastPageUrl.toString()}>{totalPages}</a>
+            <a href={lastPageUrl}>{totalPages}</a>
           </li>
         </>
       )
@@ -126,7 +131,7 @@ lastPageUrl.searchParams.set("page", totalPages.toString())
     <li style={{ viewTransitionName: "pagination-next" }}>
       <a
         {...hasNextPage
-          ? { href: nextPageUrl.toString() }
+          ? { href: nextPageUrl }
           : { "aria-disabled": "true", tabindex: "-1" }}
         class:list={[
           {
@@ -145,6 +150,7 @@ lastPageUrl.searchParams.set("page", totalPages.toString())
   @reference "@styles";
 
   a,
+  span,
   li > .pagination-overflow {
     @apply flex size-8 items-center justify-center;
   }

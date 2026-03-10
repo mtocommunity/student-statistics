@@ -3,7 +3,12 @@ import { createInsertSchema, createUpdateSchema } from "drizzle-zod"
 import z from "zod"
 
 // Validations
-export let InsertExam = createInsertSchema(examTable).pick({
+export let InsertExam = createInsertSchema(examTable, {
+  name: (schema) =>
+    schema.trim().min(3, {
+      message: "El nombre del examen debe tener más de 3 caracteres",
+    }),
+}).pick({
   courseId: true,
   name: true,
   minPassingScore: true,
@@ -16,28 +21,16 @@ export type InsertExam = z.infer<typeof InsertExam>
 export const InsertExamWithExcel = InsertExam.extend({
   file: z
     .file()
-    .refine((file) => file.size < 5 * 1024 * 1024, {
-      message: "El archivo debe ser menor de 5MB",
-    })
-    .refine(
-      (file) =>
-        file.type ===
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    .mime(
+      ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"],
       {
-        message: "El archivo debe ser un Excel (o equivalente)",
+        error: "El archivo debe ser un Excel (o equivalente)",
       }
-    ),
-}).refine(
-  (schema) => {
-    schema.name = schema.name.trim()
-
-    return schema.name.length > 3
-  },
-  {
-    error: "El nombre del examen debe tener más de 3 caracteres",
-    path: ["name"],
-  }
-)
+    )
+    .max(5 * 1024 * 1024, {
+      error: "El archivo debe ser menor de 5MB",
+    }),
+})
 export type InsertExamenWithExcel = z.infer<typeof InsertExamWithExcel>
 
 export const UpdateExam = createUpdateSchema(examTable)

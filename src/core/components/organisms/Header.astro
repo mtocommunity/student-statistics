@@ -11,7 +11,7 @@ if (pathnames.length === 0) pathnames.push("")
 
 <header
   class:list={[
-    "bg-primary sticky top-0 z-50 flex max-h-15 min-w-full items-center",
+    "bg-sidebar sticky top-0 z-50 flex max-h-15 min-w-full items-center",
     "lg:max-h-header-h",
   ]}
 >
@@ -31,9 +31,7 @@ if (pathnames.length === 0) pathnames.push("")
 
         if (isLast)
           return (
-            <span class="text-primary hover:text-primary">
-              {displayName}
-            </span>
+            <span class="text-primary hover:text-primary">{displayName}</span>
           )
 
         return (

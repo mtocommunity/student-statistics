@@ -14,13 +14,13 @@ import {
 import { cn } from "@/core/lib/tailwind"
 import { useState } from "react"
 import { LuEllipsis, LuPen, LuTrash } from "react-icons/lu"
-import type z4 from "zod/v4"
+import type z from "zod"
 
 // Component
 interface ActionsDataDialog {
   dataName: DataName
-  data: z4.infer<(typeof dataInfo)[keyof typeof dataInfo]["schema"]["delete"]> &
-    z4.infer<(typeof dataInfo)[keyof typeof dataInfo]["schema"]["update"]>
+  data: z.infer<(typeof dataInfo)[keyof typeof dataInfo]["schema"]["delete"]> &
+    z.infer<(typeof dataInfo)[keyof typeof dataInfo]["schema"]["update"]>
   buttonClassName?: Parameters<typeof cn>[0]
 }
 
@@ -45,12 +45,12 @@ export function ActionsDataDialog({
         />
 
         <DropdownMenuContent>
-          <DropdownMenuItem onSelect={() => setEditOpen(true)}>
+          <DropdownMenuItem onClick={() => setEditOpen(true)}>
             <LuPen /> Editar
           </DropdownMenuItem>
           <DropdownMenuItem
             variant="destructive"
-            onSelect={() => setDeleteOpen(true)}
+            onClick={() => setDeleteOpen(true)}
           >
             <LuTrash className="text-destructive" /> Eliminar
           </DropdownMenuItem>

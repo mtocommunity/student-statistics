@@ -14,7 +14,7 @@ export const deleteSemesterAction = defineAction({
       .select()
       .from(semesterTable)
       .where(
-        sql`${semesterTable.id} = ${input.id} AND ${semesterTable.userCode} = ${ctx.locals.user.code}`
+        sql`${semesterTable.id} = ${input.id} AND ${semesterTable.userId} = ${ctx.locals.user.id}`
       )
 
     if (!semesterToDelete)

@@ -5,14 +5,18 @@
 /// <reference types="vite-plugin-pwa/vanillajs" />
 /// <reference types="vite-plugin-svgr/client" />
 
-import type { UserPublic } from "@/user/model/user-model"
+import type {
+  AuthSession,
+  AuthUser,
+} from "@/auth/configuration/auth-configuration"
 import type { Logger } from "pino"
 
 declare global {
   namespace App {
     interface Locals {
-      // User
-      user: UserPublic
+      // Auth
+      user: AuthUser
+      session: AuthSession
 
       // Logger
       log: Logger

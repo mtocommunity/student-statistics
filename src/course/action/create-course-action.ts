@@ -20,7 +20,7 @@ export const createCourseAction = defineAction({
       .where(
         sql`
           ${semesterTable.id} = ${input.semesterId}
-          AND ${semesterTable.userCode} = ${ctx.locals.user.code}`
+          AND ${semesterTable.userId} = ${ctx.locals.user.id}`
       )
 
     if (!semester)

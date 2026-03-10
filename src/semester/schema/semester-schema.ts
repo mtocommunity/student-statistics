@@ -1,13 +1,13 @@
+import { userTable } from "@/auth/schema/auth-schema"
 import { int, sqliteTable, text } from "drizzle-orm/sqlite-core"
-import { userTable } from "../../user/schema/user-schema"
 
 // Tables
 export const semesterTable = sqliteTable("semester", {
   id: int().primaryKey({ autoIncrement: true }),
   name: text({ length: 50 }).notNull(),
-  userCode: text({ length: 6 })
+  userId: text()
     .notNull()
-    .references(() => userTable.code),
+    .references(() => userTable.id),
   lastUpdateAt: int({ mode: "timestamp" })
     .notNull()
     .$default(() => new Date()),

@@ -6,6 +6,7 @@ import { ControlledPasswordInput } from "@/form/components/controlled/controlled
 import { zodResolver } from "@hookform/resolvers/zod"
 import { navigate } from "astro:transitions/client"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 
 // Component
 export function LoginForm() {
@@ -19,10 +20,16 @@ export function LoginForm() {
     },
   })
 
-  const onSubmit = handleSubmit(async (data) => {
-    await authClient.signIn.email(data)
+  const onSubmit = handleSubmit(async (input) => {
+    const { data: signInData } = await authClient.signIn.email({
+      email: input.email,
+      password: input.password,
+    })
 
-    navigate("/")
+    if (signInData) {
+      navigate("/")
+      toast.success(`¡Bienvenido de nuevo, ${signInData.user.name}!`)
+    }
   })
 
   return (
@@ -42,6 +49,9 @@ export function LoginForm() {
         control={control}
         name="password"
         label="Contraseña"
+        inputProps={{
+          placeholder: "••••••••",
+        }}
       />
 
       <Button

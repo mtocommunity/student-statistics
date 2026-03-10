@@ -19,7 +19,7 @@ export const updateCourseAction = defineAction({
       .select({ count: count() })
       .from(semesterTable)
       .where(
-        sql`${semesterTable.id} = ${input.semesterId} AND ${semesterTable.userCode} = ${ctx.locals.user.code}`
+        sql`${semesterTable.id} = ${input.semesterId} AND ${semesterTable.userId} = ${ctx.locals.user.id}`
       )
     const { count: hasSemesterCount } = hasSemesterCountQueryResult ?? {
       count: 0,

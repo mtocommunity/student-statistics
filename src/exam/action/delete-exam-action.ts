@@ -22,7 +22,7 @@ export const deleteExamAction = defineAction({
       )
       .where(
         sql`${examTable.id} = ${input.id}
-            AND ${semesterTable.userCode} = ${ctx.locals.user.code}`
+            AND ${semesterTable.userId} = ${ctx.locals.user.id}`
       )
     const { count: hasExamCount } = hasExamCountQueryResult ?? {
       count: 0,

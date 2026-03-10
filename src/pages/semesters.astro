@@ -2,9 +2,9 @@
 import { db } from "@/core/database"
 import HomeLayout from "@/core/layout/HomeLayout.astro"
 import {
-  orderQuerySchema,
-  pageQuerySchema,
-  searchQuerySchema,
+  OrderQuery,
+  PageQuery,
+  SearchQuery,
 } from "@/core/validation/query-validation"
 import SemesterMainSection from "@/semester/components/sections/SemesterMainSection.astro"
 import { semesterTable } from "@/semester/schema/semester-schema"
@@ -21,9 +21,9 @@ const { user } = Astro.locals
 // Query parameters
 let [{ data: page = 1 }, { data: q }, { data: orderQuery }] = await Promise.all(
   [
-    pageQuerySchema.safeParseAsync(searchParams.get("page")),
-    searchQuerySchema.safeParseAsync(searchParams.get("q")),
-    orderQuerySchema.safeParseAsync(searchParams.get("order")),
+    PageQuery.safeParseAsync(searchParams.get("page")),
+    SearchQuery.safeParseAsync(searchParams.get("q")),
+    OrderQuery.safeParseAsync(searchParams.get("order")),
   ]
 )
 
@@ -32,7 +32,7 @@ const totalSemesters = await db
   .select({ count: count() })
   .from(semesterTable)
   .where(
-    sql`${semesterTable.name} like ${`%${q ?? ""}%`} and ${semesterTable.userCode} = ${user.code}`
+    sql`${semesterTable.name} like ${`%${q ?? ""}%`} and ${semesterTable.userId} = ${user.id}`
   )
 
 const { count: totalCount } = totalSemesters[0] ?? { count: 0 }
@@ -51,7 +51,7 @@ const semesters = await db
   .select()
   .from(semesterTable)
   .where(
-    sql`${semesterTable.name} like ${`%${q ?? ""}%`} and ${semesterTable.userCode} = ${user.code}`
+    sql`${semesterTable.name} like ${`%${q ?? ""}%`} and ${semesterTable.userId} = ${user.id}`
   )
   .orderBy(
     orderQuery === "asc" ? asc(semesterTable.name) : desc(semesterTable.name)

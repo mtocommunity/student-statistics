@@ -1,8 +1,7 @@
-import { Dialog as DialogPrimitive } from "@base-ui/react/dialog"
-import * as React from "react"
-
 import { Button } from "@/core/components/ui/button"
 import { cn } from "@/core/lib/tailwind"
+import { Dialog as DialogPrimitive } from "@base-ui/react/dialog"
+import * as React from "react"
 import { TbX } from "react-icons/tb"
 
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {

@@ -9,7 +9,7 @@ import {
   type Path,
   type PathValue,
 } from "react-hook-form"
-import type { ZodObject } from "zod/v4"
+import { ZodFile, type ZodObject } from "zod/v4"
 import type { $ZodShape, $ZodTypeDef } from "zod/v4/core"
 
 // Unsupported type error
@@ -39,6 +39,7 @@ interface ControlledInputFactoryOptions<
   labels?: {
     [key in keyof Shape]?: string
   }
+  hidden?: (keyof Shape)[]
 }
 
 /**
@@ -54,6 +55,7 @@ export function controlledInputFactory<
   schema,
   control,
   labels,
+  hidden,
   disabled = {},
 }: ControlledInputFactoryOptions<
   Shape,
@@ -67,8 +69,10 @@ export function controlledInputFactory<
   const inputs: React.ReactElement[] = []
 
   for (const [key, value] of Object.entries(shape)) {
-    let zodType = value._zod.def.type
+    if (hidden?.includes(key as keyof Shape)) continue
+
     let zodDefinition = value._zod.def
+    let zodType = zodDefinition.type
     const label = labels?.[key] ?? key
     const defaultValue = defaultValues[zodType]
     const isDisabled = disabled[key] ?? false
@@ -124,8 +128,8 @@ export function controlledInputFactory<
             control={control}
             name={key as Path<TFieldValues>}
             label={label}
+            disabled={isDisabled}
             numberInputProps={{
-              readOnly: isDisabled,
               tabIndex: isDisabled ? -1 : 0,
               max: maxValue,
               min: minValue,
@@ -144,6 +148,7 @@ export function controlledInputFactory<
             control={control}
             name={key as Path<TFieldValues>}
             label={label}
+            schema={value instanceof ZodFile ? value : undefined}
             inputProps={{
               readOnly: isDisabled,
               tabIndex: isDisabled ? -1 : 0,

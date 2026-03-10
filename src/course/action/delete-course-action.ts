@@ -21,7 +21,7 @@ export const deleteCourseAction = defineAction({
       .where(
         sql`
           ${courseTable.id} = ${input.id} AND
-          ${semesterTable.userCode} = ${ctx.locals.user.code}`
+          ${semesterTable.userId} = ${ctx.locals.user.id}`
       )
     const { count: hasCourseCount } = hasCourseCountQueryResult ?? {
       count: 0,

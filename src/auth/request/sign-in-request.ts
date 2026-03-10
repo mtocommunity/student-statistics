@@ -1,6 +1,6 @@
 import z from "zod"
 
-// Schema
+// Schemas
 export const SignIn = z.object({
   email: z.email({ error: "Correo electrónico inválido" }),
   password: z

@@ -5,6 +5,7 @@ import { cn } from "@/core/lib/tailwind"
 import type { HTMLAttributes } from "astro/types"
 import { LuSearch } from "react-icons/lu"
 import { Button } from "@/core/components/ui/button"
+import { Input } from "@/core/components/ui/input"
 
 // Context
 interface Props extends HTMLAttributes<"header"> {
@@ -36,19 +37,19 @@ const orderTitle = `Ordenar de manera ${orderQuery === "asc" ? "descendente" : "
     method="get"
     class="flex flex-1 items-center justify-end gap-2"
   >
-    <input
+    <Input
       type="text"
-      class="w-full max-w-60 min-w-24 py-2 text-sm"
+      className="w-full max-w-60 min-w-24 py-2 text-sm"
       name="q"
       placeholder="Buscar..."
-      autocomplete="off"
+      autoComplete="off"
       {...hasQuery && {
         value: q,
-        autofocus: true,
+        autoFocus: true,
         "data-has-query": hasQuery,
       }}
     />
-    <Button client:load title="Buscar" className="h-9 px-3">
+    <Button client:load title="Buscar" size="icon">
       <LuSearch />
     </Button>
 
