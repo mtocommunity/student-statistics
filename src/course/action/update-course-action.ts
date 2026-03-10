@@ -1,4 +1,4 @@
-import { db } from "@/core/repository"
+import { db } from "@/core/database"
 import { courseTable } from "@/course/schema/course-schema"
 import { type UpdateCourse } from "@/course/validation/course-validation"
 import { semesterTable } from "@/semester/schema/semester-schema"

@@ -1,5 +1,5 @@
 ---
-import ChevronRight from "@assets/svg/lu-chevron-right.svg"
+import { LuChevronRight } from "react-icons/lu"
 
 // Context
 interface Props {
@@ -61,7 +61,7 @@ lastPageUrl.searchParams.set("page", totalPages.toString())
         ]}
       >
         <span class="sr-only">Página anterior</span>
-        <ChevronRight class="size-5 rotate-180" />
+        <LuChevronRight className="size-5 rotate-180" />
       </a>
     </li>
 
@@ -99,7 +99,7 @@ lastPageUrl.searchParams.set("page", totalPages.toString())
           <li
             class:list={[
               {
-                "bg-primary-800 rounded-full": isActive,
+                "bg-primary rounded-full": isActive,
               },
             ]}
             style={{ viewTransitionName }}
@@ -134,7 +134,7 @@ lastPageUrl.searchParams.set("page", totalPages.toString())
           },
         ]}
       >
-        <ChevronRight class="size-5" />
+        <LuChevronRight className="size-5" />
         <span class="sr-only">Página siguiente</span>
       </a>
     </li>

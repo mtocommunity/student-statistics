@@ -1,8 +1,8 @@
 ---
-import Link from "@/core/components/atoms/Link.astro"
+import { Link } from "@/core/components/ui/link"
 import HomeLayout from "@/core/layout/HomeLayout.astro"
 import Layout from "@/core/layout/Layout.astro"
-import { tw } from "@/lib/tailwind"
+import { tw } from "@/core/lib/tailwind"
 
 // Context
 const hasAuth = !!Astro.cookies.get("token")
@@ -23,11 +23,11 @@ const sectionClassname = hasAuth ? tw`min-h-full` : tw`min-h-svh`
     ]}
   >
     <h1 class="text-5xl font-bold">¡Ups!</h1>
-    <p class="text-primary-300 text-pretty">
+    <p class="text-muted-foreground text-pretty">
       La página que buscas no existe o ha sido movida. Por favor, verifica la
       URL e intenta nuevamente.
     </p>
 
-    <Link class="w-full" variant="solid" href={linkHref}>{linkText}</Link>
+    <Link variant="default" href={linkHref} className="w-full">{linkText}</Link>
   </section>
 </ContextLayout>

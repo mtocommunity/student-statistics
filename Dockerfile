@@ -2,7 +2,7 @@ ARG TZ=America/Lima
 ARG HOST=0.0.0.0
 ARG NODE_ENV=production
 
-FROM oven/bun:1-slim AS base
+FROM oven/bun:1-slim AS builder
 
 WORKDIR /app
 
@@ -14,17 +14,15 @@ ENV TZ=$TZ
 ENV HOST=$HOST
 ENV NODE_ENV=$NODE_ENV
 
-
-FROM base AS builder
-
 COPY package.json bun.lock ./
-RUN bun --bun install --ci --production
+RUN bun install --ci --production
+
+RUN bun astro telemetry disable
 
 COPY . .
 
-RUN bun --bun astro telemetry disable
-RUN bun --bun run build
-RUN bun --bun scripts/find-dependencies.js
+RUN bun run build
+RUN bun scripts/find-dependencies.js
 
 
 FROM oven/bun:1-distroless AS runtime

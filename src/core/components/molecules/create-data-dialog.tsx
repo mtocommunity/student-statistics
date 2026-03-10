@@ -1,8 +1,8 @@
-import { Button } from "@/core/components/atoms/button"
 import {
   dataInfo,
   type DataName,
 } from "@/core/components/molecules/auxiliar/data-dialog-auxiliar"
+import { Button } from "@/core/components/ui/button"
 import {
   Dialog,
   DialogClose,
@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/core/components/ui/dialog"
-import { controlledInputFactory } from "@/form/components/input-factory"
+import { controlledInputFactory } from "@/form/components/controlled-input-factory"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRef } from "react"
 import { useForm } from "react-hook-form"
@@ -74,15 +74,17 @@ export function CreateDataDialog<TDataName extends DataName>({
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button>
-          <span className="flex items-center justify-center gap-1">
-            <LuPlus />
+      <DialogTrigger
+        render={
+          <Button>
+            <span className="flex items-center justify-center gap-1">
+              <LuPlus />
 
-            <span className="max-sm:sr-only">Crear</span>
-          </span>
-        </Button>
-      </DialogTrigger>
+              <span className="max-sm:sr-only">Crear</span>
+            </span>
+          </Button>
+        }
+      />
 
       <DialogContent>
         <DialogHeader>
@@ -103,9 +105,9 @@ export function CreateDataDialog<TDataName extends DataName>({
         </form>
 
         <DialogFooter>
-          <DialogClose asChild>
-            <Button ref={closeDialogButtonRef}>Cancelar</Button>
-          </DialogClose>
+          <DialogClose
+            render={<Button ref={closeDialogButtonRef}>Cancelar</Button>}
+          />
 
           <Button onClick={() => formRef.current?.requestSubmit()}>
             Crear {name}

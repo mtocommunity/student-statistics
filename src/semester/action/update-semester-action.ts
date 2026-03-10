@@ -1,6 +1,6 @@
-import { db } from "@/core/repository"
+import { db } from "@/core/database"
+import { type UpdateSemester } from "@/semester/model/semester-model"
 import { semesterTable } from "@/semester/schema/semester-schema"
-import { type UpdateSemester } from "@/semester/validation/semester-validation"
 import { z } from "astro/zod"
 import { defineAction } from "astro:actions"
 import { sql } from "drizzle-orm"

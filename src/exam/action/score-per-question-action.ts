@@ -1,37 +1,39 @@
-import { db } from "@/core/repository"
+import { db } from "@/core/database"
+import { serverLog } from "@/core/log/server-logger"
 import { answerTable } from "@/exam/schema/answer-schema"
 import { examTable } from "@/exam/schema/exam-schema"
 import { questionTable } from "@/exam/schema/question-schema"
-import { statisticsSchema } from "@/exam/schema/statistics-schema"
-import logger from "@/logger"
-import type { ZodIssue } from "astro/zod"
-import { ActionInputError, defineAction } from "astro:actions"
+import { Statistics } from "@/exam/schema/statistics-schema"
+import { ActionError, defineAction } from "astro:actions"
 import { eq } from "drizzle-orm"
-import picocolors from "picocolors"
 
 // Errors
-const examNotFoundError: ZodIssue = {
-  message: "Examen no encontrado.",
-  code: "custom",
-  path: ["exam"],
+const examNotFoundInputError = {
+  type: "AstroActionInputError",
+  issues: [
+    {
+      message: "Examen no encontrado.",
+      code: "custom",
+      path: ["exam"],
+    },
+  ],
 }
 
 // Action
 export const scorePerQuestionAction = defineAction({
-  input: statisticsSchema,
-  async handler({ examId }, { clientAddress }) {
+  input: Statistics,
+  async handler({ examId }) {
     const exam = (
       await db.select().from(examTable).where(eq(examTable.id, examId)).limit(1)
     )[0]
 
     if (!exam) {
-      logger.warn(
-        picocolors.yellowBright(`<${clientAddress}>`),
-        "Exam not found:",
-        { examId }
-      )
+      serverLog.warn("Exam not found: %s", examId)
 
-      throw new ActionInputError([examNotFoundError])
+      throw ActionError.fromJson({
+        type: "AstroActionInputError",
+        issues: examNotFoundInputError,
+      })
     }
 
     const data = await db

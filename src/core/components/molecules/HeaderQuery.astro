@@ -1,10 +1,10 @@
 ---
-import { Button } from "@/core/components/atoms/button"
 import { HeaderQueryToggle } from "@/core/components/atoms/header-query-toggle"
 import type { OrderQuery } from "@/core/validation/query-validation"
-import { cn } from "@/lib/tailwind"
+import { cn } from "@/core/lib/tailwind"
 import type { HTMLAttributes } from "astro/types"
 import { LuSearch } from "react-icons/lu"
+import { Button } from "@/core/components/ui/button"
 
 // Context
 interface Props extends HTMLAttributes<"header"> {
@@ -59,7 +59,7 @@ const orderTitle = `Ordenar de manera ${orderQuery === "asc" ? "descendente" : "
 </header>
 
 <script>
-  import { $ } from "@/lib/dom-selector"
+  import { $ } from "@/core/lib/dom-selector"
 
   function initialize() {
     // Get elements

@@ -1,17 +1,32 @@
 import node from "@astrojs/node"
 import react from "@astrojs/react"
-import svgr from "@svgr/rollup"
+import boot from "@astroscope/boot"
 import tailwindcss from "@tailwindcss/vite"
 import pwa from "@vite-pwa/astro"
 import compress from "astro-compress"
+import compressor from "astro-compressor"
 import { defineConfig, envField, fontProviders } from "astro/config"
-import { isDev, site } from "./src/config"
+import babelPluginReactCompiler from "babel-plugin-react-compiler"
+import checker from "vite-plugin-checker"
+import svgr from "vite-plugin-svgr"
+
+// Environment
+const { DEV: isDev } = import.meta.env
+
+// Context
+const site = "https://student-statistics.martindotpy.dev"
 
 export default defineConfig({
   site,
 
+  i18n: {
+    defaultLocale: "es",
+    locales: ["es"],
+  },
+
   integrations: [
-    react(),
+    boot(),
+    react({ babel: { plugins: [babelPluginReactCompiler] } }),
     pwa({
       base: "/",
       scope: "/",
@@ -93,6 +108,7 @@ export default defineConfig({
       },
       Exclude: "favicon.svg",
     }),
+    compressor({ zstd: false }),
   ],
 
   env: {
@@ -106,25 +122,45 @@ export default defineConfig({
     fonts: [
       {
         provider: fontProviders.google(),
-        name: "Inter",
-        cssVariable: "--font-inter",
+        name: "JetBrains Mono",
+        cssVariable: "--font-jetbrains-mono",
         subsets: ["latin"],
-        weights: ["100 900"],
+        weights: ["100 800"],
         styles: ["normal"],
-        fallbacks: ["ui-sans-serif", "system-ui", "sans-serif"],
+        fallbacks: ["monospace"],
       },
     ],
   },
 
-  devToolbar: {
-    enabled: false,
+  image: {
+    layout: "constrained",
   },
 
   vite: {
-    plugins: [tailwindcss(), svgr()],
+    plugins: [
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      tailwindcss(),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      svgr(),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      ...(isDev
+        ? [
+            checker({
+              typescript: true,
+            }),
+          ]
+        : []),
+    ],
     server: {
       allowedHosts: ["dev.martindotpy.dev"],
     },
+  },
+
+  devToolbar: {
+    enabled: false,
   },
 
   output: "server",

@@ -1,8 +1,8 @@
-import { Button } from "@/core/components/atoms/button"
 import {
   dataInfo,
   type DataName,
 } from "@/core/components/molecules/auxiliar/data-dialog-auxiliar"
+import { Button } from "@/core/components/ui/button"
 import {
   Dialog,
   DialogClose,
@@ -66,12 +66,10 @@ export function DeleteDataDialog({
         </DialogHeader>
 
         <DialogFooter>
-          <Button colorSchema="danger" onClick={deleteHandler}>
+          <Button variant="destructive" onClick={deleteHandler}>
             Eliminar
           </Button>
-          <DialogClose asChild>
-            <Button>Cancelar</Button>
-          </DialogClose>
+          <DialogClose render={<Button>Cancelar</Button>} />
         </DialogFooter>
       </DialogContent>
     </Dialog>

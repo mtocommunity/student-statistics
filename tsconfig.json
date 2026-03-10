@@ -7,21 +7,23 @@
     "lib": ["ESNext"],
     "target": "ESNext",
     "module": "ESNext",
-    "allowJs": true,
     "moduleDetection": "force",
     "resolveJsonModule": true,
 
     // Bundler mode
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
     "noEmit": true,
+    "esModuleInterop": true,
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
 
     // Best practices
     "strict": true,
+    "allowJs": true,
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
 
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,
@@ -33,16 +35,15 @@
     "jsxImportSource": "react",
 
     // Alias
-    "baseUrl": ".",
     "paths": {
       // Core
       "@/*": ["./src/*"],
-
-      // Assets
       "@assets/*": ["./src/assets/*"],
+      "@styles": ["./src/styles.css"],
+      "@tailwind-config": ["./tailwind.config.js"],
 
-      // Styles
-      "@styles": ["./src/core/styles/global.css"],
+      // Email
+      "@email/*": ["./emails/*"]
     }
   }
 }

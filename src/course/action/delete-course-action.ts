@@ -1,6 +1,6 @@
-import { db } from "@/core/repository"
+import { db } from "@/core/database"
 import { courseTable } from "@/course/schema/course-schema"
-import { type DeleteCourse } from "@/course/validation/course-validation"
+import { DeleteCourse } from "@/course/validation/course-validation"
 import { semesterTable } from "@/semester/schema/semester-schema"
 import { z } from "astro/zod"
 import { defineAction } from "astro:actions"

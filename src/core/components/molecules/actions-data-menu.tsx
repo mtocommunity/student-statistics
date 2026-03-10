@@ -1,17 +1,17 @@
-import { Button } from "@/core/components/atoms/button"
 import type {
   dataInfo,
   DataName,
 } from "@/core/components/molecules/auxiliar/data-dialog-auxiliar"
 import { DeleteDataDialog } from "@/core/components/molecules/delete-data-dialog"
 import { EditDataDialog } from "@/core/components/molecules/edit-data-dialog"
+import { Button } from "@/core/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/core/components/ui/dropdown-menu"
-import { cn } from "@/lib/tailwind"
+import { cn } from "@/core/lib/tailwind"
 import { useState } from "react"
 import { LuEllipsis, LuPen, LuTrash } from "react-icons/lu"
 import type z4 from "zod/v4"
@@ -36,11 +36,13 @@ export function ActionsDataDialog({
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button className={cn("size-10 p-0", buttonClassName)}>
-            <LuEllipsis className="mx-auto" />
-          </Button>
-        </DropdownMenuTrigger>
+        <DropdownMenuTrigger
+          render={
+            <Button className={cn("size-10 p-0", buttonClassName)}>
+              <LuEllipsis className="mx-auto" />
+            </Button>
+          }
+        />
 
         <DropdownMenuContent>
           <DropdownMenuItem onSelect={() => setEditOpen(true)}>

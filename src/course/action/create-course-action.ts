@@ -1,6 +1,6 @@
-import { db } from "@/core/repository"
+import { db } from "@/core/database"
 import { courseTable } from "@/course/schema/course-schema"
-import { type CreateCourse } from "@/course/validation/course-validation"
+import { type InsertCourse } from "@/course/validation/course-validation"
 import { semesterTable } from "@/semester/schema/semester-schema"
 import { z } from "astro/zod"
 import { defineAction } from "astro:actions"
@@ -11,7 +11,7 @@ export const createCourseAction = defineAction({
   input: z.object({
     name: z.string(),
     semesterId: z.number(),
-  }) satisfies z.ZodType<CreateCourse>,
+  }) satisfies z.ZodType<InsertCourse>,
   async handler(input, ctx) {
     // Check if the user is the semester owner
     const [semester] = await db

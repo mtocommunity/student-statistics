@@ -1,8 +1,5 @@
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/core/components/ui/chart"
+
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/core/components/ui/chart"
 import { actions } from "astro:actions"
 import { useEffect, useState } from "react"
 import { Bar, BarChart, Pie, PieChart, XAxis, YAxis } from "recharts"
@@ -73,7 +70,7 @@ export function QuestionsScores({
                 label: "Puntuación media",
               },
             }}
-            className="[&_.recharts-pie-label-text]:fill-foreground mx-auto aspect-square max-h-[250px] pb-0"
+            className="[&_.recharts-pie-label-text]:fill-foreground mx-auto aspect-square max-h-62.5 pb-0"
           >
             <BarChart
               data={questions.map((q) => ({

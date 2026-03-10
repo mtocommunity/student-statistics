@@ -1,10 +1,10 @@
 import { studentScoreService } from "@/exam/service/student-score-service"
-import type { CreateExamenWithExcel } from "@/exam/validation/exam-validation"
+import type { InsertExamenWithExcel } from "@/exam/validation/exam-validation"
 import { actions } from "astro:actions"
 
 // Wrapper for the service and action
 export async function createExamWrapperService(
-  input: CreateExamenWithExcel
+  input: InsertExamenWithExcel
 ): Promise<ReturnType<typeof actions.exam.create>> {
   try {
     // Process the service

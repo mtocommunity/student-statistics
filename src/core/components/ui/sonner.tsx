@@ -7,7 +7,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       theme="dark"
       style={
         {
-          fontFamily: "var(--font-inter)",
+          fontFamily: "var(--font-sans)",
         } as React.CSSProperties
       }
       toastOptions={{

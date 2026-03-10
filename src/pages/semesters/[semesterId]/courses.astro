@@ -1,6 +1,6 @@
 ---
+import { db } from "@/core/database"
 import HomeLayout from "@/core/layout/HomeLayout.astro"
-import { db } from "@/core/repository"
 import {
   orderQuerySchema,
   pageQuerySchema,
@@ -79,7 +79,7 @@ const courses = await db
     <h1 class="inline text-2xl font-bold">Cursos</h1>
   </header>
 
-  <div role="none" class="bg-primary-400 my-4 h-px"></div>
+  <div role="none" class="bg-muted my-4 h-px"></div>
 
   <CourseMainSection {courses} {page} {totalPages} {q} {orderQuery} />
 </HomeLayout>

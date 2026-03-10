@@ -1,0 +1,40 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "drizzle:studio",
+      "type": "shell",
+      "isBackground": true,
+      "problemMatcher": [
+        {
+          "pattern": [
+            {
+              "regexp": "\\[(\\d+)\\]\\s(.*):(\\d+):(\\d+)\\s\\-\\s{(.*)}:\\s(.*)$",
+              "file": 2,
+              "line": 3,
+              "column": 4,
+              "message": 6
+            },
+            {
+              "regexp": "^\\s+at\\s.*\\((.*):(\\d+):(\\d+)\\)$",
+              "file": 1,
+              "line": 2,
+              "column": 3
+            },
+            {
+              "regexp": "^Error:\\s*(.*)$",
+              "message": 1,
+              "severity": 2
+            }
+          ],
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": ".*",
+            "endsPattern": "Drizzle Studio is up and running on https://local.drizzle.studio|Error:\\s*listen EADDRINUSE"
+          }
+        }
+      ],
+      "command": "bunx drizzle-kit studio"
+    }
+  ]
+}

@@ -6,11 +6,6 @@ export default {
     "prettier-plugin-astro-organize-imports",
     "prettier-plugin-tailwindcss",
   ],
-  printWidth: 80,
-  tabWidth: 2,
-  semi: false,
-  trailingComma: "es5",
-  proseWrap: "always",
   overrides: [
     {
       files: "*.astro",
@@ -19,6 +14,22 @@ export default {
         parser: "astro",
       },
     },
+    {
+      files: "*.json",
+      options: {
+        tabWidth: 2,
+        parser: "json",
+      },
+    },
+    {
+      files: "*.md",
+      options: {
+        tabWidth: 2,
+        parser: "markdown",
+      },
+    },
   ],
-  tailwindFunctions: ["tw", "tv", "cn", "clsx", "twMerge", "cva"],
+  semi: false,
+  trailingComma: "es5",
+  tailwindFunctions: ["tw", "cn", "clsx", "twMerge"],
 }

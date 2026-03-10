@@ -2,35 +2,17 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Student Statistics (Server) 🐞",
+      "name": "Student Statistics 🐞",
+      "type": "node-terminal",
       "request": "launch",
-      "type": "bun",
-      "program": "dev",
-      "cwd": "${workspaceFolder}",
+      "command": "bun run dev",
       "internalConsoleOptions": "neverOpen",
-      "presentation": {
-        "hidden": true
-      }
-    },
-    {
-      "name": "Student Statistics (Browser) 🐞",
-      "request": "launch",
-      "type": "chrome",
-      "url": "http://localhost:4321",
-      "webRoot": "${workspaceFolder}",
-      "presentation": {
-        "hidden": true
-      }
-    }
-  ],
-  "compounds": [
-    {
-      "name": "Student Statistics (Server + Browser) 🐞",
-      "configurations": [
-        "Student Statistics (Server) 🐞",
-        "Student Statistics (Browser) 🐞"
-      ],
-      "stopAll": true
+      "serverReadyAction": {
+        "action": "debugWithChrome",
+        "pattern": "localhost:(\\d+)",
+        "uriFormat": "http://localhost:%s"
+      },
+      "preLaunchTask": "drizzle:studio"
     }
   ]
 }

@@ -1,6 +1,6 @@
 ---
-import GlobalStyles from "@/core/components/atoms/GlobalStyles.astro"
 import Sonner from "@/core/components/atoms/Sonner.astro"
+import Styles from "@/core/components/atoms/Styles.astro"
 import { ClientRouter } from "astro:transitions"
 import { pwaAssetsHead } from "virtual:pwa-assets/head"
 import { pwaInfo } from "virtual:pwa-info"
@@ -43,12 +43,12 @@ const finalTitle = title
     {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
 
     {/* Styles */}
-    <GlobalStyles />
+    <Styles />
 
     {/* Scripts */}
     <Sonner />
-    <script src="@/pwa.ts"></script>
-    <script src="@/zod.ts"></script>
+    <script src="@/core/scripts/pwa.ts"></script>
+    <script src="@/core/scripts/zod.ts"></script>
 
     <ClientRouter />
   </head>

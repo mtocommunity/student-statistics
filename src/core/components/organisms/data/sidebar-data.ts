@@ -1,22 +1,20 @@
-import type { SVGComponent } from "@/core/types/assets-types"
-import BookmarkCheck from "@assets/svg/lu-bookmark-check.svg"
-import Dashboard from "@assets/svg/lu-dashboard.svg"
+import { LuBookmarkCheck, LuLayoutDashboard } from "react-icons/lu"
 
 // Links
 interface HeaderLink {
-  svg: SVGComponent
+  svg: React.ComponentType<{ className?: string }>
   href: string
   label: string
 }
 
 export const sidebarLinks: HeaderLink[] = [
   {
-    svg: Dashboard,
+    svg: LuLayoutDashboard,
     href: "/",
     label: "Dashboard",
   },
   {
-    svg: BookmarkCheck,
+    svg: LuBookmarkCheck,
     href: "/semesters",
     label: "Ciclos",
   },

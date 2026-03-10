@@ -1,19 +1,19 @@
 import {
-  createCourseSchema,
-  deleteCourseSchema,
-  updateCourseSchema,
+  InsertCourse,
+  DeleteCourse,
+  UpdateCourse,
 } from "@/course/validation/course-validation"
 import { createExamWrapperService } from "@/exam/service/create-exam-wrapper-service"
 import {
-  createExamWithExcelSchema,
-  deleteExamSchema,
-  updateExamSchema,
+  DeleteExam,
+  InsertExamWithExcel,
+  UpdateExam,
 } from "@/exam/validation/exam-validation"
 import {
-  createSemesterSchema,
-  deleteSemesterSchema,
-  updateSemesterSchema,
-} from "@/semester/validation/semester-validation"
+  DeleteSemester,
+  InsertSemester,
+  UpdateSemester,
+} from "@/semester/model/semester-model"
 import { navigate } from "astro/virtual-modules/transitions-router.js"
 import { actions, type SafeResult } from "astro:actions"
 import { toast } from "sonner"
@@ -108,9 +108,9 @@ export const dataInfo: Record<DataName, DataInfo> = {
   semester: defineDataInfo({
     name: "ciclo",
     schema: {
-      create: createSemesterSchema,
-      update: updateSemesterSchema,
-      delete: deleteSemesterSchema,
+      create: InsertSemester,
+      update: UpdateSemester,
+      delete: DeleteSemester,
     },
     disabled: {
       update: {
@@ -135,9 +135,9 @@ export const dataInfo: Record<DataName, DataInfo> = {
   course: defineDataInfo({
     name: "curso",
     schema: {
-      create: createCourseSchema,
-      update: updateCourseSchema,
-      delete: deleteCourseSchema,
+      create: InsertCourse,
+      update: UpdateCourse,
+      delete: DeleteCourse,
     },
     disabled: {
       create: {
@@ -167,9 +167,9 @@ export const dataInfo: Record<DataName, DataInfo> = {
   exam: defineDataInfo({
     name: "examen",
     schema: {
-      create: createExamWithExcelSchema,
-      update: updateExamSchema,
-      delete: deleteExamSchema,
+      create: InsertExamWithExcel,
+      update: UpdateExam,
+      delete: DeleteExam,
     },
     disabled: {
       create: {
