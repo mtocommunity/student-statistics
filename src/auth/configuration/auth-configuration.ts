@@ -9,7 +9,7 @@ const authLogger = serverLog.child({ module: "auth" })
 
 // Auth configuration
 export const auth = betterAuth({
-  database: drizzleAdapter(db, { provider: "pg", schema, debugLogs: true }),
+  database: drizzleAdapter(db, { provider: "sqlite", schema, debugLogs: true }),
   logger: {
     log(level, message, ...args) {
       authLogger[level](message, ...args)
