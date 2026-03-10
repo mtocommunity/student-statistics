@@ -1,4 +1,5 @@
 import { authClient } from "@/auth/client/auth-client"
+import type { AuthErrorCode } from "@/auth/configuration/auth-configuration"
 import { SignIn } from "@/auth/request/sign-in-request"
 import { Button } from "@/core/components/ui/button"
 import { ControlledInput } from "@/form/components/controlled/controlled-input"
@@ -11,7 +12,11 @@ import { toast } from "sonner"
 // Component
 export function LoginForm() {
   // Form
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm({
     mode: "onSubmit",
     resolver: zodResolver(SignIn),
     defaultValues: {
@@ -21,7 +26,7 @@ export function LoginForm() {
   })
 
   const onSubmit = handleSubmit(async (input) => {
-    const { data: signInData } = await authClient.signIn.email({
+    const { data: signInData, error } = await authClient.signIn.email({
       email: input.email,
       password: input.password,
     })
@@ -29,6 +34,22 @@ export function LoginForm() {
     if (signInData) {
       navigate("/")
       toast.success(`¡Bienvenido de nuevo, ${signInData.user.name}!`)
+    }
+
+    if (error) {
+      switch (error.code as AuthErrorCode) {
+        case "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL":
+          toast.error(
+            "El usuario ya existe. Por favor, utiliza otro correo electrónico."
+          )
+          break
+
+        default: {
+          toast.error(
+            "Error al iniciar sesión. Por favor, verifica tus credenciales e intenta nuevamente."
+          )
+        }
+      }
     }
   })
 
@@ -59,8 +80,9 @@ export function LoginForm() {
         type="submit"
         className="mt-2"
         style={{ viewTransitionName: "auth-button" }}
+        disabled={isSubmitting}
       >
-        Ingresar
+        {isSubmitting ? "Iniciando sesión..." : "Iniciar sesión"}
       </Button>
 
       <a className="block text-right text-xs" href="/forgot-password">

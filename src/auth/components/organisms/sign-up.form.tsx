@@ -1,4 +1,5 @@
 import { authClient } from "@/auth/client/auth-client"
+import type { AuthErrorCode } from "@/auth/configuration/auth-configuration"
 import { SignUp } from "@/auth/request/sign-up-request"
 import { Button } from "@/core/components/ui/button"
 import { ControlledInput } from "@/form/components/controlled/controlled-input"
@@ -16,7 +17,11 @@ export function RegisterForm() {
   const buttonRef = useRef<HTMLButtonElement | null>(null)
 
   // Form
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm({
     mode: "onSubmit",
     resolver: zodResolver(SignUp),
     defaultValues: {
@@ -28,7 +33,7 @@ export function RegisterForm() {
   })
 
   const onSubmit = handleSubmit(async (input) => {
-    const { data: signUpData } = await authClient.signUp.email({
+    const { data: signUpData, error } = await authClient.signUp.email({
       email: input.email,
       name: input.name,
       password: input.password,
@@ -37,6 +42,22 @@ export function RegisterForm() {
     if (signUpData) {
       navigate("/")
       toast.success(`¡Bienvenido, ${signUpData.user.name}!`)
+    }
+
+    if (error) {
+      switch (error.code as AuthErrorCode) {
+        case "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL":
+          toast.error(
+            "El usuario ya existe. Por favor, utiliza otro correo electrónico."
+          )
+          break
+
+        default: {
+          toast.error(
+            "Error al iniciar sesión. Por favor, verifica tus credenciales e intenta nuevamente."
+          )
+        }
+      }
     }
   })
 
@@ -89,8 +110,9 @@ export function RegisterForm() {
         className="mt-2"
         style={{ viewTransitionName: "auth-button" }}
         type="submit"
+        disabled={isSubmitting}
       >
-        Registrarme
+        {isSubmitting ? "Registrando..." : "Registrarse"}
       </Button>
     </form>
   )

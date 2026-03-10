@@ -64,7 +64,8 @@ CREATE TABLE `answer` (
 	`question_id` integer NOT NULL,
 	`score` real,
 	PRIMARY KEY(`student_id`, `question_id`),
-	FOREIGN KEY (`student_id`,`question_id`) REFERENCES `student`(`id`,`id`) ON UPDATE no action ON DELETE cascade
+	FOREIGN KEY (`student_id`) REFERENCES `student`(`id`) ON UPDATE no action ON DELETE cascade,
+	FOREIGN KEY (`question_id`) REFERENCES `question`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `exam` (

@@ -37,3 +37,9 @@ export type Auth = typeof auth.$Infer.Session
 export type AuthUser = typeof auth.$Infer.Session.user
 export type AuthSession = typeof auth.$Infer.Session.session
 export type AuthErrorCode = keyof typeof auth.$ERROR_CODES
+
+// Error
+export interface AuthError {
+  readonly code: AuthErrorCode | (string & {})
+  readonly message: string
+}

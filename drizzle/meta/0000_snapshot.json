@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "ae2143a7-20a1-43b7-bcf4-4aabf7806caf",
+  "id": "e2b23f73-e175-4023-be07-70e142fc2559",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -429,16 +429,27 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "answer_student_id_question_id_student_id_id_fk": {
-          "name": "answer_student_id_question_id_student_id_id_fk",
+        "answer_student_id_student_id_fk": {
+          "name": "answer_student_id_student_id_fk",
           "tableFrom": "answer",
           "tableTo": "student",
           "columnsFrom": [
-            "student_id",
+            "student_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "answer_question_id_question_id_fk": {
+          "name": "answer_question_id_question_id_fk",
+          "tableFrom": "answer",
+          "tableTo": "question",
+          "columnsFrom": [
             "question_id"
           ],
           "columnsTo": [
-            "id",
             "id"
           ],
           "onDelete": "cascade",

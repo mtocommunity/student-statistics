@@ -19,8 +19,12 @@ export const answerTable = sqliteTable(
   (table) => [
     primaryKey({ columns: [table.studentId, table.questionId] }),
     foreignKey({
-      columns: [table.studentId, table.questionId],
-      foreignColumns: [studentTable.id, questionTable.id],
+      columns: [table.studentId],
+      foreignColumns: [studentTable.id],
+    }).onDelete("cascade"),
+    foreignKey({
+      columns: [table.questionId],
+      foreignColumns: [questionTable.id],
     }).onDelete("cascade"),
   ]
 )
